@@ -1,0 +1,653 @@
+
+@media (min-width: 1920px) {
+
+  .client-details {
+    padding: 6% 10%;
+}
+.company-content {
+    padding: 100px 60px 100px 30px;
+}
+	
+	
+	
+}
+
+/* Normal desktop :992px. */
+@media (min-width: 992px) and (max-width: 1169px) {	
+.service-content h4 {
+    font-size: 15px;
+}
+.image-layer {
+    padding: 10px;
+}
+.single-services .service-content h4 {
+    font-size: 14px;
+}    
+.sub-head h4 {
+    font-size: 26px;
+} 
+.blog-content a h4 {
+    font-size: 17px;
+}   
+.left-menu ul li a {
+    font-size: 13px;
+    padding: 14px 10px;
+}     
+.down-btn {
+    font-size: 13px;
+    padding: 15px 10px;
+}    
+.support-text {
+    padding: 20px 5px;
+}     
+.single-about h5 {
+    font-size: 16px;
+    padding-left: 5px;
+}
+.intro-area-2 .slider-content {
+    margin-top: -100px;
+}
+.about-image::after {
+    right: -260px;
+    top: 30px;
+}    
+.fun-title {
+    padding: 93px 0px 93px 50px;
+}    
+.fun-title h3 {
+    font-size: 24px;
+}    
+.add-content h4 {
+    font-size: 30px;
+    line-height: 40px;
+    max-width: 560px;
+}    
+.single-testimonial {
+    padding: 92px 0px 92px 50px;
+} 
+.team-content h4 {
+    font-size: 18px;
+}    
+.intro-area-4 .layer-1-2 h1 {
+    font-size: 42px;
+    line-height: 52px;
+    max-width: 750px;
+}    
+.intro-area-4 .slider-content {
+    margin-top: -70px;
+}    
+.blog-right-column .blog-content {
+    min-height: 177px;
+    padding: 15px 20px;
+}    
+.blog-search-option input {
+    width: 77%;
+}  
+    
+    
+    
+}
+
+
+
+
+/* Tablet desktop :768px. */
+@media (min-width: 768px) and (max-width: 991px) {
+.header-area .main-menu ul.navbar-nav li a{
+    font-size: 13px;
+    margin: 0px 8px;
+	padding: 30px 0px;
+}
+.header-area.stick .main-menu ul.navbar-nav li a,
+.header-area-3.stick .main-menu ul.navbar-nav li a {
+    font-size: 13px;
+    margin: 0px 8px;
+    padding: 25px 0px;
+}
+.header-area-2 .main-menu ul.navbar-nav li a,
+.header-area-2.stick .main-menu ul.navbar-nav li a {
+    margin: 0px 7px;
+}
+.header-area-3 .main-menu ul.navbar-nav li a {
+    padding: 30px 7px;
+    margin: 0px;
+}
+.header-area-3.stick .main-menu ul.navbar-nav li a {
+    padding: 25px 7px;
+    margin: 0px;
+}
+.intro-area-3 .layer-1-2 h1 {
+    font-size: 32px;
+    line-height: 40px;
+    max-width: 609px;
+    letter-spacing: 0px;
+}
+.intro-area-3 .slider-content {
+    margin-top: -60px;
+}
+.header-middle-area .logo a {
+    padding: 15px 0;
+}
+.header-middle-area .header-info {
+    padding: 21px 0px;
+}
+.main-menu ul.nav li ul.sub-menu{
+    left:-20px;
+}
+.logo a {
+    padding: 16px 0;
+}
+.header-right-link a.main-search {
+    margin: 20px 5px;
+}
+.header-area.stick .header-right-link a.main-search {
+    margin: 15px 5px;
+}
+.topbar-right ul li a {
+    margin-right: 14px;
+}    
+.quote-button .quote-btn {
+    padding: 10px 10px;
+}    
+.section-headline h3 {
+    font-size: 34px;
+}
+.sub-head h4 {
+    font-size: 20px;
+}
+.slider-content {
+    margin-top: -110px;
+}  
+.layer-1-2 h1 {
+    font-size: 30px;
+    line-height: 38px;
+    max-width: 550px;
+}
+.layer-1-1 p {
+    font-size: 17px;
+    line-height: 24px;
+    max-width: 570px;
+}
+.ready-btn {
+    margin-top: 5px;
+}
+.main-services {
+    padding: 20px 10px;
+}
+.section-headline h4 {
+    font-size: 24px;
+}
+.well-services:hover .image-layer{
+	padding: 10px;
+}
+.image-layer a {
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+.service-content h4,
+.single-services .service-content h4{
+    font-size: 14px;
+}
+.services-img {
+    max-height: 150px;
+    height: 100%;
+}
+.services-img img {
+    max-height: 150px;
+    height: 100%;
+}
+.service-content p {
+    font-size: 14px;
+}
+.top-icon {
+    position: absolute;
+    right: 0px;
+    font-size: 24px;
+    bottom: 0px;
+    background: #93cb3f;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px 5px 0px 0px;
+    z-index: 9999;
+}
+.fun-title {
+    padding: 93px 20px 93px 30px;
+    margin-right: 0px;
+}
+.fun-content {
+    padding: 55px 40px 55px 0px;
+}
+.fun-title h3 {
+    font-size: 24px;
+}
+.fun-title:after{
+    display: none;
+}
+.fun_text {
+	padding: 30px 6px;
+}
+.fun_text > h5 {
+    font-size: 13px;
+}
+.fun_text span {
+    font-size: 28px;
+ }
+.banner-text h3 {
+    font-size: 28px;
+    max-width: 660px;
+}     					
+.about-content h4{
+    font-size: 22px;
+}	
+.single-about a {
+    font-size: 24px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+}
+.about-image::after {
+    right: -270px;
+    top: 60px;
+}
+.icon-text {
+    padding-left: 65px;
+}
+.about-content p {
+    font-size: 14px;
+}
+.project-details h4 {
+    font-size: 22px;
+}
+.faq-area .faq-content {
+    margin-left: 0px;
+    margin-top: 40px;
+}
+.blog-content a h4 {
+    font-size: 20px;
+    line-height: 28px;
+}
+.project-dec h4 {
+    font-size: 20px;
+}
+.left-head-blog {
+    padding: 30px 10px;
+}
+.blog-search-option input {
+    width: 72%;
+}
+.overview-inner {
+    padding-right: 0px;
+    margin-bottom: 40px;
+}   
+.add-content h4 {
+    font-size: 30px;
+    margin-bottom: 30px;
+    margin-top: 0px;
+}   
+.faq-details h4.check-title a{
+    padding: 10px 10px 10px 45px;
+}    
+.header-area-4 .main-menu ul.navbar-nav li a {
+    margin: 0px 6px;
+}    
+.intro-area-4 .layer-1-2 h1 {
+    font-size: 30px;
+    line-height: 38px;
+    max-width: 560px;
+}   
+.intro-area-4 .slider-content {
+    margin-top: -50px;
+}  
+.header-area-4.stick .main-menu ul.navbar-nav li a{
+    margin: 0px 7px;
+}   
+.welcome-area-2 .well-services {
+    padding: 30px 15px;
+} 
+.single-testimonial {
+    padding: 21px 0px;
+    padding-left: 50px;
+}
+.team-content h4 {
+    font-size: 18px;
+}    
+.base {
+    font-size: 90px;
+    line-height: 90px;
+}    
+.support-services {
+    padding: 40px 15px;
+}    
+.bread-inner {
+    padding: 40px 0px;
+}   
+.down-btn {
+    font-size: 15px;
+}    
+.single-well.last-content {
+    margin-top: 20px;
+}    
+.left-blog-page .post-img {
+    display: none;
+}    
+.pst-content {
+    float: none;
+    width: 100%;
+    padding-left:0px;
+}    
+.left-blog ul li a {
+    font-size: 14px;
+}    
+.blog-details .blog-content a h4 {
+    font-size: 20px;
+}
+.blog-details .blog-content h4{
+    font-size: 22px;
+    line-height: 28px;
+}
+	
+}
+
+/* small mobile :320px. */
+@media (max-width: 767px) {
+.container {width:300px}
+.logo {
+    height: inherit;
+    left: 0;
+    padding: 0;
+    position: absolute;
+    top: 4px;
+    z-index: 999999;
+    max-width: 130px;
+}
+.logo a {
+    padding: 0px;
+}
+.pagess::after {
+    display: none;
+}
+.slider-content {
+    margin-top: -140px;
+}
+.layer-1-2 {
+    margin: 5px 0;
+}
+.layer-1-2 h1 {
+    font-size: 24px;
+    line-height: 34px;
+    margin-bottom: 10px;
+    letter-spacing: 0px;
+} 
+.layer-1-1 p {
+    font-size: 15px;
+    letter-spacing: 0px;
+    line-height: 26px;
+    margin-bottom: 20px;
+}
+ .ready-btn.right-btn {
+    margin-left: 5px;
+}   
+.ready-btn {
+    margin-top: 0px;
+    padding: 10px 0px;
+    width: 128px;
+	font-size: 12px;
+}    
+.intro-area {
+    width: 100%;
+    height: auto;
+    min-height: 220px;
+    margin-top: 0px;
+}
+.intro-content{
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    object-fit: cover;
+}
+.slider-images img{
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    object-fit: cover;
+}
+.section-headline h4 {
+    font-size: 22px;
+    line-height: 30px;
+}
+.about-content h4 {
+    font-size: 21px;
+    margin-top: 30px;
+}
+.icon-text h5 {
+    font-size: 17px;
+}
+.video-play.vid-zone {
+    font-size: 30px;
+    height: 80px;
+    line-height: 78px;
+    width: 80px;
+}
+.video-content {
+    margin-top: -40px;
+}
+.about-image::after {
+    right: -235px;
+    top: 50px;
+    width: 360px;
+}
+.fun-title:after{
+    display: none;
+}
+.fun-title {
+    padding: 93px 30px 93px 30px;
+    margin-right: 0px;
+}
+.fun-title h3 {
+    font-size: 25px;
+    line-height: 36px;
+}
+.fun-content {
+    padding: 80px 0px 80px 0px;
+}
+.fun_text {
+    width: 100%;
+    float: none;
+    margin-bottom: 40px;
+}
+.main-services {
+    margin-bottom: 20px;
+}
+.project-dec h4 {
+    font-size: 20px;
+}
+.section-headline h3 {
+    font-size: 32px;
+}
+.banner-text h3 {
+    font-size: 24px;
+    line-height: 38px;
+}
+.single-brand-item {
+    width: 50%;
+}
+.single-brand-item a {
+    margin: 5px;
+}
+.banner-content h4 {
+    font-size: 20px;
+    line-height: 26px;
+}
+.review-content.owl-carousel.owl-theme .owl-controls .owl-nav div.owl-prev, 
+.review-content.owl-carousel.owl-theme .owl-controls .owl-nav div.owl-next,
+.intro-carousel.owl-carousel.owl-theme .owl-controls .owl-nav div.owl-prev, 
+.intro-carousel.owl-carousel.owl-theme .owl-controls .owl-nav div.owl-next{
+    display: none !important;
+}
+.banner-btn {
+    float: none;
+    margin-top: 20px;
+}
+.footer-content {
+    margin-bottom: 40px;
+}   
+.copyright {
+    text-align: center;
+    margin: 10px 0px;
+}
+.copyright ul {
+    text-align: center;
+}
+.copyright ul li:first-child {
+    margin-left:0px;
+}
+.copyright ul li a {
+    text-align: center;
+} 	
+.add-content h4 {
+    font-size: 23px;
+    line-height: 34px;
+    margin-bottom: 40px;
+    margin-top: 0px;
+}	
+.overview-inner {
+    padding-right: 0px;
+    margin-bottom: 40px;
+}	
+.company-faq {
+    padding: 30px 15px;
+}	
+.faq-details h4.check-title a {
+    padding: 10px 10px 10px 45px;
+}
+.faq-area .faq-content {
+    margin-left: 0px;
+    padding: 30px 15px;
+    margin-top: 40px;
+}    
+.call-us {
+    font-size: 15px;
+}    
+.call-us i {
+    width: 40px;
+    height: 40px;
+    line-height: 39px;
+    margin-right: 10px;
+    font-size: 20px;
+} 
+.slide-area .title2 {
+    font-size: 28px;
+    line-height: 40px;
+}    
+.slide-area {
+    width: 100%;
+    height: 100%;
+    max-height: 450px;
+    background-position: 60% 0px;
+}   
+.slide-area .slide-content {
+    margin-top: 70px;
+}    
+.counter-area-2 .fun_text {
+    width: 100%;
+    float: none;
+}    
+.single-testimonial {
+    padding: 50px 0px 0px;
+    padding-left: 50px;
+}
+.blog-right-column .blog-image {
+    float: none;
+    width: 100%;
+}    
+.blog-right-column .blog-content {
+    border: none;
+    height: 100%;
+    min-height: 165px;
+    margin-top: 0px;
+    width: 100%;
+    float: none;
+    padding: 20px 0px 0px;
+}
+.intro-area-3 .layer-1-2 h1 {
+    color: #fff;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 36px;
+    text-transform: unset;
+    max-width: 700px;
+    letter-spacing: 1px;
+}
+.intro-area-3 .slider-images img,
+.intro-area-4 .slider-images img {
+    min-height: 500px;
+}    
+.intro-area-3 .slider-content {
+    margin-top: -130px;
+}    
+.welcome-area-2 .well-services {
+    margin: 15px 0px;
+} 
+.intro-area-4 .layer-1-2 h1 {
+    font-size: 24px;
+    line-height: 36px;
+}    
+.intro-area-4 .slider-content {
+    margin-top: -110px;
+}    
+.breadcrumb .section-headline {
+    display: block;
+    text-align: center;
+}    
+.breadcrumb-bg {
+    float: none;
+    text-align: center;
+}    
+.bread-inner {
+    padding: 30px 0px;
+}    
+.breadcrumb .section-headline h2 {
+    font-size: 34px;
+    line-height: 44px;
+}    
+.single-well.last-content {
+    margin-top: 20px;
+}
+.left-head-blog {
+    padding: 30px 10px;
+}   
+.contact-head {
+    padding-right: 0px;
+}    
+.contact-inner a {
+    font-size: 15px;
+}    
+.contact-form {
+    margin-top: 30px;
+}    
+.project-area-2 .single-awesome-project {
+    margin-bottom: 30px;
+}        
+.project-area-2 .project-carousel .single-awesome-project,
+.project-area-2 .project-content .single-awesome-project {
+    margin-bottom: 0px;
+}   
+    
+    
+    
+}
+
+/* Large Mobile :480px. */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+.container {width:450px}
+.counter-area-2 .fun_text {
+    width: 50%;
+    float: left;
+}
+    
+    
+}
+ 
