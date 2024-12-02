@@ -1,0 +1,242 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-19974.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Centos7 离线安装 KVM，并安装 Csr1000v</title>
+        <meta name="description" content="最近需要在客户环境搭建 csr1000v，客户环境不能联网，同时使用 kvm 管理。所以需要离线安装 kvm，在利用 kvm 安装 csr100v ，中间遇到不少坑，现记录如下。 所有安装步骤是在 r" />
+        <link rel="icon" href="__ADDON__/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- all css here -->
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                        <li><a href="#">关于</a></li>
+                                                    <li><a href="#">联系</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="index.html"><img src="/assets/website/img/v2rayngnode/logo/logo.png" alt="" /></a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="about.html">About us</a></li>
+                                    <li><a href="contact.html">Contacts</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>Centos7 离线安装 KVM，并安装 Csr1000v</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                      				  				  				<p>最近需要在客户环境搭建 csr1000v，客户环境不能联网，同时使用 kvm 管理。所以需要离线安装 kvm，在利用 kvm 安装 csr100v ，中间遇到不少坑，现记录如下。</p> <p>所有安装步骤是在 root 用户的基础上完成。</p> <p>准备好的 kvm 安装包和 csr1000v 安装包所在地址：</p> <pre><code>ip: 10.124.205.51  user: root/cisco123 [root@localhost temp]# cd /opt/temp [root@localhost temp]# ls csr1000v-universalk9.16.12.04.qcow2  kvm_pkg.tar.gz</code></pre> <p>整体安装思路如下：</p> <ol> <li>Linux 环境准备，检验系统版本以及是否具有虚拟化功能</li> <li>离线安装 kvm</li> <li>kvm 安装 csr1000v</li> <li>配置 KVM 相关网络</li> </ol> <h2 id="linux-环境准备">Linux 环境准备</h2> <p>检查 Linux 版本及内核是否一致，因为涉及到离线安装：</p> <pre><code>[root@localhost kvm_offile_pkg]# cat /etc/centos-release CentOS Linux release 7.9.2009 (Core)  [root@localhost kvm_offile_pkg]# uname -r 3.10.0-1160.el7.x86_64</code></pre> <p>关闭 Selinux</p> <pre><code>setenforce 0 vim /etc/selinux/config SELINUX=disabled</code></pre> <p>检查虚拟化功能是否开启</p> <pre><code> cat /proc/cpuinfo | egrep "vmx|svm"</code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/f6c3a630276410794320873f2e8c4f7d.jpg" alt="Centos7 离线安装 KVM，并安装 Csr1000v"></p> <p>如果看到 vmx 或者 svm，表示虚拟化功能正常打开。</p> <p>或者也可通过如下命令, 看到 VT-x 表示正常：</p> <pre><code>[root@localhost ~]# lscpu | grep Virtualization Virtualization:      VT-x Virtualization type: full</code></pre> <h2 id="离线安装-kvm">离线安装 kvm</h2> <p>找一台可联网，相同版本的 linux 服务器，使用 yum 离线下载 kvm 相关包：</p> <pre><code>yum install --downloadonly --downloaddir=/opt/kvm qemu-kvm python-virtinst libvirt libvirt-python virt-manager libguestfs-tools bridge-utils virt-install virt-viewer</code></pre> <p>将其打包后导入离线服务器：</p> <pre><code>tar -czvf kvm_pkg.tar.gz kvm</code></pre> <p>在离线服务器解压并安装：</p> <pre><code>tar -xzvf kvm_pkg.tar.gz  # 使用 ls 查看，共有 250 个安装包 ls -l | grep "^-" | wc -l  # 安装： yum localinstall -y {Path}/kvm/*.rpm</code></pre> <p>启动 kvm</p> <pre><code>systemctl enable libvirtd systemctl start libvirtd</code></pre> <p>查看 kvm 版本信息：</p> <pre><code>yum info qemu-kvm /usr/libexec/qemu-kvm --version</code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/cadf01838b0ec140d3d535a46c04ca73.jpg" alt="Centos7 离线安装 KVM，并安装 Csr1000v"></p> <h2 id="kvm-安装-csr1000v">kvm 安装 csr1000v</h2> <p>将下载好的 csr1000v 镜像导入服务器</p> <pre><code># 将安装包导入到 /var/lib/libvirt/images 文件夹下 mv csr1000v-universalk9.16.12.04.qcow2 /var/lib/libvirt/images</code></pre> <p>安装 csr1000v</p> <pre><code> virt-install                    \      --connect=qemu:///system   \      --name=csr_1000v           \      --os-type=linux            \      --os-variant=rhel4         \      --arch=x86_64              \      --cpu host-model                 \      --vcpus=1,sockets=1,cores=1,threads=1   \      --hvm                      \      --ram=4096                 \      --import                   \      --disk path=/var/lib/libvirt/images/csr1000v-universalk9.16.12.04.qcow2,bus=ide,format=qcow2   \      --network bridge=virbr0,model=virtio                        \      --noreboot              # --name 可以起一个自定义的名字</code></pre> <p>安装成功可看到如下内容：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/918af95907c817323f1f191ef6b945bd.jpg" alt="Centos7 离线安装 KVM，并安装 Csr1000v"></p> <p>打开 csr1000v</p> <pre><code>virsh --connect qemu:///system start csr_1000v</code></pre> <p>连接 csr1000v, 等等其启动完成</p> <pre><code>virsh console csr_1000v</code></pre> <p>看到如下内容，表示启动成功：<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/5640e58bbfb2b652dda72974c95406ed.jpg" alt="Centos7 离线安装 KVM，并安装 Csr1000v"></p> <h2 id="配置-kvm-网络">配置 KVM 网络</h2> <h3 id="宿主机访问-kvm">宿主机访问 kvm</h3> <p>获取虚拟机有 DHCP 的分配 IP:</p> <pre><code>[root@localhost ~]# virsh net-dhcp-leases default  Expiry Time          MAC address        Protocol  IP address                Hostname        Client ID or DUID -------------------------------------------------------------------------------------------------------------------  2022-04-01 15:43:42  52:54:00:0d:86:d9  ipv4      192.168.122.130/24        Router          00:63:69:73:63:6f:2d:35:32:35:34:2e:30:30:32:62:2e:34:31:30:36:2d:47:69:31</code></pre> <p>如果手动配置的 IP 可以通过如下脚本来获取, 通过 mac 地址，反查 arp 表，获取分配的 ip.</p> <pre><code>#!/bin/bash running_vms=`virsh list |grep running` echo -ne "共有`echo "$running_vms"|wc -l`个虚拟机在运行.\n" for i in `echo "$running_vms" | awk '{ print $2 }'`;do mac=`virsh dumpxml $i |grep "mac address"|sed "s/.*'\(.*\)'.*/\1/g"` ip=`arp -ne |grep "$mac" |awk '{printf $1}'` printf "%-30s %-30s\n" $i $ip done  [root@localhost net-util]# bash list_vm_ip.sh 共有2个虚拟机在运行. csr_1000v                      192.168.122.130 new_csr_1000v                  192.168.122.131</code></pre> <p>由于本身是桥接到 br0 网卡上，可和宿主直接通信：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/2c951e3c006b8669abff4e050936a247.jpg" alt="Centos7 离线安装 KVM，并安装 Csr1000v"></p> <p>所以可在 router 配置 telnet 登录：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/0a9beea0623d4841eb60dae8e5b493d3.jpg" alt="Centos7 离线安装 KVM，并安装 Csr1000v"></p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/91b899807e66bb6ba0a1bc7eebb2600f.jpg" alt="Centos7 离线安装 KVM，并安装 Csr1000v"></p> <h3 id="外网访问-kvm">外网访问 KVM</h3> <p>上面的网络情况做到了，可以使用宿主机为 csr1000v 配置。但如果想从外部网络中，访问设备就无法做到了。</p> <p>这时就需要新创建一个的网桥，然后和 kvm 的网卡相连接。</p> <p>先介绍下网络环境：</p> <table> <thead> <tr> <th>机器名</th> <th>IP</th> <th>描述</th> </tr> </thead> <tbody> <tr> <td>宿主机</td> <td>10.124.205.51</td> <td>存储 kvm 的物理机</td> </tr> <tr> <td>csr1000v</td> <td>10.124.205.52</td> <td>用 kvm 启动的虚机</td> </tr> <tr> <td>测试机器</td> <td>10.124.205.14</td> <td>用于测试能否访问到  kvm 虚机</td> </tr> </tbody> </table> <p>整体思路如下：</p> <ol> <li>记录当前宿主机可以访问外网的网卡信息，比如 IP，网关等</li> <li>新建一个网桥</li> <li>将新建的网桥和原来的网卡想关联</li> <li>修改 kvm 虚机文件</li> <li>进入 csr1000v 绑定真实 IP</li> <li>测试</li> </ol> <p>首先记录当前物理网卡信息：</p> <p>使用 ip addr 找到带有 IP 的真实网卡，比如我这里是 ens192:</p> <pre><code>2: ens192: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000     link/ether 00:50:56:bb:93:c4 brd ff:ff:ff:ff:ff:ff     inet 10.124.205.51/24 brd 10.124.207.255 scope global noprefixroute ens192        valid_lft forever preferred_lft forever     inet6 fe80::eb4d:e564:a48:1835/64 scope link noprefixroute        valid_lft forever preferred_lft forever</code></pre> <p>记录对应配置文件的有效信息：</p> <pre><code>cat /etc/sysconfig/network-scripts/ifcfg-ens192 TYPE="Ethernet" PROXY_METHOD="none" BROWSER_ONLY="no" BOOTPROTO="none" DEFROUTE="yes" IPV4_FAILURE_FATAL="no" IPV6INIT="yes" IPV6_AUTOCONF="yes" IPV6_DEFROUTE="yes" IPV6_FAILURE_FATAL="no" IPV6_ADDR_GEN_MODE="stable-privacy" NAME="ens192" UUID="94a5dbcf-1d42-4fe1-ad0a-6f9743f0f033" DEVICE="ens192" ONBOOT="yes" IPADDR="10.124.205.51" PREFIX="24" GATEWAY="10.124.205.254" DNS1="64.104.14.184" DNS2="208.67.222.222" IPV6_PRIVACY="no"</code></pre> <p>这里将一些有用的信息，拷贝出来。之后新建网桥需要用到：</p> <pre><code>IPADDR="10.124.205.51" PREFIX="24" GATEWAY="10.124.205.254" DNS1="64.104.14.184" DNS2="208.67.222.222"</code></pre> <p>关闭网络</p> <pre><code>systemctl stop NetworkManager</code></pre> <p>因为要新建一个网桥，为了防止同名的情况，先查看下, 没有叫 br0 的网桥：</p> <pre><code>brctl show</code></pre> <p>创建新网桥，添加之前准备好的信息：</p> <pre><code>vim /etc/sysconfig/network-scripts/ifcfg-br0  DEVICE=br0 ONBOOT=yes TYPE=Bridge NM_CONTROLLED=yes BOOTPROTO=static IPADDR="10.124.205.51" PREFIX="24" GATEWAY="10.124.205.254" DNS1="64.104.14.184" DNS2="208.67.222.222"</code></pre> <p>更新原始 ens192 网卡信息，与新网桥建立连接, 记得把原始文件备份</p> <pre><code>vim /etc/sysconfig/network-scripts/ifcfg-ens192  NAME="ens192" DEVICE="ens192" ONBOOT="yes" TYPE=Ethernet ONBOOT=yes BRIDGE=br0</code></pre> <p>重启网络：</p> <pre><code>systemctl restart network</code></pre> <p>查看网卡是否生效：</p> <p>原始 IP 转移到新网卡上：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/c775d7335f28725fd85444a979fac780.jpg" alt="Centos7 离线安装 KVM，并安装 Csr1000v"></p> <p>重启 kvm:</p> <pre><code>systemctl restart libvirtd</code></pre> <p>修改 kvm csr1000v 配置文件</p> <pre><code>virsh edit  csr_1000v  将 interface 关联的网卡，改成新网卡。  &lt;interface type='bridge'&gt;       &lt;mac address='52:54:00:0d:86:d9'/&gt;       &lt;source bridge='br0'/&gt;       &lt;model type='virtio'/&gt;       &lt;address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/&gt;  &lt;/interface&gt;  其中 type 需要改变为 bridge，bridge 绑定的名字需要改成 `br0`</code></pre> <p>重启 csr1000v</p> <pre><code>virsh reboot  csr_1000v</code></pre> <p>查看 csr_1000v 的网卡是否挂载到 br0 上:</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/5ea964950065bf007c6104dc513b8e96.jpg" alt="Centos7 离线安装 KVM，并安装 Csr1000v"></p> <p>这时进入到设备中，正常配置有效的 ip，因为是桥接的模式，外网就可以正常访问了。</p> <p>这里配置 IP 为<code>10.124.205.52</code>, 从另外一台物理机上可以正常 ping 通：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/49d54f8b4fa68e363256092175355402.jpg" alt="Centos7 离线安装 KVM，并安装 Csr1000v"></p> <h2 id="坑">坑</h2> <p>之前使用 kvm 安装 csr1000v 后，发现使用 console 无法登录到 router 里面，一直卡在<code>Escape character is '^]'</code>。</p> <p>使用官网文档，配置 tcp 串口依然不好用。最后是通过在 router 里面配置<code>platform console serial</code> 这句话得以用 console 访问。</p> <p>目前还存在一个问题，就是想给 router 默认刷一些 day0 配置进去，但安装官网创建 iso 镜像的方式也不太好用，后续研究后补充。</p> <h2 id="参考">参考</h2> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cisco.com/c/en/us/td/docs/routers/csr1000/software/configuration/b_CSR1000v_Configuration_Guide/b_CSR1000v_Configuration_Guide_chapter_0101.html"  target="_blank" rel="nofollow">cisco install csr1000v</a></p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-19518.htm">猫三联打几针多少钱一次（猫三联要多少钱第一针）</a></p>
+                                        <p>下一个：<a href="/news/article-19975.htm">宠物助理考试（宠物助理考试题）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2024-11-20-node-share.htm" title="V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-22-free-high-speed-nodes.htm" title="V2rayNG Node节点订阅每天更新18.4M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新18.4M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-19974.htm" title="Centos7 离线安装 KVM，并安装 Csr1000v">Centos7 离线安装 KVM，并安装 Csr1000v</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-17-node-share-links.htm" title="V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-29-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新18.8M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新18.8M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-21-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-2-node-share-links.htm" title="V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-18-node-share.htm" title="V2rayNG Node节点订阅每天更新20.3M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.3M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-24-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新21.9M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新21.9M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-14-node-share.htm" title="V2rayNG Node节点订阅每天更新21.7M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新21.7M/S免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
