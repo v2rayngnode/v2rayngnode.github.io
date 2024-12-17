@@ -1,0 +1,242 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-26892.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>spring schedule 配置多任务动态 cron 【增删启停】</title>
+        <meta name="description" content="一、背景 之前公司经常会遇到配置定时任务，简单的任务可以直接依赖spring。 简单任务直接使用 @scheduled 注解配合@EnableScheduling。 但是如何实现简单的动态cron呢？" />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- all css here -->
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                        <li><a href="#">关于</a></li>
+                                                    <li><a href="#">联系</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="index.html"><img src="/assets/website/img/v2rayngnode/logo/logo.png" alt="" /></a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="about.html">About us</a></li>
+                                    <li><a href="contact.html">Contacts</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>spring schedule 配置多任务动态 cron 【增删启停】</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                      				  				  				<div id="content_views" class="htmledit_views"> <h2 style="margin-left:0px;"><strong><span style="color:#000000;">一、背景</span></strong></h2> <p style="margin-left:0px;"><span style="color:#222222;">之前公司经常会遇到配置定时任务，简单的任务可以直接依赖spring。<br /> 简单任务直接使用 @scheduled 注解配合@EnableScheduling。<br /> 但是如何实现简单的动态cron呢？</span></p> <p style="margin-left:0px;"><span style="color:#222222;"><strong>开发原则：</strong><br /> 尽可能在项目本身去实现，少依赖第三方框架，避免项目过于臃肿和复杂。</span></p> <p style="margin-left:0px;"><span style="color:#222222;"><strong>俩种任务调度方式：</strong></span></p> <p style="margin-left:0px;"><span style="color:#222222;"><img decoding="async" alt="在这里插入图片描述" src="http://img.555519.xyz/uploads/20230108/d6b1524c7bae3ecac702dace8361e7d5.jpg"></span></p> <h2 style="margin-left:0px;"><strong><span style="color:#000000;"><a name="t1" rel="nofollow"></a><a id="_12" rel="nofollow"></a>二、本篇说明</span></strong></h2> <p style="margin-left:0px;"><span style="color:#222222;">springBoot 基础模块 spring-boot-starter-web 已经内置 schedule ，无需引入额外依赖。<br /><span style="color:#FF0000;">先思考几个问题：</span></span></p> <p style="margin-left:0px;"><span style="color:#222222;">1、动态 cron 实现的原理</span></p> <p style="margin-left:0px;"><span style="color:#222222;">任务的 【 停止】是基于 future接口 的cancel() 方法。<br /> 任务的 【增加、删除、启动】是基于 注册到 类ScheduledTaskRegistrar 的 ScheduledFuture的数量。<br /> 涉及核心类：</span></p> <ul style="margin-left:0px;"> <li>ScheduledFuture</li> <li>SchedulingConfigurer</li> <li>ScheduledTaskRegistrar</li> </ul> <p style="margin-left:0px;"><span style="color:#222222;">2、多任务并行执行配置<br /> spring默认机制对schedule是单线程，需要配置多线程并行执行。</span></p> <p style="margin-left:0px;"><span style="color:#222222;">3、如何配置多个任务<br /> 好多博文，都是配置一个cron，这让初学者很难受。</span></p> <p style="margin-left:0px;"><span style="color:#222222;">4、如何配置任务分组<br /> 根据自己业务背景，可根据步骤三，进行改造。</span></p> <p style="margin-left:0px;"><span style="color:#222222;">5、如何配置服务启动自启任务。<br /> 想要程序启动时首次去加我们设置的task，只需实现 CommandLineRunner 即可。</span></p> <p style="margin-left:0px;"><span style="color:#222222;">6、如何从数据库读取配置<br /> 这个其实很简单，在实现 ScheduledTaskRegistrar 时，先直接查询我们需要的数据即可。</span></p> <p style="margin-left:0px;"><span style="color:#222222;">7、如何优雅的实现我们的代码<br /> 这里为了我们多个task实现时，去除臃肿的if else ，使用策略模式去实现我们的task，这里代码里面会具体介绍。<br /> 参考类图：<br /><img decoding="async" alt="在这里插入图片描述" src="http://img.555519.xyz/uploads/20230108/4b8326900cc7b4a7fed701b0d3963fe3.jpg"></span></p> <p style="margin-left:0px;"><span style="color:#222222;">8、如何去触发我们的schedule 【增删启停】<br /> 配置好 task任务类，注入到 controller ，通过接口直接调用即可。</span></p> <h2 style="margin-left:0px;"><strong><span style="color:#000000;"><a name="t2" rel="nofollow"></a><a id="_48" rel="nofollow"></a>三、代码实现</span></strong></h2> <p style="margin-left:0px;"><span style="color:#222222;">先贴出我的github 代码，下面代码可能描述不全。</span></p> <ul style="margin-left:0px;"> <li><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/tianliuzhen/boot-devs/tree/master/schedule/src/main/java/com/aaa/schedule/scheduling"  rel="nofollow">普通多任务动态cron</a></li> <li><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/tianliuzhen/boot-devs/tree/master/schedule/src/main/java/com/aaa/schedule/scheduling2"  rel="nofollow">分组多任务动态cron</a></li> </ul> <h3 style="margin-left:0px;"><strong><span style="color:#000000;"><a name="t3" rel="nofollow"></a><a id="1_cron__54" rel="nofollow"></a>1. 普通多任务动态cron 实现</span></strong></h3> <p><strong><span style="color:#000000;"><a id="11__TaskEntity_55" rel="nofollow"></a>1.1 对应数据库的实体类 TaskEntity</span></strong></p> <pre class="has" style="margin-left:0px;"><code class="language-prettyprint language-java">@Data @AllArgsConstructor @NoArgsConstructor public class TaskEntity {     /**      * 任务id      */     private int taskId;     /**      * 任务说明      */     private String desc;     /**      * cron 表达式      */     private String expression; } </code></pre> <p>&nbsp;</p> <p><strong><span style="color:#000000;"><a id="12__75" rel="nofollow"></a>1.2 配置每个任务实现</span></strong></p> <p style="margin-left:0px;"><span style="color:#222222;">配置任务接口 TaskService</span></p> <pre class="has" style="margin-left:0px;"><code class="language-prettyprint language-java">public interface TaskService {      void HandlerJob();      Integer jobId();  } </code></pre> <p>&nbsp;</p> <p style="margin-left:0px;"><span style="color:#222222;">配置任务接口实现 TaskServiceJob1Impl、TaskServiceJob2Impl …</span></p> <pre class="has" style="margin-left:0px;"><code class="language-prettyprint language-java">@Service public class TaskServiceJob1Impl implements TaskService {     @Override     public void HandlerJob() {         System.out.println("------job1 开始执行---------："+new Date());          System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "    " + Thread.currentThread().getName() + "    任务一启动");         try {             Thread.sleep(10000);//任务耗时10秒         } catch (InterruptedException e) {             e.printStackTrace();         }         System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "    " + Thread.currentThread().getName() + "    结束");      }      @Override     public Integer jobId() {         return 1;     } } </code></pre> <p>&nbsp;</p> <p><strong><span style="color:#000000;"><a id="13__TaskSolverChooser_115" rel="nofollow"></a>1.3 配置任务解析器 TaskSolverChooser</span></strong></p> <p style="margin-left:0px;"><span style="color:#222222;"><strong>注：</strong><br /> 这里引入策略模式<br /><strong>为啥要配置 任务解析器选择器:</strong><br /> 因为我们实现多个任务时，一个任务对应一个 CronTask，需要在 MyScheduledTask 里面去实现我们每一个方法。<br /> 譬如，我们有100个任务就要自定义100个任务实现方法，代码会很臃肿，明显不符合，【开闭原则】，于是这里采用策略模式，解耦我们多个任务业务实现逻辑。</span></p> <pre class="has" style="margin-left:0px;"><code class="language-prettyprint language-java">@Slf4j @Component public class TaskSolverChooser implements ApplicationContextAware {      private ApplicationContext applicationContext;      private Map&lt;Integer, TaskService&gt; chooseMap = new HashMap&lt;&gt;(16);      /**      * 拿到spring context 上下文      */     @Override     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {         this.applicationContext = applicationContext;     }      @PostConstruct     private void registerToTaskSolver(){         Map&lt;String, TaskService&gt; taskServiceMap = applicationContext.getBeansOfType(TaskService.class);         for (TaskService value : taskServiceMap.values()) {             chooseMap.put(value.jobId(), value);             log.info("task {} 处理器: {} 注册成功",new Object[]{value.jobId(),value});         }     }      /**      * 获取需要的job      */     public TaskService getTask(Integer jobId){         return chooseMap.get(jobId);     } } </code></pre> <p>&nbsp;</p> <p><strong><span style="color:#000000;"><a id="14__MyScheduledTask_cron_155" rel="nofollow"></a>1.4 配置MyScheduledTask （动态cron核心配置）</span></strong></p> <p style="margin-left:0px;"><span style="color:#222222;"><strong>说明：</strong><br /> 1、配置多线程执行任务<br /> 2、配置 刷新 task<br /> 3、配置 停止 task<br /> 4、配置 执行task 业务逻辑</span></p> <pre class="has" style="margin-left:0px;"><code class="language-prettyprint language-java">@Component public class MyScheduledTask implements SchedulingConfigurer {      private volatile ScheduledTaskRegistrar registrar;      private final ConcurrentHashMap&lt;Integer, ScheduledFuture&lt;?&gt;&gt; scheduledFutures = new ConcurrentHashMap&lt;&gt;();     private final ConcurrentHashMap&lt;Integer, CronTask&gt; cronTasks = new ConcurrentHashMap&lt;&gt;();      @Autowired     private TaskSolverChooser taskSolverChooser;      @Override     public void configureTasks(ScheduledTaskRegistrar registrar) {          //设置20个线程,默认单线程,如果不设置的话，不能同时并发执行任务         registrar.setScheduler(Executors.newScheduledThreadPool(10));         this.registrar = registrar;     }      /**      * 修改 cron 需要 调用该方法      */     public void refresh(List&lt;TaskEntity&gt; tasks){         //取消已经删除的策略任务         Set&lt;Integer&gt; sids = scheduledFutures.keySet();         for (Integer sid : sids) {             if(!exists(tasks, sid)){                 scheduledFutures.get(sid).cancel(false);             }         }         for (TaskEntity TaskEntity : tasks) {             String expression = TaskEntity.getExpression();             //计划任务表达式为空则跳过             if(!StringUtils.hasLength(expression)){                 continue;             }             //计划任务已存在并且表达式未发生变化则跳过             if (scheduledFutures.containsKey(TaskEntity.getTaskId())                     &amp;&amp; cronTasks.get(TaskEntity.getTaskId()).getExpression().equals(expression)) {                 continue;             }             //如果策略执行时间发生了变化，则取消当前策略的任务             if(scheduledFutures.containsKey(TaskEntity.getTaskId())){                 scheduledFutures.get(TaskEntity.getTaskId()).cancel(false);                 scheduledFutures.remove(TaskEntity.getTaskId());                 cronTasks.remove(TaskEntity.getTaskId());             }             //业务逻辑处理             CronTask task = cronTask(TaskEntity, expression);               //执行业务             ScheduledFuture&lt;?&gt; future = registrar.getScheduler().schedule(task.getRunnable(), task.getTrigger());             cronTasks.put(TaskEntity.getTaskId(), task);             scheduledFutures.put(TaskEntity.getTaskId(), future);         }     }      /**      * 停止 cron 运行      */     public void stop(List&lt;TaskEntity&gt; tasks){         tasks.forEach(item-&gt;{             if (scheduledFutures.containsKey(item.getTaskId())) {                 // mayInterruptIfRunning设成false话，不允许在线程运行时中断，设成true的话就允许。                 scheduledFutures.get(item.getTaskId()).cancel(false);                 scheduledFutures.remove(item.getTaskId());             }         });     }      /**      * 业务逻辑处理      */     public CronTask cronTask(TaskEntity TaskEntity, String expression)  {         return new CronTask(() -&gt; {                     //每个计划任务实际需要执行的具体业务逻辑                     //采用策略，模式 ，执行我们的job                    taskSolverChooser.getTask(TaskEntity.getTaskId()).HandlerJob();                 }, expression);     }      private boolean exists(List&lt;TaskEntity&gt; tasks, Integer tid){         for(TaskEntity TaskEntity:tasks){             if(TaskEntity.getTaskId() == tid){                 return true;             }         }         return false;     }      @PreDestroy     public void destroy() {         this.registrar.destroy();     }  } </code></pre> <p>&nbsp;</p> <p><strong><span style="color:#000000;"><a id="15_task_261" rel="nofollow"></a>1.5 配置程序启动时首次去加我们设置的task</span></strong></p> <pre class="has" style="margin-left:0px;"><code class="language-prettyprint language-java">@Component public class StartInitTask implements CommandLineRunner {      @Autowired     private MyScheduledTask myScheduledTask;      @Override     public void run(String... args) throws Exception {         List&lt;TaskEntity&gt; list = Arrays.asList(                 new TaskEntity(1, "测试1", "0/1 * *  * * ?"),                 new TaskEntity(2, "测试2", "0/1 * *  * * ?")         );         myScheduledTask.refresh(list);     } } </code></pre> <p>&nbsp;</p> <p><strong><span style="color:#000000;"><a id="16_web_280" rel="nofollow"></a>1.6 配置web接口去触发，增删启停</span></strong></p> <pre class="has" style="margin-left:0px;"><code class="language-prettyprint language-java">@RestController public class StartController {      @Autowired     private MyScheduledTask scheduledTask;      @PostMapping(value = "/startOrChangeCron")     public String changeCron(@RequestBody List&lt;TaskEntity&gt; list){         if (CollectionUtils.isEmpty(list)) {             // 这里模拟存在数据库的数据             list = Arrays.asList(                     new TaskEntity(1, "测试1","0/1 * *  * * ?") ,                     new TaskEntity(2, "测试2","0/1 * *  * * ?")             );         }         scheduledTask.refresh(list);         return "task任务:" + list.toString() + "已经开始运行";     }      @PostMapping(value = "/stopCron")     public String stopCron(@RequestBody List&lt;TaskEntity&gt; list){         if (CollectionUtils.isEmpty(list)) {             // 这里模拟将要停止的cron可通过前端传来             list = Arrays.asList(                     new TaskEntity(1, "测试1","0/1 * *  * * ?") ,                     new TaskEntity(2, "测试2","0/1 * *  * * ?")             );         }         scheduledTask.stop(list);         List&lt;Integer&gt; collect = list.stream().map(TaskEntity::getTaskId).collect(Collectors.toList());         return "task任务:" + collect.toString() + "已经停止启动";     }  }  </code></pre> <p>&nbsp;</p> <h3 style="margin-left:0px;"><strong><span style="color:#000000;"><a name="t4" rel="nofollow"></a><a id="2_cron__319" rel="nofollow"></a>2. 分组多任务动态cron 实现</span></strong></h3> <p style="margin-left:0px;"><span style="color:#222222;"><strong>实现原理：</strong><br /> 基于反射实现，根据方法全类名，去动态执行方法。多任务分组配置，根据任务类型进行分组。<br /><strong>eg：</strong><br /> 定时任务人员的相关操作，有检测人员离职状态，人员业绩达标，人员考勤…等，<br /><strong>作用：</strong><br /> 对人员定时任务做一个分类，在同一个类里面去实现不同的task，<br /><strong>比较</strong><br /> 《1. 普通多任务动态cron 实现》，是一个类可以实现一个task<br /> 《2. 分组多任务动态cron 实现》，是一个类可以实现多个task<br /> 详细可参考：&nbsp;<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/tianliuzhen/boot-devs/tree/master/schedule/src/main/java/com/aaa/schedule/scheduling2"  rel="nofollow">分组多任务动态cron</a></span></p> <h3 style="margin-left:0px;"><strong><span style="color:#000000;"><a name="t5" rel="nofollow"></a><a id="3__332" rel="nofollow"></a>3 测试记录</span></strong></h3> <p style="margin-left:0px;"><span style="color:#222222;"><strong>测试1</strong>&nbsp;项目启动自启<br /> TaskServiceJob1Impl和TaskServiceJob1Impl … 设置 阻塞10s<br /> 观察日志时间可发现，已经同时并发执行俩个任务。<br /><img decoding="async" alt="在这里插入图片描述" src="http://img.555519.xyz/uploads/20230108/54b4c06942b79a27ab6f99a0afa6957f.jpg"><br /><strong>测试2</strong>&nbsp;触发 刷新【增、删、启】我们的task，。<br /> 其实这里没这么智能，如果需要触发刷新接口，实际上是重新加载我们的task，就是对应触发我们，增加任务任务，删除任务，启动任务。<br /> 使用idea插件测试接口<br /><img decoding="async" alt="在这里插入图片描述" src="http://img.555519.xyz/uploads/20230108/f1e757fb5fa7f6eb3492df4aa603e3e2.jpg"><br /> 观察日志<br /><img decoding="async" alt="在这里插入图片描述" src="http://img.555519.xyz/uploads/20230108/9ae32937462ee4217db59cde9306ea7a.jpg"><br /><strong>测试3</strong>&nbsp;触发 停止接口，停止一个接口。<br /> 这里测试略过…</span></p> <h2 style="margin-left:0px;"><strong><span style="color:#000000;"><a name="t6" rel="nofollow"></a><a id="_346" rel="nofollow"></a>四、总结</span></strong></h2> <p style="margin-left:0px;"><span style="color:#222222;">其实实现简单的动态配置，以上代码可用，比较简单。</span></p> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-26416.htm">动物医院申请条件有哪些内容呢图片（动物医院申请条件有哪些内容呢图片大全）</a></p>
+                                        <p>下一个：<a href="/news/article-26893.htm">淮北宠物寄养（安徽淮北宠物救助站）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-25951.htm" title="哈尔滨农大动物医院地址在哪儿（哈尔滨农大宠物医院的地址和电话）">哈尔滨农大动物医院地址在哪儿（哈尔滨农大宠物医院的地址和电话）</a></li>
+                        <li class="py-2"><a href="/news/article-24107.htm" title="宠物粮食股 宠物粮食股票">宠物粮食股 宠物粮食股票</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-12-node-share-links.htm" title="V2rayNG Node节点订阅每天更新22.7M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新22.7M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-26415.htm" title="java 退出_JVM安全退出（如何优雅的关闭java服务）">java 退出_JVM安全退出（如何优雅的关闭java服务）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-13-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新21M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新21M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-30-node-share.htm" title="V2rayNG Node节点订阅每天更新18.2M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新18.2M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-1-free-high-speed-nodes.htm" title="V2rayNG Node节点订阅每天更新19.5M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新19.5M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-5-node-share-links.htm" title="V2rayNG Node节点订阅每天更新19.4M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新19.4M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-15-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新19.5M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新19.5M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-28-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新21.1M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新21.1M/S免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">51</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
