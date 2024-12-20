@@ -7,7 +7,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>vue中给buttion按钮添加键盘回车（enter）事件</title>
         <meta name="description" content="项目中遇到点击查询按钮可以查出数据，点击回车键也能查出数据，所以就想点击回车键时调用查询方法。 以下代码可实现此功能。 首先，button上有click事件，点击可实现搜索查询； created(){" />
-        <link rel="icon" href="__ADDON__/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- all css here -->
     <!-- bootstrap v3.3.6 css -->
@@ -31,8 +31,7 @@
     <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
     <!-- modernizr css -->
     <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
-    
-<!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -143,7 +142,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                                      				  				  				<div id="content_views" class="htmledit_views"> <p>项目中遇到点击查询按钮可以查出数据，点击回车键也能查出数据，所以就想点击回车键时调用查询方法。</p> <p>以下代码可实现此功能。</p> <p>首先，button上有click事件，点击可实现搜索查询；</p> <p>created(){}函数里面调用回车按下的事件方法</p> <p>关键的地方就是按下回车键的方法</p> <p><code class="language-html">methods:{<!-- --><br /> &nbsp;keyupEnter(){<!-- --><br /> &nbsp; &nbsp;document.onkeydown = e =&gt;{<!-- --><br /> &nbsp; &nbsp; &nbsp; let body = document.getElementsByTagName('body')[0]<br /> &nbsp; &nbsp; &nbsp; &nbsp; if (e.keyCode === 13 &amp;&amp; e.target.baseURI.match(/inputbook/) &amp;&amp; e.target === body) {<!-- --><br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;console.log('enter') // match(此处应填写文件在浏览器中的地址，如 '/home/index')，不写的话，其他页面也会有调用回车按下的方法<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;this.handleAddBook() //调用查询方法<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}<br /> &nbsp; &nbsp; &nbsp; &nbsp;}<br /> &nbsp; &nbsp; },<br /> &nbsp; &nbsp; handleAddBook(){<!-- --><br /> &nbsp; &nbsp; &nbsp;&nbsp;<br /> &nbsp; &nbsp; }<br /> }</code></p> <p>&nbsp;</p> <p>示例代码如下：</p> <p>一、第一步： 给button按钮绑定@keyup.enter</p> <pre><code class="language-html hljs">&lt;div class="btn"&gt; &lt;!--如果是封装过的按钮，不是原生的按钮，需要加上.native才能生效--&gt;        &lt;Button  type="primary" @click="handleAddBook" @keyup.enter.native="handleAddBook"&gt;录入&lt;/Button&gt; &lt;/div&gt;</code></pre> <p>&nbsp;</p> <p>二、第二步：浏览器url：event.target.baseURI; 获取浏览器的路径地址</p> <pre><code class="language-html hljs">// 创建时 created(){        this.keyupEnter()//页面在创建时就调用键盘的回车事件，在结构代码中也可以不写@keyup.enter.native="handleAddBook"  },   methods:{             keyupEnter(){                 document.onkeydown = e =&gt;{                     let body = document.getElementsByTagName('body')[0]                     if (e.keyCode === 13 &amp;&amp; e.target.baseURI.match(/inputbook/) &amp;&amp; e.target === body) {                         console.log('enter') // match(此处应填写文件在浏览器中的地址，如 '/home/index')                         this.handleAddBook()                     }                 }             },             handleAddBook(){                 if(this.validate()){                     this._printQrcode()                 }               } }     </code></pre> <p>&nbsp;</p> <p>转载于:https://www.cnblogs.com/wangdashi/p/9646219.html</p> </p></div> 			                <div class="clearfix"></div>
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> <p>项目中遇到点击查询按钮可以查出数据，点击回车键也能查出数据，所以就想点击回车键时调用查询方法。</p> <p>以下代码可实现此功能。</p> <p>首先，button上有click事件，点击可实现搜索查询；</p> <p>created(){}函数里面调用回车按下的事件方法</p> <p>关键的地方就是按下回车键的方法</p> <p><code class="language-html">methods:{<!-- --><br /> &nbsp;keyupEnter(){<!-- --><br /> &nbsp; &nbsp;document.onkeydown = e =&gt;{<!-- --><br /> &nbsp; &nbsp; &nbsp; let body = document.getElementsByTagName('body')[0]<br /> &nbsp; &nbsp; &nbsp; &nbsp; if (e.keyCode === 13 &amp;&amp; e.target.baseURI.match(/inputbook/) &amp;&amp; e.target === body) {<!-- --><br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;console.log('enter') // match(此处应填写文件在浏览器中的地址，如 '/home/index')，不写的话，其他页面也会有调用回车按下的方法<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;this.handleAddBook() //调用查询方法<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}<br /> &nbsp; &nbsp; &nbsp; &nbsp;}<br /> &nbsp; &nbsp; },<br /> &nbsp; &nbsp; handleAddBook(){<!-- --><br /> &nbsp; &nbsp; &nbsp;&nbsp;<br /> &nbsp; &nbsp; }<br /> }</code></p> <p>&nbsp;</p> <p>示例代码如下：</p> <p>一、第一步： 给button按钮绑定@keyup.enter</p> <pre><code class="language-html hljs">&lt;div class="btn"&gt; &lt;!--如果是封装过的按钮，不是原生的按钮，需要加上.native才能生效--&gt;        &lt;Button  type="primary" @click="handleAddBook" @keyup.enter.native="handleAddBook"&gt;录入&lt;/Button&gt; &lt;/div&gt;</code></pre> <p>&nbsp;</p> <p>二、第二步：浏览器url：event.target.baseURI; 获取浏览器的路径地址</p> <pre><code class="language-html hljs">// 创建时 created(){        this.keyupEnter()//页面在创建时就调用键盘的回车事件，在结构代码中也可以不写@keyup.enter.native="handleAddBook"  },   methods:{             keyupEnter(){                 document.onkeydown = e =&gt;{                     let body = document.getElementsByTagName('body')[0]                     if (e.keyCode === 13 &amp;&amp; e.target.baseURI.match(/inputbook/) &amp;&amp; e.target === body) {                         console.log('enter') // match(此处应填写文件在浏览器中的地址，如 '/home/index')                         this.handleAddBook()                     }                 }             },             handleAddBook(){                 if(this.validate()){                     this._printQrcode()                 }               } }     </code></pre> <p>&nbsp;</p> <p>转载于:https://www.cnblogs.com/wangdashi/p/9646219.html</p> </p></div> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>上一个：<a href="/news/article-20892.htm">戴尔设置第一启动项为ssd（戴尔设置硬盘第一启动）</a></p>
                                         <p>下一个：<a href="/news/article-21340.htm">Mac上解决dose not contain the JNI_CreateJavaVM symbol</a></p>
@@ -156,16 +156,16 @@
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/2024-11-22-free-high-speed-nodes.htm" title="V2rayNG Node节点订阅每天更新18.4M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新18.4M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-13-node-share-links.htm" title="V2rayNG Node节点订阅每天更新19.4M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新19.4M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-22262.htm" title="liunx中搭建python3.7环境和安装pycharm并搭建Django">liunx中搭建python3.7环境和安装pycharm并搭建Django</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-16-free-high-speed-nodes.htm" title="V2rayNG Node节点订阅每天更新22M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新22M/S免费节点订阅链接</a></li>
                         <li class="py-2"><a href="/news/article-18893.htm" title="广州宠物市场批发市场哪里?（广州宠物市场地址）">广州宠物市场批发市场哪里?（广州宠物市场地址）</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-12-5-node-share-links.htm" title="V2rayNG Node节点订阅每天更新19.4M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新19.4M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-20891.htm" title="css图片上面显示文字">css图片上面显示文字</a></li>
-                        <li class="py-2"><a href="/news/article-21340.htm" title="Mac上解决dose not contain the JNI_CreateJavaVM symbol">Mac上解决dose not contain the JNI_CreateJavaVM symbol</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-12-6-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新21.3M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新21.3M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-24-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新21.9M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新21.9M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-20428.htm" title="动物疫苗的保存温度是多少度合适（动物疫苗运输与储存规范）">动物疫苗的保存温度是多少度合适（动物疫苗运输与储存规范）</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-29-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新18.8M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新18.8M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-21-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-2-node-share-links.htm" title="V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-10-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新22.3M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新22.3M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-12-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-28-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新21.1M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新21.1M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-18-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新21.6M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新21.6M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-30-node-share.htm" title="V2rayNG Node节点订阅每天更新18.2M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新18.2M/S免费节点订阅链接</a></li>
                     </ul>
     </div>
 </div>
@@ -177,7 +177,7 @@
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">21</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+                <h4><span class="badge" style="float: right;">57</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
@@ -198,6 +198,15 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div class="copyright">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
                             <p>
                                 <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
                             </p>

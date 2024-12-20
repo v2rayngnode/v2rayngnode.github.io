@@ -7,7 +7,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>判断数A中是否存在一棵同构于B的子树</title>
         <meta name="description" content="树的同构：我理解的同构应该是树若干个结点平行交换形成与原树结构相同的树。但看到网上的一些实现都是认为树的同构必须是树的先序遍历是相同的。先贴上自己的代码。 /* struct TreeNode { &" />
-        <link rel="icon" href="__ADDON__/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- all css here -->
     <!-- bootstrap v3.3.6 css -->
@@ -31,8 +31,7 @@
     <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
     <!-- modernizr css -->
     <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
-    
-<!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -143,7 +142,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                                      				  				  				<div id="content_views" class="htmledit_views"> <p><span style="font-size:18px">树的同构：我理解的同构应该是树若干个结点平行交换形成与原树结构相同的树。但看到网上的一些实现都是认为树的同构必须是树的先序遍历是相同的。先贴上自己的代码。</span></p> <pre><code class="language-cpp">/* struct TreeNode { &nbsp;&nbsp;&nbsp;&nbsp;int val; &nbsp;&nbsp;&nbsp;&nbsp;struct TreeNode *left; &nbsp;&nbsp;&nbsp;&nbsp;struct TreeNode *right; &nbsp;&nbsp;&nbsp;&nbsp;TreeNode(int x) : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;val(x), left(NULL), right(NULL) { &nbsp;&nbsp;&nbsp;&nbsp;} };*/ &nbsp; class IdenticalTree { public: &nbsp;&nbsp;&nbsp;&nbsp;bool chkIdentical(TreeNode* A, TreeNode* B) { &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// write code here &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(A==NULL||B==NULL) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string s1; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string s2; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s1=toTranslate(A); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s2=toTranslate(B); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(string::npos!=s1.find(s2))return true; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false; &nbsp;&nbsp;&nbsp;&nbsp;} &nbsp;&nbsp;&nbsp;&nbsp;string toTranslate(TreeNode *A) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(A==NULL)return "#!"; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string s; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s=to_string(A-&gt;val)+"!"; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s+=toTranslate(A-&gt;left); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s+=toTranslate(A-&gt;right); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return s; &nbsp;&nbsp;&nbsp;&nbsp;} };</code></pre> <pre><code class="language-cpp">bool chkIdentical(TreeNode* A, TreeNode* B)</code></pre> <p>上面的函数就是比较A中是否存在一棵同构于B的子树。其实程序的结构为：对A、B分别进行先序遍历，求得其先序遍历序列。然后利用string类型的find()函数查找s1序列中是否囊括s2序列，由此判断出<span style="font-size:18px">A中是否存在一棵同构于B的子树。记录一下几个知识点：</span></p> <p><span style="font-size:18px">先序遍历：即某节点----&gt;左子树-----&gt;右子树。采用递归来遍历输出先序序列。</span></p> <p><span style="font-size:18px">string.find()函数：</span></p> <p><span style="font-size:18px"></span></p> <div style="margin:0px; padding:0px; color:rgb(54,46,43); font-family:Arial; font-size:14px; line-height:26px">   string中 find()的应用&nbsp; （<span style="margin:0px; padding:0px; color:rgb(255,0,0)">rfind()</span>&nbsp;类似，只是从反向查找）</div> <div style="margin:0px; padding:0px; color:rgb(54,46,43); font-family:Arial; font-size:14px; line-height:26px">   原型如下：</div> <div style="margin:0px; padding:0px; font-family:Arial; line-height:26px"> <div style="color:rgb(54,46,43); font-size:14px; margin:0px; padding:0px">   （1）size_t find (const string&amp; str, size_t pos =&nbsp;0) const;&nbsp; //查找对象--<span style="margin:0px; padding:0px; color:rgb(255,0,0)">string类对象</span></div> <div style="color:rgb(54,46,43); font-size:14px; margin:0px; padding:0px">   （2）size_t find (const char* s, size_t pos = 0) const; //查找对象--<span style="margin:0px; padding:0px; color:rgb(255,0,0)">字符串</span></div> <div style="color:rgb(54,46,43); font-size:14px; margin:0px; padding:0px">   （3）size_t find (const char* s, size_t pos, size_t n) const;&nbsp; //查找对象--<span style="margin:0px; padding:0px; color:rgb(255,0,0)">字符串的前n个字符</span></div> <div style="color:rgb(54,46,43); font-size:14px; margin:0px; padding:0px">   （4）size_t find (char c, size_t pos = 0) const;&nbsp; //查找对象--<span style="margin:0px; padding:0px; color:rgb(255,0,0)">字符</span></div> <div style="color:rgb(54,46,43); font-size:14px; margin:0px; padding:0px"><span style="margin:0px; padding:0px; color:rgb(255,0,0)">结果：找到 -- 返回 第一个字符的索引</span></div> <div style="color:rgb(54,46,43); font-size:14px; margin:0px; padding:0px"><span style="margin:0px; padding:0px; color:rgb(255,0,0)">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 没找到--返回&nbsp;&nbsp; string::npos</span></div> <div style="margin:0px; padding:0px"><span style="margin:0px; padding:0px"><span style="color:#333333">to_string():将整型数转化为string类型的。</span></span></div> </div> <p></p> <p><span style="font-size:18px"><br /></span></p> </div> 			                <div class="clearfix"></div>
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> <p><span style="font-size:18px">树的同构：我理解的同构应该是树若干个结点平行交换形成与原树结构相同的树。但看到网上的一些实现都是认为树的同构必须是树的先序遍历是相同的。先贴上自己的代码。</span></p> <pre><code class="language-cpp">/* struct TreeNode { &nbsp;&nbsp;&nbsp;&nbsp;int val; &nbsp;&nbsp;&nbsp;&nbsp;struct TreeNode *left; &nbsp;&nbsp;&nbsp;&nbsp;struct TreeNode *right; &nbsp;&nbsp;&nbsp;&nbsp;TreeNode(int x) : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;val(x), left(NULL), right(NULL) { &nbsp;&nbsp;&nbsp;&nbsp;} };*/ &nbsp; class IdenticalTree { public: &nbsp;&nbsp;&nbsp;&nbsp;bool chkIdentical(TreeNode* A, TreeNode* B) { &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// write code here &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(A==NULL||B==NULL) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string s1; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string s2; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s1=toTranslate(A); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s2=toTranslate(B); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(string::npos!=s1.find(s2))return true; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false; &nbsp;&nbsp;&nbsp;&nbsp;} &nbsp;&nbsp;&nbsp;&nbsp;string toTranslate(TreeNode *A) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(A==NULL)return "#!"; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string s; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s=to_string(A-&gt;val)+"!"; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s+=toTranslate(A-&gt;left); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s+=toTranslate(A-&gt;right); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return s; &nbsp;&nbsp;&nbsp;&nbsp;} };</code></pre> <pre><code class="language-cpp">bool chkIdentical(TreeNode* A, TreeNode* B)</code></pre> <p>上面的函数就是比较A中是否存在一棵同构于B的子树。其实程序的结构为：对A、B分别进行先序遍历，求得其先序遍历序列。然后利用string类型的find()函数查找s1序列中是否囊括s2序列，由此判断出<span style="font-size:18px">A中是否存在一棵同构于B的子树。记录一下几个知识点：</span></p> <p><span style="font-size:18px">先序遍历：即某节点----&gt;左子树-----&gt;右子树。采用递归来遍历输出先序序列。</span></p> <p><span style="font-size:18px">string.find()函数：</span></p> <p><span style="font-size:18px"></span></p> <div style="margin:0px; padding:0px; color:rgb(54,46,43); font-family:Arial; font-size:14px; line-height:26px">   string中 find()的应用&nbsp; （<span style="margin:0px; padding:0px; color:rgb(255,0,0)">rfind()</span>&nbsp;类似，只是从反向查找）</div> <div style="margin:0px; padding:0px; color:rgb(54,46,43); font-family:Arial; font-size:14px; line-height:26px">   原型如下：</div> <div style="margin:0px; padding:0px; font-family:Arial; line-height:26px"> <div style="color:rgb(54,46,43); font-size:14px; margin:0px; padding:0px">   （1）size_t find (const string&amp; str, size_t pos =&nbsp;0) const;&nbsp; //查找对象--<span style="margin:0px; padding:0px; color:rgb(255,0,0)">string类对象</span></div> <div style="color:rgb(54,46,43); font-size:14px; margin:0px; padding:0px">   （2）size_t find (const char* s, size_t pos = 0) const; //查找对象--<span style="margin:0px; padding:0px; color:rgb(255,0,0)">字符串</span></div> <div style="color:rgb(54,46,43); font-size:14px; margin:0px; padding:0px">   （3）size_t find (const char* s, size_t pos, size_t n) const;&nbsp; //查找对象--<span style="margin:0px; padding:0px; color:rgb(255,0,0)">字符串的前n个字符</span></div> <div style="color:rgb(54,46,43); font-size:14px; margin:0px; padding:0px">   （4）size_t find (char c, size_t pos = 0) const;&nbsp; //查找对象--<span style="margin:0px; padding:0px; color:rgb(255,0,0)">字符</span></div> <div style="color:rgb(54,46,43); font-size:14px; margin:0px; padding:0px"><span style="margin:0px; padding:0px; color:rgb(255,0,0)">结果：找到 -- 返回 第一个字符的索引</span></div> <div style="color:rgb(54,46,43); font-size:14px; margin:0px; padding:0px"><span style="margin:0px; padding:0px; color:rgb(255,0,0)">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 没找到--返回&nbsp;&nbsp; string::npos</span></div> <div style="margin:0px; padding:0px"><span style="margin:0px; padding:0px"><span style="color:#333333">to_string():将整型数转化为string类型的。</span></span></div> </div> <p></p> <p><span style="font-size:18px"><br /></span></p> </div> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>上一个：<a href="/news/article-18894.htm">中国兽药公司排名前十名（中国兽药十强企业排名）</a></p>
                                         <p>下一个：<a href="/news/article-19050.htm">给动物打疫苗要多少钱一针呀（给动物打的疫苗是什么）</a></p>
@@ -156,16 +156,16 @@
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/2024-11-29-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新18.8M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新18.8M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-19975.htm" title="宠物助理考试（宠物助理考试题）">宠物助理考试（宠物助理考试题）</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-19-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新18.5M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新18.5M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-18-node-share.htm" title="V2rayNG Node节点订阅每天更新20.3M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.3M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-24-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新21.9M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新21.9M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-20-node-share.htm" title="V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-18893.htm" title="广州宠物市场批发市场哪里?（广州宠物市场地址）">广州宠物市场批发市场哪里?（广州宠物市场地址）</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-12-2-node-share-links.htm" title="V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-22-free-high-speed-nodes.htm" title="V2rayNG Node节点订阅每天更新18.4M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新18.4M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-27-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-13-node-share-links.htm" title="V2rayNG Node节点订阅每天更新19.4M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新19.4M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-26-node-share.htm" title="V2rayNG Node节点订阅每天更新18.9M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新18.9M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-22263.htm" title="养猫不吉利怎么化解（养猫不吉利怎么化解吉凶）">养猫不吉利怎么化解（养猫不吉利怎么化解吉凶）</a></li>
+                        <li class="py-2"><a href="/news/article-25493.htm" title="附近免费领养小猫小狗（附近领养宠物小猫）">附近免费领养小猫小狗（附近领养宠物小猫）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-23-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新18.7M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新18.7M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-6-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新21.3M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新21.3M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-25029.htm" title="正则表达式规则以及贪婪匹配与非贪婪匹配">正则表达式规则以及贪婪匹配与非贪婪匹配</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-15-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新19.5M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新19.5M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-7-free-high-speed-nodes.htm" title="V2rayNG Node节点订阅每天更新20.5M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.5M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-10-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新20.2M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.2M/S免费节点订阅链接</a></li>
                     </ul>
     </div>
 </div>
@@ -177,7 +177,7 @@
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+                <h4><span class="badge" style="float: right;">57</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
@@ -198,6 +198,15 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div class="copyright">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
                             <p>
                                 <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
                             </p>

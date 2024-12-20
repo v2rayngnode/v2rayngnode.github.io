@@ -1,0 +1,251 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-28282.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>vscode-vue 代码保存自动eslint格式化配置</title>
+        <meta name="description" content="场景说明 在vscode开发vue项目，可以使用eslint作为代码格式化自动检测，在保存的时候可以自动修复  注意：在vscode更新之后，vue中的&lt;template&gt;不能够自动检测，" />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- all css here -->
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                        <li><a href="#">关于</a></li>
+                                                    <li><a href="#">联系</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="index.html"><img src="/assets/website/img/v2rayngnode/logo/logo.png" alt="" /></a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="about.html">About us</a></li>
+                                    <li><a href="contact.html">Contacts</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>vscode-vue 代码保存自动eslint格式化配置</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> <h2>场景说明</h2> <p>在vscode开发vue项目，可以使用eslint作为代码格式化自动检测，在<strong>保存的时候可以自动修复</strong></p> <blockquote> <p>注意：在vscode更新之后，vue中的&lt;template&gt;不能够自动检测，需要单独配置其他的方案</p> </blockquote> <h2>插件</h2> <ul> <li>elint</li> </ul> <p><img decoding="async" alt="" height="66" src="http://img.555519.xyz/uploads3/20220607/b48cb7f27437261e6fab04a57c81e113.jpg"></p> <ul> <li>beautify</li> </ul> <p><img decoding="async" alt="" height="70" src="http://img.555519.xyz/uploads3/20220607/2d0a2724add7e2e0f68db12a6de44727.jpg"></p> <h2>&nbsp;npm 安装依赖</h2> <p>&nbsp;npm i&nbsp;eslint-plugin-vue</p> <h2>vscode setting 配置</h2> <pre><code class="language-javascript">{   // vscode默认启用了根据文件类型自动设置tabsize的选项   "editor.detectIndentation": false,   "diffEditor.ignoreTrimWhitespace": false,   "workbench.startupEditor": "newUntitledFile",   // 设置默认tab空格   "editor.tabSize": 2,   "javascript.updateImportsOnFileMove.enabled": "always",   // 这几个设置默认的格式化工具，hmtl用beautify   "[javascript]": {     "editor.defaultFormatter": "dbaeumer.vscode-eslint"   },   "[vue]": {     "editor.defaultFormatter": "dbaeumer.vscode-eslint"   },   "[html]": {       "editor.defaultFormatter": "HookyQR.beautify"   },   // "[html]": {   //   "editor.defaultFormatter": "dbaeumer.vscode-eslint"   // },   // 用这个来代替eslint中的source.fixAll   "editor.codeActionsOnSave": {     "source.fixAll": true,     "source.fixAll.eslint": true   },   // 添加 vue 支持，现在不用这种方式了   // "eslint.validate": [   //     "html",   //     "javascript",   //     "vue",   //     "html",   //     ".js"   // ],   "eslint.alwaysShowStatus": true,   //用ESLint作为已验证文件的格式化程序   // 更好的方式是使用 "[javascript]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" }   //  这个enable也不需要，会冲突，   // "eslint.format.enable": true,   // "vetur.validation.template": true,   // "workbench.editor.untitled.hint": "hidden" }</code></pre> <h2>&nbsp;ESLint规则</h2> <p>采用vue-element-admin中的配置，修改了&nbsp; eqeqeq的全等于。严格的格式对代码格式有非常好的规范，尤其是在多人开发的时候</p> <pre><code class="language-javascript">module.exports = {   root: true,   parserOptions: {     parser: 'babel-eslint',     sourceType: 'module'   },   env: {     browser: true,     node: true,     es6: true,   },   extends: ['plugin:vue/recommended', 'eslint:recommended'],    // add your custom rules here   //it is base on https://github.com/vuejs/eslint-config-vue   rules: {     "vue/max-attributes-per-line": [2, {       "singleline": 10,       "multiline": {         "max": 1,         "allowFirstLine": false       }     }],     "vue/singleline-html-element-content-newline": "off",     "vue/multiline-html-element-content-newline":"off",     "vue/name-property-casing": ["error", "PascalCase"],     "vue/no-v-html": "off",     'accessor-pairs': 2,     'arrow-spacing': [2, {       'before': true,       'after': true     }],     'block-spacing': [2, 'always'],     'brace-style': [2, '1tbs', {       'allowSingleLine': true     }],     'camelcase': [0, {       'properties': 'always'     }],     'comma-dangle': [2, 'never'],     'comma-spacing': [2, {       'before': false,       'after': true     }],     'comma-style': [2, 'last'],     'constructor-super': 2,     'curly': [2, 'multi-line'],     'dot-location': [2, 'property'],     'eol-last': 2,     'eqeqeq': 0,     'generator-star-spacing': [2, {       'before': true,       'after': true     }],     'handle-callback-err': [2, '^(err|error)$'],     'indent': [2, 2, {       'SwitchCase': 1     }],     'jsx-quotes': [2, 'prefer-single'],     'key-spacing': [2, {       'beforeColon': false,       'afterColon': true     }],     'keyword-spacing': [2, {       'before': true,       'after': true     }],     'new-cap': [2, {       'newIsCap': true,       'capIsNew': false     }],     'new-parens': 2,     'no-array-constructor': 2,     'no-caller': 2,     'no-console': 'off',     'no-class-assign': 2,     'no-cond-assign': 2,     'no-const-assign': 2,     'no-control-regex': 0,     'no-delete-var': 2,     'no-dupe-args': 2,     'no-dupe-class-members': 2,     'no-dupe-keys': 2,     'no-duplicate-case': 2,     'no-empty-character-class': 2,     'no-empty-pattern': 2,     'no-eval': 2,     'no-ex-assign': 2,     'no-extend-native': 2,     'no-extra-bind': 2,     'no-extra-boolean-cast': 2,     'no-extra-parens': [2, 'functions'],     'no-fallthrough': 2,     'no-floating-decimal': 2,     'no-func-assign': 2,     'no-implied-eval': 2,     'no-inner-declarations': [2, 'functions'],     'no-invalid-regexp': 2,     'no-irregular-whitespace': 2,     'no-iterator': 2,     'no-label-var': 2,     'no-labels': [2, {       'allowLoop': false,       'allowSwitch': false     }],     'no-lone-blocks': 2,     'no-mixed-spaces-and-tabs': 2,     'no-multi-spaces': 2,     'no-multi-str': 2,     'no-multiple-empty-lines': [2, {       'max': 1     }],     'no-native-reassign': 2,     'no-negated-in-lhs': 2,     'no-new-object': 2,     'no-new-require': 2,     'no-new-symbol': 2,     'no-new-wrappers': 2,     'no-obj-calls': 2,     'no-octal': 2,     'no-octal-escape': 2,     'no-path-concat': 2,     'no-proto': 2,     'no-redeclare': 2,     'no-regex-spaces': 2,     'no-return-assign': [2, 'except-parens'],     'no-self-assign': 2,     'no-self-compare': 2,     'no-sequences': 2,     'no-shadow-restricted-names': 2,     'no-spaced-func': 2,     'no-sparse-arrays': 2,     'no-this-before-super': 2,     'no-throw-literal': 2,     'no-trailing-spaces': 2,     'no-undef': 2,     'no-undef-init': 2,     'no-unexpected-multiline': 2,     'no-unmodified-loop-condition': 2,     'no-unneeded-ternary': [2, {       'defaultAssignment': false     }],     'no-unreachable': 2,     'no-unsafe-finally': 2,     'no-unused-vars': [2, {       'vars': 'all',       'args': 'none'     }],     'no-useless-call': 2,     'no-useless-computed-key': 2,     'no-useless-constructor': 2,     'no-useless-escape': 0,     'no-whitespace-before-property': 2,     'no-with': 2,     'one-var': [2, {       'initialized': 'never'     }],     'operator-linebreak': [2, 'after', {       'overrides': {         '?': 'before',         ':': 'before'       }     }],     'padded-blocks': [2, 'never'],     'quotes': [2, 'single', {       'avoidEscape': true,       'allowTemplateLiterals': true     }],     'semi': [2, 'never'],     'semi-spacing': [2, {       'before': false,       'after': true     }],     'space-before-blocks': [2, 'always'],     'space-before-function-paren': [2, 'never'],     'space-in-parens': [2, 'never'],     'space-infix-ops': 2,     'space-unary-ops': [2, {       'words': true,       'nonwords': false     }],     'spaced-comment': [2, 'always', {       'markers': ['global', 'globals', 'eslint', 'eslint-disable', '*package', '!', ',']     }],     'template-curly-spacing': [2, 'never'],     'use-isnan': 2,     'valid-typeof': 2,     'wrap-iife': [2, 'any'],     'yield-star-spacing': [2, 'both'],     'yoda': [2, 'never'],     'prefer-const': 2,     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,     'object-curly-spacing': [2, 'always', {       objectsInObjects: false     }],     'array-bracket-spacing': [2, 'never']   } }</code></pre> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-27809.htm">公务员国考报名时间表2024（公务员国考报名时间202年）</a></p>
+                                        <p>下一个：<a href="/news/article-28283.htm">动物疫苗多少钱一只啊图片大全（动物疫苗价格查询）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2024-12-17-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新22.6M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新22.6M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-26-node-share.htm" title="V2rayNG Node节点订阅每天更新18.9M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新18.9M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-27-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-25-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新19.8M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新19.8M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-20892.htm" title="戴尔设置第一启动项为ssd（戴尔设置硬盘第一启动）">戴尔设置第一启动项为ssd（戴尔设置硬盘第一启动）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-18-node-share.htm" title="V2rayNG Node节点订阅每天更新20.3M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.3M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-28-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新21.1M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新21.1M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-4-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-18-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新21.6M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新21.6M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-15-node-share-links.htm" title="V2rayNG Node节点订阅每天更新21.6M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新21.6M/S免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
