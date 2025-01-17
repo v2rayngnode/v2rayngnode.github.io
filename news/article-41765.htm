@@ -1,0 +1,254 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-41765.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>JDK内置锁深入探究</title>
+        <meta name="description" content="一、序言 本文讲述仅针对 JVM 层次的内置锁，不涉及分布式锁。 锁有多种分类形式，比如公平锁与非公平锁、可重入锁与非重入锁、独享锁与共享锁、乐观锁与悲观锁、互斥锁与读写锁、自旋锁、分段锁和偏向锁/轻" />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- all css here -->
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                        <li><a href="#">关于</a></li>
+                                                    <li><a href="#">联系</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="index.html"><img src="/assets/website/img/v2rayngnode/logo/logo.png" alt="" /></a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="about.html">About us</a></li>
+                                    <li><a href="contact.html">Contacts</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>JDK内置锁深入探究</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                  				  				  				<h3 id="一序言">一、序言</h3> <p>本文讲述仅针对 JVM 层次的内置锁，不涉及分布式锁。</p> <p>锁有多种分类形式，比如公平锁与非公平锁、可重入锁与非重入锁、独享锁与共享锁、乐观锁与悲观锁、互斥锁与读写锁、自旋锁、分段锁和偏向锁/轻量级锁/重量级锁。</p> <p>下面将配合示例讲解各种锁的概念，期望能够达到如下目标：一是在生产环境中不错误的使用锁；二是在生产环境中选择恰当的锁。</p> <p>对锁了解不多的情况下，应该首先保证业务的正确性，然后考虑性能，比如万金油<code>synchronized</code>锁或者自带多重属性的<code>ReentrantReadWriteLock</code>锁。不因并发导致业务错误，不出现死锁。</p> <p>随着对锁的了解增多，需要更加精准的选择各类锁以保证更高性能要求。</p> <h3 id="二锁的分类">二、锁的分类</h3> <p>Java 中有两种加锁的方式：一是 synchronized 关键字，二是用 Lock 接口的实现类。</p> <p>需要通过加（互斥）锁来解决线程安全问题的锁称之为悲观锁；不通过加锁来解决线程安全问题的锁称之为乐观锁。</p> <p>锁的性能比较：<code>互斥锁 &lt; 读写锁、自旋锁 &lt; 乐观锁</code>。</p> <p>读写锁和自旋锁分别从两个不同角度提升锁的效率，前者通过共享读锁来提高效率；后者通过回避<code>阻塞-唤醒</code>上下文切换来提高效率。</p> <h4 id="一公平锁非公平锁">（一）公平锁/非公平锁</h4> <p>公平锁和非公平锁具体实现类有<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.altitude.xin/code/home/#/java/util/concurrent/Semaphore"  target="_blank" rel="nofollow">Semaphore</a>、<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.altitude.xin/code/home/#/java/util/concurrent/locks/ReentrantLock"  target="_blank" rel="nofollow">ReentrantLock</a>和<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.altitude.xin/code/home/#/java/util/concurrent/locks/ReentrantReadWriteLock"  target="_blank" rel="nofollow">ReentrantReadWriteLock</a>。</p> <p>公平与否是指参与竞争的线程是否都有机会获得锁，公平锁：多个线程按照申请锁的顺序来获取锁；非公平锁并不是按照申请锁的顺序来获取锁，极端情况下可能会有线程一直无法获取到锁。</p> <p>公平锁维护一个虚拟的先进先出队列，按照次序排队申请获取锁。</p> <h5 id="1概念解读">1、概念解读</h5> <p>为何按锁的申请顺序按照先进先出的顺序获取锁能够保证公平？当采用先进先出的排队机制时，所有处于等待队列中的线程理论上都有机会获得锁，并且随着时间的推移，获得锁的机会越来越大。</p> <p>不是按照申请锁的顺序来获取锁如何解读？synchronized 锁是典型的非公平锁，表现形式是所有参与获取锁的线程是否能够获得锁是不可预测的。</p> <p>公平锁的深层次内涵是只要线程有获得锁的需求，在绝对的时间里，一定能够获得锁。比如服务器连接资源，不存在客户端连接不上的情况，这是公平锁的典型的应用。</p> <h5 id="2锁代码层次表示">2、锁代码层次表示</h5> <p>Semaphore</p> <pre><code class="language-java">// 非公平锁 Semaphore unfairLock = new Semaphore(5); // 公平锁 Semaphore fairLock = new Semaphore(5,true);</code></pre> <p>ReentrantLock</p> <pre><code class="language-java">// 非公平锁 ReentrantLock unfairLock = new ReentrantLock(); // 公平锁 ReentrantLock fairLock = new ReentrantLock(true);</code></pre> <p>ReentrantReadWriteLock</p> <pre><code class="language-java">// 非公平锁 ReentrantReadWriteLock unfairLock = new ReentrantReadWriteLock(); // 公平可锁 ReentrantReadWriteLock fairLock = new ReentrantReadWriteLock(true);</code></pre> <p>上面提到的 3 个锁的实现类能配置公平锁或者非公平锁，真正实现锁的公平与否是由<code>AbstractQueuedSynchronizer</code>抽象类的子类定义的。</p> <h5 id="3优劣对比">3、优劣对比</h5> <table> <thead> <tr> <th>锁</th> <th>获取锁事件</th> <th>锁的效率</th> <th>备注</th> </tr> </thead> <tbody> <tr> <td>公平锁</td> <td>可以乐观估计</td> <td>相对较低</td> <td></td> </tr> <tr> <td>非公平锁</td> <td>饥饿状态</td> <td>相对较高</td> <td>如果对锁没有特别的要求，优先选用非公平锁</td> </tr> </tbody> </table> <p>公平锁的效率比非公平锁低的原因如下：</p> <ul> <li>所有想获取锁的线程必须先到先进先出队列注册，排队才能获取锁，从获取锁的流程上增加额外的操作；</li> <li>有队列必然涉及线程的阻塞与唤醒操作，增加了操作系统层次上下文切换调度开销。</li> </ul> <h4 id="二可重入锁非可重入锁">（二）可重入锁/非可重入锁</h4> <p>可重入锁是指某个线程获得特定锁后，同一个线程内可以多次获得该锁。<code>synchronized</code>关键字、<code>ReentrantLock</code>和<code>ReentrantReadWriteLock</code>属于可重入锁，Jdk 内置除此之外其它的锁都是不可重入锁。</p> <p>可重入锁有两个重要的特性：同一个线程、重复获取锁。</p> <h5 id="1可重入锁必要性分析">1、可重入锁必要性分析</h5> <p>可重入锁能够避免同一线程多次获取锁时的死锁现象。</p> <pre><code class="language-java">/**  * 竞争线程调用入口方法  */ public synchronized void facadeMethod(){     // 处理业务     innerMethod(); } public void innerMethod(){     // 处理业务 }</code></pre> <p>当只在调用入口方法上添加 synchronized 锁，内部调用链所涉及的方法都不添加锁，在线程竞争条件下也是线程安全的。这种条件下即使 synchronized 不是可重入锁，也不会发生死锁。原因如下：方法调用是以方法栈的形式调用的，在入口方法加锁相当于内部调用链的方法都锁的约束之下，因此是线程安全的。</p> <h5 id="2非可重入锁危害程度分析">2、非可重入锁危害程度分析</h5> <p>假如 synchronized 不是可重入锁，业务层有死锁发生时，应用在测试环境压测必然能够发现，未进入生产环境便可提前处理。因为这种死锁是一种必然发生事件，排查起来较为容易。</p> <p>当死锁发生时，第一步排查当前锁是否是可重入的，其次再考虑是否是业务层代码逻辑本身存在缺陷。</p> <pre><code class="language-java">/**  * 竞争线程调用入口方法  */ public synchronized void facadeMethod(){     // 处理业务     innerMethod(); } public synchronized void innerMethod(){     // 处理业务 }</code></pre> <p>可重入锁是对锁的一次改良，提高了开发效率是显而易见的，与此同时也给使用锁的用户造成不必要的困扰：在使用锁的过程中，是否可重入并不是避免死锁的充分条件。</p> <h4 id="三独享锁共享锁">（三）独享锁/共享锁</h4> <p>独享锁是指该锁一次只能被一个线程所持有；共享锁是指该锁可被多个线程所持有。实现<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.altitude.xin/code/home/#/java/util/concurrent/locks/ReadWriteLock"  target="_blank" rel="nofollow">ReadWriteLock</a>接口的锁，其中<code>读锁</code>是共享锁、<code>写锁</code>是独享锁。</p> <p>在内置的锁中，除了读写锁中的读锁是共享锁，其余皆是独享锁。</p> <h5 id="1降低锁的颗粒度">1、降低锁的颗粒度</h5> <p>竞争线程在处理竞争资源时有如下四种情形：读读、读写、写读、写写，对于大部分应用来说，读操作的比写操作的频度要高，更清楚的表述是在大部分时间里<code>读读</code>是线程间处理竞争资源形态，因此降低锁的颗粒度现实意义比较明显。</p> <h5 id="2共享读锁与乐观读锁">2、共享读锁与乐观读锁</h5> <p>共享读锁是为了解决独占锁只能被一个线程占有的问题，它支持多个线程同时持有锁，本质上属于悲观锁的范畴。</p> <p>乐观读锁更为彻底，将加锁的环节取消，但通过特殊机制仍能够保证线程安全。</p> <p>加锁和释放锁是一个重操作，因此乐观读锁比共享读锁效率更高。</p> <p><strong>锁的汇总</strong></p> <pre><code class="language-java">// 非公平可重入读写锁 ReentrantReadWriteLock unfairLock = new ReentrantReadWriteLock(); // 公平可重入读写锁 ReentrantReadWriteLock fairLock = new ReentrantReadWriteLock(true);</code></pre> <h4 id="四乐观锁悲观锁">（四）乐观锁/悲观锁</h4> <p>乐观锁与悲观锁的内涵是当并发发生时处理并发同步的态度。悲观锁认为当并发发生时，被锁的对象一定会发生修改，如果放任不管，并发操作一定会给业务带来副作用。</p> <p>悲观锁需要加锁，乐观锁不加锁但仍能通过一定机制保证线程安全。</p> <p><code>互斥锁</code>、自旋锁、<code>读写锁</code>都属于悲观锁。</p> <h5 id="1典型乐观锁">1、典型乐观锁</h5> <p>严格意义来讲，只有悲观锁才能称之为锁，乐观锁本身不通过加锁来解决并发问题，因此称之为乐观“锁”更合适。</p> <p>乐观“锁”处理并发问题有两种常见方式：一是以<code>AtomicInteger</code>为代表的原子操作类，这种处理方式本身不加锁，但仍能解决并发产生的问题；二是乐观锁<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.altitude.xin/code/home/#/java/util/concurrent/locks/StampedLock"  target="_blank" rel="nofollow">StampedLock</a>类中的乐观读。</p> <h4 id="五自旋锁">（五）自旋锁</h4> <p>自旋锁是相对于互斥锁而言的，本质上属于悲观锁的一种（仍然需要加锁）。</p> <h5 id="1自旋锁的原理">1、自旋锁的原理</h5> <p>当线程申请获取锁时，发现已经被其它线程占有，此时不断的循环尝试获取锁，直到获取锁成功。线程自旋获取锁需要消耗 CPU，如果一直获取不到锁，线程会一直自旋，持续消耗 CPU。</p> <p>自旋锁是对线程申请获取锁时出现的阻塞与唤醒上下文切换的一种优化，即用 CPU 资源换取线程状态切换时间，当线程通过自旋获取锁的时间超过普通的阻塞-唤醒调度时间，那么就不适合选用自旋锁。</p> <h5 id="2自旋锁使用场景及优缺点">2、自旋锁使用场景及优缺点</h5> <p><strong>（1）使用场景</strong></p> <p>如果持有锁的线程能在很短时间内释放锁资源，选用自旋锁非常合适。线程平均占有锁的时间很短，其它线程稍微等待（自旋）便能立刻获取锁，效率比阻塞-唤醒线程状态切换高得多。</p> <p>一般而言，竞争资源涉及内存计算时，占有锁的时间平均都比较短，适合自旋锁；对于磁盘读写 IO 操作、网络操作等，线程占有锁的时间平均较长，不适合使用自旋锁。</p> <p>代码块或者轻量级方法，线程竞争不激烈的场景下，适合自旋锁。</p> <p><strong>（2）优缺点</strong></p> <p>自旋锁尽可能的减少线程的阻塞，对于锁的竞争不激烈且占用锁时间非常短的代码块来说性能提升明显。自旋的时间消耗会小于线程阻塞挂起再唤醒的操作的消耗，回避了线程两次上下文切换。</p> <h5 id="3自旋锁与乐观锁">3、自旋锁与乐观锁</h5> <p>自旋锁与乐观锁的区别是很明显的，很多地方常用 CAS 技术对两者举例，以致于让它们的边界比较模糊。</p> <table> <thead> <tr> <th>锁</th> <th>乐观（悲观）锁</th> <th>独占（共享）锁</th> <th>消耗 CPU 资源的目的</th> <th>提升效率优化核心点</th> </tr> </thead> <tbody> <tr> <td>自旋锁</td> <td>悲观锁</td> <td>独占锁</td> <td>申请获取锁</td> <td>用 CPU 资源置换线程阻塞-唤醒调度时间</td> </tr> <tr> <td>乐观锁</td> <td>乐观锁</td> <td>共享锁</td> <td>比较与交换</td> <td>不加锁，如果需要处理线程问题，则采取相应的措施</td> </tr> </tbody> </table> <p>除了原子操作类中用乐观锁处理读写外，<code>StampedLock</code>类主要用到乐观读锁。</p> <h3 id="三关键字锁">三、关键字锁</h3> <p><code>synchronized</code>关键字属于内置锁，可作用于<code>对象</code>和<code>方法</code>。添加到方法上的锁，锁到在哪里？</p> <p>对于实例方法，锁添加到持有方法的实例上；对于类方法，锁添加到类对象（Class 对象）上。</p> <h4 id="一感性认识">（一）感性认识</h4> <p>关键字<code>synchronized</code>创建的是一把<code>可重入</code>的锁，不是简单的轻量级或者重量级的锁，也不是简单的公平与非公平锁。</p> <p>Java8 内置的<code>synchronized</code>是经过优化的锁，有偏向锁、轻量级锁、重量级锁等状态。</p> <p>重量级锁影响性能的根本原因是伴随着加锁与释放锁，竞争锁的工作线程发生上下文切换。</p> <h5 id="1公平性分析">1、公平性分析</h5> <p>锁处于轻量级时，因为不存在线程间获取锁的实质性碰撞行为，理论情况下“竞争”线程不存在饥饿状态的发生，因此属于公平锁。</p> <p>锁处于重量级时，无法保证竞争线程一定不存在饥饿状态发生，因此属于非公平锁。</p> <h5 id="2非公平如何理解">2、非公平如何理解</h5> <p>使用 synchronized 加锁的线程，没有先进先出的队列机制保证有序获取锁，因此它是非公平锁。</p> <p><strong>（1）竞争线程随机获取锁？</strong></p> <p>随机必然伴随着概率事件，获取锁既有成功的概率也有失败的概率，如果是严格随机，理论情况下是不存在饥饿状态发生的，这种情况下也就不属于非公平锁之说。</p> <p>竞争线程不是随机获取锁，尽管从线程的角度看像是一种“随机”行为，因此它是一把非公平锁。</p> <p><strong>（2）竞争线程可预测获取锁？</strong></p> <p>（重量级锁）在竞争锁条件下必然存在操作系统级别的（线程阻塞与唤醒）系统调度行为。操作系统的调度是按照既定的规则进行线程调度的，线程被操作系统唤醒，才有机会获取锁，因此可以粗略的理解获取锁的行为也是可以预测的。</p> <p><strong>（3）可预测获取锁是公平锁？</strong></p> <p>假如操作系统是按照优先级高低完成线程调度的，极端情况下，新申请获取锁的线程优先级永远比等待队列中线程优先级要高，那么等待队列必然会发生饥饿状态，因此尽管获取锁的行为是有规律的、能够预测的，它依然是非公平锁。</p> <h5 id="3互斥锁">3、互斥锁</h5> <p>互斥锁即重量级锁，互斥依靠通过操作系统来实现。</p> <p>互斥的表现形式如下：当多线程竞争资源条件下，未获得锁的其它线程均处于阻塞状态，当持有锁的线程释放锁后，阻塞状态的线程被唤醒竞争获取锁，未获取成功的锁继续阻塞，如此循环。线程调度需要操作系统切换上下文，占用 CPU 时间，影响性能。</p> <p>操作系统 CPU 时间片大致可分为两类，一是工作时间；二是调度时间，调度时间越长相应的便会缩短工作时长。</p> <h4 id="二锁的膨胀">（二）锁的膨胀</h4> <p>这里不讲锁的膨胀过程，只讲锁在膨胀过程中涉及的中间状态，以及如何理解。锁的膨胀是单向的，只能升级不能降级。</p> <h5 id="1偏向锁">1、偏向锁</h5> <p>线程间不存在锁的竞争行为，至多只有一个线程有获取锁的需求，常见场景为<code>单线程程序</code>。</p> <h5 id="2轻量级锁">2、轻量级锁</h5> <p>线程间存在锁的<code>伪竞争</code>行为，即同一时刻绝对不会存在两个线程申请获取锁，各线程尽管都有使用锁的需求，但是是交替使用锁。</p> <h5 id="3重量级锁">3、重量级锁</h5> <p>线程间存在锁的实质性竞争行为，线程间都有获取锁的需求，但是时间不可交错，互斥锁的阻塞等待。</p> <h3 id="四接口锁">四、接口锁</h3> <h4 id="一lock">（一）Lock</h4> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.altitude.xin/code/home/#/java/util/concurrent/locks/Lock"  target="_blank" rel="nofollow">Lock</a>是所有接口实现类的父类接口，定义了锁操作的基本规范。</p> <pre><code class="language-java">public interface Lock {     // 阻塞等待获取锁     void lock();     // 阻塞等待获取锁（可相应中断）     void lockInterruptibly() throws InterruptedException;     // 非阻塞获取锁     boolean tryLock();     // 等待指定时间非阻塞获取锁     boolean tryLock(long time, TimeUnit unit) throws InterruptedException;     // 释放锁     void unlock(); }</code></pre> <h4 id="二stampedlock">（二）StampedLock</h4> <h5 id="1stampedlock优势">1、StampedLock优势</h5> <h6 id="高性能">高性能</h6> <p>StampedLock在读线程非常多而写线程较少的场景下性能非常高，乐观读锁属于无锁编程，可以简单理解为没有加锁。</p> <h6 id="回避写锁饥饿">回避写锁饥饿</h6> <p>非公平读写锁在读多写少的场景下可能发生写锁饥饿，而在高并发的场景下，都会优先使用非公平锁。StampedLock能解决这个矛盾问题：既能使用非公平读写锁，又能回避写锁饥饿。</p> <p>回避写锁饥饿的机制是能将任一读锁转化为写锁。</p> <h5 id="2典型应用">2、典型应用</h5> <h6 id="排它写锁">排它写锁</h6> <pre><code class="language-java">/**  * 排它写锁（an exclusively locked method）  */ void move(double deltaX, double deltaY) {     long stamp = stampedLock.writeLock();     try {         x += deltaX;         y += deltaY;     } finally {         stampedLock.unlockWrite(stamp);     } }</code></pre> <p>排它写锁能安全的修改数据，在为释放锁之前，其它线程无法获取锁。</p> <p>此种方式可能会发生写锁饥饿的情况。</p> <h6 id="排它写锁改进">排它写锁（改进）</h6> <p>普通写锁可能会发生写锁饥饿，下面方式能够避免写锁饥饿——读锁转写锁。</p> <pre><code class="language-java">/**  * 无饥饿写锁  */ void moveNoHunger(double deltaX, double deltaY) {     long stamp = stampedLock.readLock();     try {         while (x == 0.0 &amp;&amp; y == 0.0) {             long ws = stampedLock.tryConvertToWriteLock(stamp);             if (ws != 0L) {                 stamp = ws;                 x += deltaX;                 y += deltaY;                 break;             } else {                 stampedLock.unlockRead(stamp);                 stamp = stampedLock.writeLock();             }         }     } finally {         stampedLock.unlock(stamp);     } }</code></pre> <h6 id="乐观锁">乐观锁</h6> <pre><code class="language-java">/**  * 乐观读锁  */ double distanceFromOrigin() { // A read-only method     long stamp = stampedLock.tryOptimisticRead();     double currentX = x, currentY = y;     if (!stampedLock.validate(stamp)) {         stamp = stampedLock.readLock();         try {             currentX = x;             currentY = y;         } finally {             stampedLock.unlockRead(stamp);         }     }     return Math.sqrt(currentX * currentX + currentY * currentY); }</code></pre> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-41254.htm">中国宠物粮食品牌排行榜前十名有哪些（中国宠物粮食品牌排行榜前十名有哪些公司）</a></p>
+                                        <p>下一个：<a href="/news/article-41766.htm">动物疫苗哪个好（动物疫苗的作用）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-24555.htm" title="北京农大动物医院官网招聘信息（北京农大动物医院官网招聘信息最新）">北京农大动物医院官网招聘信息（北京农大动物医院官网招聘信息最新）</a></li>
+                        <li class="py-2"><a href="/news/article-24108.htm" title="什么属相的养猫好（属什么养猫不好）">什么属相的养猫好（属什么养猫不好）</a></li>
+                        <li class="py-2"><a href="/news/article-27809.htm" title="公务员国考报名时间表2024（公务员国考报名时间202年）">公务员国考报名时间表2024（公务员国考报名时间202年）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-24-free-high-speed-nodes.htm" title="V2rayNG Node节点订阅每天更新21.4M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新21.4M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-36841.htm" title="兽用疫苗放在冰箱对食物 兽用疫苗放在冰箱对食物有影响吗">兽用疫苗放在冰箱对食物 兽用疫苗放在冰箱对食物有影响吗</a></li>
+                        <li class="py-2"><a href="/news/article-41253.htm" title="动物疫苗的重要性有哪些呢（动物疫苗的概念）">动物疫苗的重要性有哪些呢（动物疫苗的概念）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-28-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新21.1M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新21.1M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-25029.htm" title="正则表达式规则以及贪婪匹配与非贪婪匹配">正则表达式规则以及贪婪匹配与非贪婪匹配</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-12-free-high-speed-nodes.htm" title="V2rayNG Node节点订阅每天更新22.5M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.5M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-31106.htm" title="Spring boot将图片转成base64,使用sun.misc.BASE64Decoder转换图片">Spring boot将图片转成base64,使用sun.misc.BASE64Decoder转换图片</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">51</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
