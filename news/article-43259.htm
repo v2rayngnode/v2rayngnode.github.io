@@ -1,0 +1,265 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-43259.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>C#语法糖系列第一篇：聊聊 params 参数底层玩法</title>
+        <meta name="description" content="首先说说为什么要写这个系列，大概有两点原因。  这种文章阅读量确实高... 对 IL 和 汇编代码 的学习巩固  所以就决定写一下这个系列，如果大家能从中有所收获，那就更好啦！ 一：params 应用" />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-43259.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="C#语法糖系列第一篇：聊聊 params 参数底层玩法" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/0d3b7a18c1a25769d61b0ada94f7ed73.webp" />
+        <meta property="og:release_date" content="2025-01-20T07:10:43" />
+    <meta property="og:updated_time" content="2025-01-20T07:10:43" />
+        <meta property="og:description" content="首先说说为什么要写这个系列，大概有两点原因。  这种文章阅读量确实高... 对 IL 和 汇编代码 的学习巩固  所以就决定写一下这个系列，如果大家能从中有所收获，那就更好啦！ 一：params 应用" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- all css here -->
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                        <li><a href="#">关于</a></li>
+                                                    <li><a href="#">联系</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="index.html"><img src="/assets/website/img/v2rayngnode/logo/logo.png" alt="" /></a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="about.html">About us</a></li>
+                                    <li><a href="contact.html">Contacts</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>C#语法糖系列第一篇：聊聊 params 参数底层玩法</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                  				  				  				<p>首先说说为什么要写这个系列，大概有两点原因。</p> <ol> <li>这种文章阅读量确实高...</li> <li>对 IL 和 汇编代码 的学习巩固</li> </ol> <p>所以就决定写一下这个系列，如果大家能从中有所收获，那就更好啦！</p> <h2 id="一params-应用层玩法">一：params 应用层玩法</h2> <p>首先上一段<code>测试代码</code>。</p> <pre><code class="language-C#">     class Program     {         static void Main(string[] args)         {             Test(100, 200, 300);             Test();         }          static void Test(params int[] list)         {             Console.WriteLine($"list.length={list.Length}");         }     }</code></pre> <p>输出结果如下：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/b16229a0ff3f234a13ae850defcc9a9d.jpg" alt="C#语法糖系列第一篇：聊聊 params 参数底层玩法"></p> <p>可以看出如果给<code>方法形参</code> 加上<code>params</code> 前缀，在传递<code>方法实参</code> 上就特别灵活，点赞。</p> <p>接下来我们来看看，这么灵活的<code>实参传递</code> 底层到底是怎么玩的？我们先从 IL 层面探究下。</p> <h2 id="二il-层面解读">二：IL 层面解读</h2> <p>用<code>ILSpy</code> 打开我们的 exe ，看看 IL 代码</p> <pre><code class="language-C#"> .method private hidebysig static  	void Main ( 		string[] args 	) cil managed  { 	// Method begins at RVA 0x2050 	// Code size 37 (0x25) 	.maxstack 8 	.entrypoint  	IL_0000: nop 	IL_0001: ldc.i4.3 	IL_0002: newarr [mscorlib]System.Int32 	IL_0007: dup 	IL_0008: ldtoken field valuetype '&lt;PrivateImplementationDetails&gt;'/'__StaticArrayInitTypeSize=12' '&lt;PrivateImplementationDetails&gt;'::'9AC9CF706FBD14D039E0436219C5D852927E5F69295F2EF423AE897345197B2A' 	IL_000d: call void [mscorlib]System.Runtime.CompilerServices.RuntimeHelpers::InitializeArray(class [mscorlib]System.Array, valuetype [mscorlib]System.RuntimeFieldHandle) 	IL_0012: call void ConsoleApp2.Program::Test(int32[]) 	IL_0017: nop 	IL_0018: ldc.i4.0 	IL_0019: newarr [mscorlib]System.Int32 	IL_001e: call void ConsoleApp2.Program::Test(int32[]) 	IL_0023: nop 	IL_0024: ret } // end of method Program::Main  .method private hidebysig static  	void Test ( 		int32[] list 	) cil managed  { 	.param [1] 		.custom instance void [mscorlib]System.ParamArrayAttribute::.ctor() = ( 			01 00 00 00 		) 	// Method begins at RVA 0x2076 	// Code size 26 (0x1a) 	.maxstack 8  	IL_0000: nop 	IL_0001: ldstr "list.length={0}" 	IL_0006: ldarg.0 	IL_0007: ldlen 	IL_0008: conv.i4 	IL_0009: box [mscorlib]System.Int32 	IL_000e: call string [mscorlib]System.String::Format(string, object) 	IL_0013: call void [mscorlib]System.Console::WriteLine(string) 	IL_0018: nop 	IL_0019: ret } // end of method Program::Test</code></pre> <p>上面是<code>Main</code> 和<code>Test</code> 方法的IL代码，我们逐一看一下。</p> <h3 id="1-test-方法">1. Test 方法</h3> <p>从<code>int32[] list</code> 参数看并没有所谓的<code>params</code>，这也就说明它是<code>C#编译器</code> 玩的一个手段而已，在方法调用前就已经构建好了。</p> <h3 id="2-main方法">2. Main方法</h3> <p>可以看到 IL 层面的<code>Test(100, 200, 300)</code> 已经变成了下面五行代码。</p> <pre><code class="language-C#"> 	IL_0002: newarr [mscorlib]System.Int32 	IL_0007: dup 	IL_0008: ldtoken field valuetype '&lt;PrivateImplementationDetails&gt;'/'__StaticArrayInitTypeSize=12' '&lt;PrivateImplementationDetails&gt;'::'9AC9CF706FBD14D039E0436219C5D852927E5F69295F2EF423AE897345197B2A' 	IL_000d: call void [mscorlib]System.Runtime.CompilerServices.RuntimeHelpers::InitializeArray(class [mscorlib]System.Array, valuetype [mscorlib]System.RuntimeFieldHandle) 	IL_0012: call void ConsoleApp2.Program::Test(int32[])</code></pre> <p>逻辑大概就是:</p> <ul> <li>用<code>newarr</code> 构建初始化<code>int[]</code> 数组。</li> <li>用<code>ldtoken</code> 从程序元数据中提取<code>1,2,3</code>。</li> <li>用<code>InitializeArray</code> 来将 1，2，3 构建到数组中。</li> </ul> <p>有了这些指令，我相信 JIT 就知道怎么做了。</p> <p>再看<code>Test()</code> 的 IL 指令只有一行<code>newarr [mscorlib]System.Int32</code> 初始化。</p> <p>所以本质上来说，就是提前构建好 array，然后进行参数传递，仅此而已。。。</p> <h2 id="三汇编层面解读">三：汇编层面解读</h2> <p>有了<code>newarr + ldtoken + call</code> 三条指令，接下来我们读一下汇编层做了什么，使用 windbg 打开 exe，简化后的汇编代码如下：</p> <pre><code class="language-C#"> 0:000&gt; !U /d 009b0848 Normal JIT generated code ConsoleApp2.Program.Main(System.String[]) Begin 009b0848, size 77  D:\net5\ConsoleApp4\ConsoleApp2\Program.cs @ 14: &gt;&gt;&gt; 009b0848 55              push    ebp 009b0849 8bec            mov     ebp,esp 009b084b 83ec10          sub     esp,10h 009b084e 33c0            xor     eax,eax 009b0850 8945f4          mov     dword ptr [ebp-0Ch],eax 009b0853 8945f8          mov     dword ptr [ebp-8],eax 009b0856 8945f0          mov     dword ptr [ebp-10h],eax 009b0859 894dfc          mov     dword ptr [ebp-4],ecx 009b085c 833df042710000  cmp     dword ptr ds:[7142F0h],0 009b0863 7405            je      009b086a 009b0865 e816f55264      call    clr!JIT_DbgIsJustMyCode (64edfd80) 009b086a 90              nop  D:\net5\ConsoleApp4\ConsoleApp2\Program.cs @ 15: 009b086b b95e186763      mov     ecx,offset mscorlib_ni!System.Text.Encoding.GetEncodingCodePage(Int32)$##6006719 &lt;PERF&gt; (mscorlib_ni+0x185e) (6367185e) 009b0870 ba03000000      mov     edx,3 009b0875 e8b229d5ff      call    0070322c (JitHelp: CORINFO_HELP_NEWARR_1_VC) 009b087a 8945f4          mov     dword ptr [ebp-0Ch],eax 009b087d b9e04d7100      mov     ecx,714DE0h 009b0882 e819c91f64      call    clr!JIT_GetRuntimeFieldStub (64bad1a0) 009b0887 8945f8          mov     dword ptr [ebp-8],eax 009b088a 8d45f8          lea     eax,[ebp-8] 009b088d ff30            push    dword ptr [eax] 009b088f 8b4df4          mov     ecx,dword ptr [ebp-0Ch] 009b0892 e8f9c61f64      call    clr!ArrayNative::InitializeArray (64bacf90) 009b0897 8b4df4          mov     ecx,dword ptr [ebp-0Ch] 009b089a ff15904d7100    call    dword ptr ds:[714D90h] (ConsoleApp2.Program.Test(Int32[]), mdToken: 06000002) 009b08a0 90              nop  D:\net5\ConsoleApp4\ConsoleApp2\Program.cs @ 16: 009b08a1 b95e186763      mov     ecx,offset mscorlib_ni!System.Text.Encoding.GetEncodingCodePage(Int32)$##6006719 &lt;PERF&gt; (mscorlib_ni+0x185e) (6367185e) 009b08a6 33d2            xor     edx,edx 009b08a8 e87f29d5ff      call    0070322c (JitHelp: CORINFO_HELP_NEWARR_1_VC) 009b08ad 8945f0          mov     dword ptr [ebp-10h],eax 009b08b0 8b4df0          mov     ecx,dword ptr [ebp-10h] 009b08b3 ff15904d7100    call    dword ptr ds:[714D90h] (ConsoleApp2.Program.Test(Int32[]), mdToken: 06000002) 009b08b9 90              nop  D:\net5\ConsoleApp4\ConsoleApp2\Program.cs @ 17: 009b08ba 90              nop 009b08bb 8be5            mov     esp,ebp 009b08bd 5d              pop     ebp 009b08be c3              ret</code></pre> <h3 id="1-newarr">1. newarr</h3> <p>可以很清楚的看到，<code>newarr</code> 调用了 CLR 中的jithelper函数<code>CORINFO_HELP_NEWARR_1_VC</code> 下的<code>JIT_NewArr1</code> 方法，大家有兴趣可以看下<code>jitheapler.cpp</code>，调用完之后，初始化数组就出来了。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/8a49eacf5d9c4fcbe68ef881bb9ac2bf.jpg" alt="C#语法糖系列第一篇：聊聊 params 参数底层玩法"></p> <p>从dp看，数组只申明了<code>length=3</code>,还并没有数组元素，也就说所谓的初始化。</p> <h3 id="2-ldtoken--initializearray">2. ldtoken &amp; InitializeArray</h3> <p>刚才也说到了, ldtoken 是在运行时提取元数据，那就必须要解析 PE 头，在 clr 层面有一个<code>PEDecoder::GetRvaData</code> 方法就是用来解析运行时数据，它是发生在<code>ArrayNative::InitializeArray</code> 方法中，所以我们下两个 bu 命令拦截。</p> <pre><code class="language-C#"> 0:000&gt; bu clr!ArrayNative::InitializeArray 0:000&gt; bu clr!PEDecoder::GetRvaData 0:000&gt; g Breakpoint 3 hit eax=0019f500 ebx=0019f5ac ecx=024c2338 edx=006fb930 esi=00000000 edi=0019f520 eip=64bacf90 esp=0019f4f0 ebp=0019f508 iopl=0         nv up ei pl zr na pe nc cs=0023  ss=002b  ds=002b  es=002b  fs=0053  gs=002b             efl=00000246 clr!ArrayNative::InitializeArray: 64bacf90 6a78            push    78h 0:000&gt; g Breakpoint 0 hit eax=00713448 ebx=00624044 ecx=0071344c edx=0071dc28 esi=00624044 edi=00624de0 eip=64befcfc esp=0019f400 ebp=0019f410 iopl=0         nv up ei pl zr na pe nc cs=0023  ss=002b  ds=002b  es=002b  fs=0053  gs=002b             efl=00000246 clr!PEDecoder::GetRvaData: 64befcfc 55              push    ebp 0:000&gt; k   # ChildEBP RetAddr       00 0019f410 64b63be5     clr!PEDecoder::GetRvaData 01 0019f410 64b63bb3     clr!Module::GetRvaField+0x40 02 0019f44c 64bad0a7     clr!FieldDesc::GetStaticAddressHandle+0xdd 03 0019f4ec 00680897     clr!ArrayNative::InitializeArray+0x11a 0:000&gt; bp 64b63be5 0:000&gt; g eax=00402928 ebx=00624044 ecx=0071344c edx=0071dc28 esi=00624044 edi=00624de0 eip=64b63be5 esp=0019f40c ebp=0019f410 iopl=0         nv up ei pl nz na pe nc cs=0023  ss=002b  ds=002b  es=002b  fs=0053  gs=002b             efl=00000206 clr!Module::GetRvaField+0x40: 64b63be5 5e              pop     esi</code></pre> <p>从输出看，上面的<code>GetRvaField</code> 方法的返回值会送到 eax 上，接下来我们验证下 eax 上的值是不是参数 100，200，300 。</p> <pre><code class="language-C#"> 0:000&gt; dp eax L3 00402928  00000064 000000c8 0000012c</code></pre> <p>上面三个就是 16进制的表示，接下来我们再验证下这三个值是怎么赋到初始化数组中的，可以用<code>ba</code> 命令对 内存地址 进行拦截。</p> <pre><code class="language-C#"> 0:000&gt; ba r4 023e2338 + 0x8 0:000&gt; ba r4 023e2338 + 0x8 + 0x4 0:000&gt; ba r4 023e2338 + 0x8 + 0x4 + 0x4 0:000&gt; g Breakpoint 3 hit eax=0000000c ebx=00000000 ecx=00000003 edx=00000064 esi=00402928 edi=023e2340 eip=6a91d68b esp=0019f440 ebp=0019f4ec iopl=0         nv up ei pl nz na pe nc cs=0023  ss=002b  ds=002b  es=002b  fs=0053  gs=002b             efl=00000206 VCRUNTIME140_CLR0400!memcpy+0x50b: 6a91d68b 83c704          add     edi,4 0:000&gt; g Breakpoint 4 hit eax=0000000c ebx=00000000 ecx=00000002 edx=000000c8 esi=0040292c edi=023e2344 eip=6a91d68b esp=0019f440 ebp=0019f4ec iopl=0         nv up ei pl nz na po nc cs=0023  ss=002b  ds=002b  es=002b  fs=0053  gs=002b             efl=00000202 VCRUNTIME140_CLR0400!memcpy+0x50b: 6a91d68b 83c704          add     edi,4 0:000&gt; g Breakpoint 5 hit eax=0000000c ebx=00000000 ecx=00000001 edx=0000012c esi=00402930 edi=023e2348 eip=6a91d68b esp=0019f440 ebp=0019f4ec iopl=0         nv up ei pl nz na po nc cs=0023  ss=002b  ds=002b  es=002b  fs=0053  gs=002b             efl=00000202 VCRUNTIME140_CLR0400!memcpy+0x50b: 6a91d68b 83c704          add     edi,4  0:000&gt; dp 023e2338 L5 023e2338  6368426c 00000003 00000064 000000c8 023e2348  0000012c</code></pre> <p>接下来稍微解释下<code>ba r4 023e2338 + 0x8</code> 命令。</p> <ul> <li> <p>023e2338 是初始化数组的首地址。</p> </li> <li> <p>023e2338+0x8 初始化数组第一个元素的地址。</p> </li> <li> <p>023e2338 + 0x8 + 0x4  初始化数组第二个元素的地址。</p> </li> <li> <p>r4  按4byte对地址块读写进行监控。</p> </li> </ul> <p>当三个断点命中后，可以看到初始化数组<code>023e2338</code> 上的三个元素值都已经填上了，就说这么多吧，相信大家对 params 机制有一定的理解。</p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-42763.htm">想开宠物店但是没经验（开宠物店累不累）</a></p>
+                                        <p>下一个：<a href="/news/article-43260.htm">猫粮成本价一斤多少钱（猫粮多少钱一公斤）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2024-12-28-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新19M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-29-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新22.6M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.6M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-20428.htm" title="动物疫苗的保存温度是多少度合适（动物疫苗运输与储存规范）">动物疫苗的保存温度是多少度合适（动物疫苗运输与储存规范）</a></li>
+                        <li class="py-2"><a href="/news/article-21339.htm" title="vue中给buttion按钮添加键盘回车（enter）事件">vue中给buttion按钮添加键盘回车（enter）事件</a></li>
+                        <li class="py-2"><a href="/news/article-34434.htm" title="猫养多久才会亲人（猫要养多久才会亲人）">猫养多久才会亲人（猫要养多久才会亲人）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-28-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新21.1M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新21.1M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-39785.htm" title="广州宠物救助站电话号码多少（广州宠物救援队）">广州宠物救助站电话号码多少（广州宠物救援队）</a></li>
+                        <li class="py-2"><a href="/news/article-32541.htm" title="宁波安安宠医康丽宠物医院（北仑安安宠物医院）">宁波安安宠医康丽宠物医院（北仑安安宠物医院）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-18-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新22.5M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.5M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-16-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新21.5M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新21.5M/S免费节点订阅链接地址分享</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
