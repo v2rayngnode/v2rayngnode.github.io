@@ -1,0 +1,281 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-45737.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>GMSSL ：SM2椭圆曲线公钥密码算法-密钥交换协议</title>
+        <meta name="description" content="2021SC@SDUSC 目录 一、整体架构 二、具体分析  前一篇文章写了密钥交换协议的基本流程，这一篇文章看一下代码实现 一、整体架构  &nbsp;整体来看这一部分有6个函数，相对重要的是序号3" />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-45737.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="GMSSL ：SM2椭圆曲线公钥密码算法-密钥交换协议" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/63f5c4854e773ff57ed624716f0b93fd.webp" />
+        <meta property="og:release_date" content="2025-01-25T09:51:06" />
+    <meta property="og:updated_time" content="2025-01-25T09:51:06" />
+        <meta property="og:description" content="2021SC@SDUSC 目录 一、整体架构 二、具体分析  前一篇文章写了密钥交换协议的基本流程，这一篇文章看一下代码实现 一、整体架构  &nbsp;整体来看这一部分有6个函数，相对重要的是序号3" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="GMSSL ：SM2椭圆曲线公钥密码算法-密钥交换协议">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                        <li><a href="#">关于</a></li>
+                                                    <li><a href="#">联系</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="index.html"><img src="/assets/website/img/v2rayngnode/logo/logo.png" alt="" /></a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="about.html">About us</a></li>
+                                    <li><a href="contact.html">Contacts</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>GMSSL ：SM2椭圆曲线公钥密码算法-密钥交换协议</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> <p id="articleContentId">2021SC@SDUSC</p> <p id="main-toc"><strong>目录</strong></p> <p id="%E4%B8%80%E3%80%81%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84-toc" style="margin-left:40px;"><a href="#%E4%B8%80%E3%80%81%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84" title="一、整体架构" rel="nofollow">一、整体架构</a></p> <p id="%E4%BA%8C%E3%80%81%E5%85%B7%E4%BD%93%E5%88%86%E6%9E%90-toc" style="margin-left:40px;"><a href="#%E4%BA%8C%E3%80%81%E5%85%B7%E4%BD%93%E5%88%86%E6%9E%90" title="二、具体分析" rel="nofollow">二、具体分析</a></p> <hr id="hr-toc"/> <p>前一篇文章写了密钥交换协议的基本流程，这一篇文章看一下代码实现</p> <h2 id="%E4%B8%80%E3%80%81%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84">一、整体架构</h2> <p><img fetchpriority="high" decoding="async" alt="" height="481" src="http://img.555519.xyz/uploads3/20220901/48838433a825acb743e747da8f5981a0.jpg"></p> <p>&nbsp;整体来看这一部分有6个函数，相对重要的是序号3，4代表的函数</p> <h2 id="%E4%BA%8C%E3%80%81%E5%85%B7%E4%BD%93%E5%88%86%E6%9E%90">二、具体分析</h2> <p>首先看第一个函数</p> <p><img decoding="async" alt="" height="82" src="http://img.555519.xyz/uploads3/20220901/0d906a9b5c7409b1ae0656433a4d3cc0.jpg"></p> <p>&nbsp;从名称可以初步判断出，这是对交换需要的用的数据进行初始化</p> <p>分析这部分函数的代码，主要内容基本就是对结构体ctx的各个成员进行复制</p> <pre><code class="language-cs">ctx-&gt;id_dgstlen = sizeof(ctx-&gt;id_dgst); ctx-&gt;remote_id_dgstlen = sizeof(ctx-&gt;remote_id_dgst); ctx-&gt;id_dgst_md = EVP_sm3(); ctx-&gt;kdf_md = EVP_sm3(); ctx-&gt;checksum_md = EVP_sm3(); ctx-&gt;point_form = SM2_DEFAULT_POINT_CONVERSION_FORM;   ctx-&gt;is_initiator = is_initiator; ctx-&gt;do_checksum = do_checksum;    ctx-&gt;group = EC_KEY_get0_group(ec_key); ctx-&gt;bn_ctx = BN_CTX_new(); ctx-&gt;order = BN_new(); ctx-&gt;two_pow_w = BN_new(); ctx-&gt;t = BN_new();</code></pre> <p>再来看第二个函数↓</p> <pre><code class="language-cs">void SM2_KAP_CTX_cleanup(SM2_KAP_CTX *ctx) { 	if (ctx) { 		EC_KEY_free(ctx-&gt;ec_key); 		EC_KEY_free(ctx-&gt;remote_pubkey); 		BN_CTX_free(ctx-&gt;bn_ctx); 		BN_free(ctx-&gt;two_pow_w); 		BN_free(ctx-&gt;order); 		EC_POINT_free(ctx-&gt;point); 		BN_free(ctx-&gt;t); 		memset(ctx, 0, sizeof(*ctx)); //memeset函数原型是：void* memset(void *_Dst, int  _Val, size_t _Size)_Dst是目标起始地址，_Val是要赋的值，_Size是要赋值的字节数。 	} }</code></pre> <p>用free函数，释放空间，用memset函数给ctx的成员赋值为0</p> <p>看第三个函数????</p> <p><img decoding="async" alt="" height="55" src="http://img.555519.xyz/uploads3/20220901/d9b723665f31f53120e01afa41abea03.jpg"></p> <p>一个预备函数，判断一些参数的值，如果不符合计算要求，直接到程序最后：协商失败</p> <pre><code class="language-cs">do { 		if (!BN_rand_range(r, ctx-&gt;order)) { 			ECerr(EC_F_SM2_KAP_PREPARE, EC_R_RANDOM_NUMBER_GENERATION_FAILED); 			goto end; 		}  	} while (BN_is_zero(r));  //r是用随机数发生器产生的随机数，BN_is_zero(r)函数判断r是否等于0，如果等于0，则执行do之后语句，BN_rand_range(BIGNUM *rnd, BIGNUM *range);产生的0&lt;rnd&lt;range，如果BN_rand_range产生的r仍然等于0，产生报错，并直接结束去end部分</code></pre> <pre><code class="language-cs">/* * w = ceil(keybits / 2) - 1  * x = 2^w + (x and (2^w - 1)) = 2^w + (x mod 2^w)  * t = (d + x * r) mod n  * t = (h * t) mod n  */   //这一部分函数的主要作用就是判断在计算w,x,t者几个变量的过程中，是否会出现等于0的情况  if (!ctx-&gt;t) { 		ECerr(EC_F_SM2_KAP_PREPARE, EC_R_SM2_KAP_NOT_INITED); 		goto end; 	}  	if (!BN_nnmod(x, x, ctx-&gt;two_pow_w, ctx-&gt;bn_ctx)) { 		ECerr(EC_F_SM2_KAP_PREPARE, ERR_R_BN_LIB); 		goto end; 	}  // int BN_nnmod(BIGNUM *rem, const BIGNUM *a, const BIGNUM *m, BN_CTX *ctx);r=abs(a%b)这是个取模函数  	if (!BN_add(x, x, ctx-&gt;two_pow_w)) { 		ECerr(EC_F_SM2_KAP_PREPARE, ERR_R_BN_LIB); 		goto end; 	} //这是个加法函数 x= x + ctx-&gt;two_pow_w  	if (!BN_mod_mul(ctx-&gt;t, x, r, ctx-&gt;order, ctx-&gt;bn_ctx)) { 		ECerr(EC_F_SM2_KAP_PREPARE, ERR_R_BN_LIB); 		goto end; 	} //ctx-&gt;t=(x*r)mod ctx-&gt;order  	if (!BN_mod_add(ctx-&gt;t, ctx-&gt;t, prikey, ctx-&gt;order, ctx-&gt;bn_ctx)) { 		ECerr(EC_F_SM2_KAP_PREPARE, ERR_R_BN_LIB); 		goto end; 	}  	if (!EC_GROUP_get_cofactor(ctx-&gt;group, h, ctx-&gt;bn_ctx)) { 		ECerr(EC_F_SM2_KAP_PREPARE, ERR_R_EC_LIB); 		goto end; 	}  	if (!BN_mul(ctx-&gt;t, ctx-&gt;t, h, ctx-&gt;bn_ctx)) { 		ECerr(EC_F_SM2_KAP_PREPARE, ERR_R_BN_LIB); 		goto end; 	}</code></pre> <p>end函数部分，主要就是free释放空间</p> <pre><code class="language-cs">end: 	if (h) BN_free(h); 	if (r) BN_free(r); 	if (x) BN_free(x);  	return ret; }</code></pre> <p>看第四个函数????</p> <p>这个函数是计算密钥的部分</p> <pre><code class="language-cs">/* * decode point R = (x, y), encode (x, y) * x = 2^w + (x and (2^w - 1)) = 2^w + (x mod 2^w), w = ceil(keybits / 2) - 1 * U = ht * (P + x * R) * check U != O */  	if (!EC_POINT_oct2point(ctx-&gt;group, ctx-&gt;point, 		remote_point, remote_point_len, ctx-&gt;bn_ctx)) {//将remote_point中点数据转化为椭圆曲线上的点，len为数据长度； 		ECerr(EC_F_SM2_KAP_COMPUTE_KEY, 0); 		goto end; 	}  	if (!(len = EC_POINT_point2oct(ctx-&gt;group, ctx-&gt;point, POINT_CONVERSION_UNCOMPRESSED, 		remote_pt_buf, sizeof(remote_pt_buf), ctx-&gt;bn_ctx))) { 		ECerr(EC_F_SM2_KAP_COMPUTE_KEY, 0); 		goto end; 	}  	if (EC_METHOD_get_field_type(EC_GROUP_method_of(ctx-&gt;group)) == NID_X9_62_prime_field) //判断作用域类型是不是NID_X9_62_prime_field：X9.62的素数域； { 		if (!EC_POINT_get_affine_coordinates_GFp(ctx-&gt;group, ctx-&gt;point, x, NULL, ctx-&gt;bn_ctx)) { 			ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EC_LIB); 			goto end; 		} 	} else { 		if (!EC_POINT_get_affine_coordinates_GF2m(ctx-&gt;group, ctx-&gt;point, x, NULL, ctx-&gt;bn_ctx)) //EC_POINT_get_affine_coordinates_GF2m,获取二进制域椭圆曲线上某个点的x和y的几何坐标，检查U点的横坐标确保它不为0 { 			ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EC_LIB); 			goto end; 		} 	}</code></pre> <p>有关椭圆曲线相关函数解释可以看这篇文章<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cnblogs.com/testlife007/p/6704435.html"  title="OPENSSL编程 第二十章 椭圆曲线 - 测试蝈蝈 - 博客园" rel="nofollow">OPENSSL编程 第二十章 椭圆曲线 - 测试蝈蝈 - 博客园</a></p> <pre><code class="language-cs">/* x = 2^w + (x and (2^w - 1)) = 2^w + (x mod 2^w) */  	if (!BN_nnmod(x, x, ctx-&gt;two_pow_w, ctx-&gt;bn_ctx)) { 		ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_BN_LIB); 		goto end; 	}//计算(x mod 2^w)  	if (!BN_add(x, x, ctx-&gt;two_pow_w)) { 		ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_BN_LIB); 		goto end; 	} //计算2^w + (x mod 2^w)</code></pre> <pre><code class="language-cs">/* U = ht * (P + x * R), check U != O */  	if (!EC_POINT_mul(ctx-&gt;group, ctx-&gt;point, NULL, ctx-&gt;point, x, ctx-&gt;bn_ctx)) { 		ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EC_LIB); 		goto end; 	}//椭圆曲线上点的乘法x * R  	if (!EC_POINT_add(ctx-&gt;group, ctx-&gt;point, ctx-&gt;point, 		EC_KEY_get0_public_key(ctx-&gt;remote_pubkey), ctx-&gt;bn_ctx)) { 		ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EC_LIB); 		goto end; 	}//椭圆曲线上点的加法(P + x * R)  	if (!EC_POINT_mul(ctx-&gt;group, ctx-&gt;point, NULL, ctx-&gt;point, ctx-&gt;t, ctx-&gt;bn_ctx)) { 		ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EC_LIB); 		goto end; 	}//椭圆曲线上点的乘法U = ht * (P + x * R)  	if (EC_POINT_is_at_infinity(ctx-&gt;group, ctx-&gt;point)) { 		ECerr(EC_F_SM2_KAP_COMPUTE_KEY, 0); 		goto end; 	}// int EC_POINT_is_at_infinity(const EC_GROUP *group, const EC_POINT *point) 判断椭圆曲线上的点point是否是无穷远点；在这就是判断点U是不是无穷远点，如果是，则协商失败</code></pre> <p>每一步计算都判断计算的结果，看是否为0↑</p> <pre><code class="language-cs">/* key = KDF(xu, yu, ZA, ZB) */   	if (!ctx-&gt;kdf(share_pt_buf + 1, len - 1, key, &amp;klen)) { 		ECerr(EC_F_SM2_KAP_COMPUTE_KEY, 0); 		goto end; 	}</code></pre> <p>利用密钥派生函数KDF，计算key</p> <p>当ctx结构体中的成员do_checksum为0时</p> <pre><code class="language-cs">if (ctx-&gt;do_checksum) {  		/* generate checksum S1 or SB start with 0x02 		 * S1 = SB = Hash(0x02, yu, Hash(xu, ZA, ZB, x1, y1, x2, y2)) 		 */ 		if (!EVP_DigestInit_ex(md_ctx, ctx-&gt;checksum_md, NULL)) { 			ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 			goto end; 		} //EVP_DigestInit_ex函数使用参数impl所指向的ENGINE设置该信息摘要结构体，参数ctx在调用本函数之前必须经过初始化。参数type一般是使用象EVP_sha1这样的函数的返回值。如果impl为NULL，那么就会使用缺省实现的信息摘要函数。大多数应用程序里面impl是设置为NULL的。操作成功返回1，否则返回0。  		bnlen = BN_num_bytes(ctx-&gt;order);  		if (!EVP_DigestUpdate(md_ctx, share_pt_buf + 1, bnlen)) { 			ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 			goto end; 		} //该函数将参数share_pt_buf + 1中的bnlen字节数据进行信息摘要到ctx结构中去，该函数可以被调用多次，用以对更多的数据进行信息摘要。操作成功返回1，否则返回0。  		if (ctx-&gt;is_initiator) {  			/* update ZA,ZB,x1,y1,x2,y2 */ 			if (!EVP_DigestUpdate(md_ctx, ctx-&gt;id_dgst, ctx-&gt;id_dgstlen)) { 				ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 				goto end; 			} 			if (!EVP_DigestUpdate(md_ctx, ctx-&gt;remote_id_dgst, ctx-&gt;remote_id_dgstlen)) { 				ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 				goto end; 			} 			if (!EVP_DigestUpdate(md_ctx, ctx-&gt;pt_buf + 1, bnlen * 2)) { 				ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 				goto end; 			} 			if (!EVP_DigestUpdate(md_ctx, remote_pt_buf + 1, bnlen * 2)) { 				ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 				goto end; 			}  		} else {  			if (!EVP_DigestUpdate(md_ctx, ctx-&gt;remote_id_dgst, ctx-&gt;remote_id_dgstlen)) { 				ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 				goto end; 			} 			if (!EVP_DigestUpdate(md_ctx, ctx-&gt;id_dgst, ctx-&gt;id_dgstlen)) { 				ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 				goto end; 			} 			if (!EVP_DigestUpdate(md_ctx, remote_pt_buf + 1, bnlen * 2)) { 				ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 				goto end; 			} 			if (!EVP_DigestUpdate(md_ctx, ctx-&gt;pt_buf + 1, bnlen * 2)) { 				ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 				goto end; 			} 		}  		if (!EVP_DigestFinal_ex(md_ctx, dgst, &amp;dgstlen)) { 			ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 			goto end; 		}  //本函数将ctx结构中的摘要信息数据返回到参数dgst中，如果参数&amp;dgstlen不是NULL，那么摘要数据的长度（字节）就会被写入到参数&amp;dgstlen中，大多数情况下，写入的值是EVP_MAX_MD_SIZE。在调用本函数后，不能使用相同的ctx结构调用EVP_DigestUpdate再进行数据的信息摘要操作。 //但是可以调用EVP_DigestInit_ex函数重新初始化后可以进行新的信息摘要操作。操作成功返回1，否则返回0。 		/* now dgst == H(xu,ZA,ZB,x1,y1,x2,y2) 		 */  		/* S1 = SB = Hash(0x02, yu, dgst) */  		if (!EVP_DigestInit_ex(md_ctx, ctx-&gt;checksum_md, NULL)) { 			ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 			goto end; 		}  		if (!EVP_DigestUpdate(md_ctx, "\x02", 1)) { 			ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 			goto end; 		}  		if (!EVP_DigestUpdate(md_ctx, share_pt_buf + 1 + bnlen, bnlen)) { 			ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 			goto end; 		}  		if (!EVP_DigestUpdate(md_ctx, dgst, dgstlen)) { 			ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 			goto end; 		}  		/* output S1 to local buffer or SB to output */ 		if (ctx-&gt;is_initiator) { 			if (!EVP_DigestFinal_ex(md_ctx, ctx-&gt;checksum, &amp;len)) { 				ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 				goto end; 			}  		} else { 			if (!EVP_DigestFinal_ex(md_ctx, checksum, &amp;len)) { 				ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 				goto end; 			} 			*checksumlen = len; 		}  		/* generate checksum SA or S2 start with 0x03 		 * SA = S2 = Hash(0x03, yu, dgst) 		 */  		if (!EVP_DigestInit_ex(md_ctx, ctx-&gt;checksum_md, NULL)) { 			ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 			goto end; 		}  		if (!EVP_DigestUpdate(md_ctx, "\x03", 1)) { 			ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 			goto end; 		}  		if (!EVP_DigestUpdate(md_ctx, share_pt_buf + 1 + bnlen, bnlen)) { 			ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 			goto end; 		}  		if (!EVP_DigestUpdate(md_ctx, dgst, dgstlen)) { 			ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 			goto end; 		}  		if (ctx-&gt;is_initiator) { 			if (!EVP_DigestFinal_ex(md_ctx, checksum, &amp;len)) { 				ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 				goto end; 			} 			*checksumlen = len;  		} else { 			if (!EVP_DigestFinal_ex(md_ctx, ctx-&gt;checksum, &amp;len)) { 				ECerr(EC_F_SM2_KAP_COMPUTE_KEY, ERR_R_EVP_LIB); 				goto end; 			} 		}   	}</code></pre> <p>EVP有关函数可以参考<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/sodaslay/article/details/35993207"  title="openssl之EVP系列之8---EVP_Digest系列函数详解_Secret Island-CSDN博客" rel="nofollow">openssl之EVP系列之8---EVP_Digest系列函数详解_Secret Island-CSDN博客</a></p> <p>第五个函数</p> <p><img loading="lazy" decoding="async" alt="" height="52" src="http://img.555519.xyz/uploads3/20220901/d1e424a36f05b8cc5b3236e62bf85248.jpg"></p> <p>&nbsp;这个函数主要作用依旧判断</p> <p>出现了一个新的函数</p> <pre><code class="language-cs">if (memcmp(ctx-&gt;checksum, checksum, checksumlen)) { 			ECerr(EC_F_SM2_KAP_FINAL_CHECK, EC_R_INVALID_SM2_KAP_CHECKSUM_VALUE); 			return 0; 		} //memcmp是比较内存区域buf1和buf2的前count个字节。该函数是按字节比较的,当buf1&lt;buf2时，返回值&lt;0;当buf1=buf2时，返回值=0;当buf1&gt;buf2时，返回值&gt;0在这就是当checksum = checksumlen的时候，报错</code></pre> <p>看最后一个函数</p> <p><img loading="lazy" decoding="async" alt="" height="37" src="http://img.555519.xyz/uploads3/20220901/1ea0f3388263e2ba413a69a631496f71.jpg"></p> <p><img loading="lazy" decoding="async" alt="" height="346" src="http://img.555519.xyz/uploads3/20220901/4b83f7222fbe99186a78ed689673dbf0.jpg"></p> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-45243.htm">宠物粮食销售好做吗知乎推荐 宠物粮食销售好做吗知乎推荐一下</a></p>
+                                        <p>下一个：<a href="/news/article-45738.htm">做宠物零食（做宠物零食需要什么手续）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2024-12-25-node-share-links.htm" title="V2rayNG Node节点订阅每天更新22.6M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.6M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-27-node-share.htm" title="V2rayNG Node节点订阅每天更新22.1M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.1M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-36841.htm" title="兽用疫苗放在冰箱对食物 兽用疫苗放在冰箱对食物有影响吗">兽用疫苗放在冰箱对食物 兽用疫苗放在冰箱对食物有影响吗</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-2-node-share-links.htm" title="V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-46241.htm" title="宠物诊所申请动物诊疗许可证的条件是什么（宠物诊所办理流程）">宠物诊所申请动物诊疗许可证的条件是什么（宠物诊所办理流程）</a></li>
+                        <li class="py-2"><a href="/news/article-20891.htm" title="css图片上面显示文字">css图片上面显示文字</a></li>
+                        <li class="py-2"><a href="/news/article-28741.htm" title="大人被猫咪抓了需要***吗?（大人被猫咪抓了需要***吗）">大人被猫咪抓了需要***吗?（大人被猫咪抓了需要***吗）</a></li>
+                        <li class="py-2"><a href="/news/article-33961.htm" title="宠物粮食设备 宠物粮生产设备">宠物粮食设备 宠物粮生产设备</a></li>
+                        <li class="py-2"><a href="/news/article-44256.htm" title="国货彩妆品牌有哪些牌子(大牌美妆有哪些)">国货彩妆品牌有哪些牌子(大牌美妆有哪些)</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-17-node-share-links.htm" title="V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">78</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
