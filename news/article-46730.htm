@@ -1,0 +1,281 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-46730.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>vue3 vue-router的使用</title>
+        <meta name="description" content="前端路由是如何做到URL和内容进行映射呢？监听URL的改变 目录 前端路由原理 vue-router的使用 &nbsp;默认路由，重定向 hash与history模式 router-link 路由懒加" />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-46730.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="vue3 vue-router的使用" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/6f05aa5962303e016910f91e179ff0da.webp" />
+        <meta property="og:release_date" content="2025-01-27T08:16:58" />
+    <meta property="og:updated_time" content="2025-01-27T08:16:58" />
+        <meta property="og:description" content="前端路由是如何做到URL和内容进行映射呢？监听URL的改变 目录 前端路由原理 vue-router的使用 &nbsp;默认路由，重定向 hash与history模式 router-link 路由懒加" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="vue3 vue-router的使用">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                        <li><a href="#">关于</a></li>
+                                                    <li><a href="#">联系</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="index.html"><img src="/assets/website/img/v2rayngnode/logo/logo.png" alt="" /></a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="about.html">About us</a></li>
+                                    <li><a href="contact.html">Contacts</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>vue3 vue-router的使用</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> <p>前端路由是如何做到URL和内容进行映射呢？监听URL的改变</p> <p id="main-toc"><strong>目录</strong></p> <p id="%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86-toc" style="margin-left:0px;"><a href="#%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86" rel="nofollow">前端路由原理</a></p> <p id="vue-router%E7%9A%84%E4%BD%BF%E7%94%A8-toc" style="margin-left:0px;"><a href="#vue-router%E7%9A%84%E4%BD%BF%E7%94%A8" rel="nofollow">vue-router的使用</a></p> <p id="%C2%A0%E9%BB%98%E8%AE%A4%E8%B7%AF%E7%94%B1%EF%BC%8C%E9%87%8D%E5%AE%9A%E5%90%91-toc" style="margin-left:0px;"><a href="#%C2%A0%E9%BB%98%E8%AE%A4%E8%B7%AF%E7%94%B1%EF%BC%8C%E9%87%8D%E5%AE%9A%E5%90%91" rel="nofollow">&nbsp;默认路由，重定向</a></p> <p id="hash%E4%B8%8Ehistory%E6%A8%A1%E5%BC%8F-toc" style="margin-left:0px;"><a href="#hash%E4%B8%8Ehistory%E6%A8%A1%E5%BC%8F" rel="nofollow">hash与history模式</a></p> <p id="router-link-toc" style="margin-left:0px;"><a href="#router-link" rel="nofollow">router-link</a></p> <p id="%E8%B7%AF%E7%94%B1%E6%87%92%E5%8A%A0%E8%BD%BD-toc" style="margin-left:0px;"><a href="#%E8%B7%AF%E7%94%B1%E6%87%92%E5%8A%A0%E8%BD%BD" rel="nofollow">路由懒加载</a></p> <p id="%C2%A0%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1-toc" style="margin-left:0px;"><a href="#%C2%A0%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1" rel="nofollow">&nbsp;动态路由</a></p> <p id="%C2%A0404%E9%A1%B5%E9%9D%A2-toc" style="margin-left:0px;"><a href="#%C2%A0404%E9%A1%B5%E9%9D%A2" rel="nofollow">&nbsp;404页面</a></p> <p id="%E8%B7%AF%E7%94%B1%E5%B5%8C%E5%A5%97-toc" style="margin-left:0px;"><a href="#%E8%B7%AF%E7%94%B1%E5%B5%8C%E5%A5%97" rel="nofollow">路由嵌套</a></p> <p id="%C2%A0%E7%BC%96%E7%A8%8B%E5%BC%8F%E8%B7%B3%E8%BD%AC-toc" style="margin-left:0px;"><a href="#%C2%A0%E7%BC%96%E7%A8%8B%E5%BC%8F%E8%B7%B3%E8%BD%AC" rel="nofollow">&nbsp;编程式跳转</a></p> <p id="%C2%A0%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%89%8D%E8%BF%9B%E5%90%8E%E9%80%80-toc" style="margin-left:0px;"><a href="#%C2%A0%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%89%8D%E8%BF%9B%E5%90%8E%E9%80%80" rel="nofollow">&nbsp;页面的前进后退</a></p> <p id="router-link%E7%9A%84v-slot-toc" style="margin-left:0px;"><a href="#router-link%E7%9A%84v-slot" rel="nofollow">router-link的v-slot</a></p> <p id="%C2%A0router-view%E7%9A%84v-slot-toc" style="margin-left:0px;"><a href="#%C2%A0router-view%E7%9A%84v-slot" rel="nofollow">&nbsp;router-view的v-slot</a></p> <p id="%E5%8A%A8%E6%80%81%E6%B7%BB%E5%8A%A0%EF%BC%8C%E5%88%A0%E9%99%A4%E8%B7%AF%E7%94%B1-toc" style="margin-left:0px;"><a href="#%E5%8A%A8%E6%80%81%E6%B7%BB%E5%8A%A0%EF%BC%8C%E5%88%A0%E9%99%A4%E8%B7%AF%E7%94%B1" rel="nofollow">动态添加，删除路由</a></p> <p id="%C2%A0%E8%B7%AF%E7%94%B1%E5%AF%BC%E8%88%AA%E5%AE%88%E5%8D%AB-toc" style="margin-left:0px;"><a href="#%C2%A0%E8%B7%AF%E7%94%B1%E5%AF%BC%E8%88%AA%E5%AE%88%E5%8D%AB" rel="nofollow">&nbsp;路由导航守卫</a></p> </h1> <p>URL的hash</p> <p><img fetchpriority="high" decoding="async" alt="" height="616" src="http://img.555519.xyz/uploads3/20220819/3a951170803f44fa2f5ae058eac7cb10.jpg"></p> <p>html5的history</p> <p><img decoding="async" alt="" height="838" src="http://img.555519.xyz/uploads3/20220819/a3e6a8600d9982e2063ca0e3dcb3cb27.jpg"></p> <p>&nbsp;history接口是HTML5新增的, 它有l六种模式改变URL而不刷新页面</p> <p>replaceState：替换原来的路径；//浏览器不可回退</p> <p>pushState：使用新的路径；//相当于压栈的操作，浏览器可回退</p> <p>popState：路径的回退；</p> <p>go：向前或向后改变路径；</p> <p>forward：向前改变路径；</p> <p>back：向后改变路径</p> </h1> <p>npm install vue-router&nbsp; &nbsp; &nbsp; //我是基于4版本的，如果你下载的不是4版本，@4指定版本</p> <p>我们一般在src目录下创建router文件夹，创建index.js文件</p> <p>第一步：创建路由组件的组件</p> <p>第二步：创建路由映射关系数组routes</p> <p>第三步：通过createRouter创建路由对象，并且传入routes和history模式</p> <p>第四步：页面使用router-link,router-view组件</p> <p><img decoding="async" alt="" height="540" src="http://img.555519.xyz/uploads3/20220819/494da105eec499b2f7827856ec5be31a.jpg"></p> </h1> <p><img loading="lazy" decoding="async" alt="" height="182" src="http://img.555519.xyz/uploads3/20220819/c40d503b211ddae230197045784a65d0.jpg"></p> <p>&nbsp;重定向要写完整路径</p> </h1> <p><img loading="lazy" decoding="async" alt="" height="151" src="http://img.555519.xyz/uploads3/20220819/b618327d18c8a28777b397ae9be10d2b.jpg"></p> <p>&nbsp;history更好看，没有#。但是需要后端配置</p> </h1> <p>router-link事实上有很多属性可以配置</p> <p><strong>to</strong>属性：是一个字符串，或者是一个对象，表示要跳转到那个组件</p> <p><strong>replace</strong>属性：设置 replace 属性,会调用 router.replace(),而不是 router.push();浏览器不能前进后退</p> <p><strong>active-class</strong>属性：设置激活a元素后的class，默认是router-link-active</p> <p><strong>exact-active-class</strong>属性：设置激活a元素后的class，精准匹配，默认是router-link-exact-active</p> <p><strong>tag</strong>属性：设置渲染某种标签（4版本上已经<span style="color:#fe2c24;"><strong>弃用</strong></span>，不灵活，改为slots）</p> </h1> <p>按前面哪种组件导入方式，最后打包会打到一起，会造成首屏渲染速度</p> <p>我们可以利用webpack分包，import函数</p> <p>routes中的组件对象，对应的component，可以传一个组件，也可以传一个函数，函数需要返回一个promise，而import函数就是返回一个promise</p> <p><img loading="lazy" decoding="async" alt="" height="206" src="http://img.555519.xyz/uploads3/20220819/a9facd28ebcc204f9d7e4644871beb2e.jpg"></p> <p>&nbsp;我们也可以修改打包后的名字</p> <p><img loading="lazy" decoding="async" alt="" height="80" src="http://img.555519.xyz/uploads3/20220819/7dec46bb9c1faa260e7e0931095db538.jpg"></p> </h1> <p>我们可能有一个 User 组件，它应该对所有用户进行渲染，但是用户的ID是不同的； 在Vue Router中，我们可以在路径中使用一个动态字段来实现，我们称之为 路径参数</p> <p>可以是一个，也可以是多个</p> <p><img loading="lazy" decoding="async" alt="" height="97" src="http://img.555519.xyz/uploads3/20220819/813f6e875ad69bfefea0bb1cd24f1618.jpg"></p> <p><img loading="lazy" decoding="async" alt="" height="39" src="http://img.555519.xyz/uploads3/20220819/988c7dd03d8e465b0ccfe4b5cab0c821.jpg"></p> <p><img loading="lazy" decoding="async" alt="" height="46" src="http://img.555519.xyz/uploads3/20220819/7041e0a27ffa265588c1150b025e9e5f.jpg"></p> <p><strong>&nbsp;获取动态路由的值</strong></p> <p><img loading="lazy" decoding="async" alt="" height="422" src="http://img.555519.xyz/uploads3/20220819/3fd012ec12635b2e9bbef5902abdbdf9.jpg"></p> </h1> <p>&nbsp;在页面中我们通常写一个NotFound页面，当用户随意修改url时，给用户提示</p> <p><img loading="lazy" decoding="async" alt="" height="110" src="http://img.555519.xyz/uploads3/20220819/6dfd321ba9062c895cfcb95ee09555ec.jpg"></p> <p><img loading="lazy" decoding="async" alt="" height="166" src="http://img.555519.xyz/uploads3/20220819/043d01ca0cfd9f7a496b7f9684bfe6c9.jpg"></p> <p>&nbsp;我在/:pathMatch(.*)后面又加了一个 *；</p> <p><img loading="lazy" decoding="async" alt="" height="152" src="http://img.555519.xyz/uploads3/20220819/eb6d0caaad1ceb043c50d405ef3c66b3.jpg"></p> <p>&nbsp;区别是解析时，$route.params.pathMatch的值会解析为数组形式</p> </h1> <p><img loading="lazy" decoding="async" alt="" height="574" src="http://img.555519.xyz/uploads3/20220819/ea1405474058dfff24c8f5aab1b80f62.jpg"></p> <p>&nbsp;二级路由组件的渲染位置也由router-view实现，放到home组件中</p> <p><img loading="lazy" decoding="async" alt="" height="107" src="http://img.555519.xyz/uploads3/20220819/61f0479ba4de9e4a8e3295b8247b7cf0.jpg"></p> </h1> <p>前面我们都是通过router-link跳转的，我们也可以通过代码跳转</p> <p><img loading="lazy" decoding="async" alt="" height="124" src="http://img.555519.xyz/uploads3/20220819/7a0749b050da56a32fd96ee820da6e8f.jpg"></p> <p>&nbsp;compositionsAPI中</p> <p><img loading="lazy" decoding="async" alt="" height="370" src="http://img.555519.xyz/uploads3/20220819/e0948313c9c412939db0047778ec2bbf.jpg"></p> <p>&nbsp;界面中获取数据</p> <p><img loading="lazy" decoding="async" alt="" height="39" src="http://img.555519.xyz/uploads3/20220819/cb80e5398aaac7dbcd558270f9d1e59e.jpg"></p> <p><img loading="lazy" decoding="async" alt="" height="241" src="http://img.555519.xyz/uploads3/20220819/418d5b8a9489946a3e923792a1b1b688.jpg"></p> <p><img loading="lazy" decoding="async" alt="" height="30" src="http://img.555519.xyz/uploads3/20220819/df12552a040d273ee127ea751e3282b7.jpg"></p> </h1> <p>router的go方法</p> <p><img loading="lazy" decoding="async" alt="" height="362" src="http://img.555519.xyz/uploads3/20220819/65e2842b62403ecf26a50c2ded372ca2.jpg"></p> <p>&nbsp;router也有back：通过调用 history.back() 回溯历史。相当于 router.go(-1)</p> <p>router也有forward：通过调用 history.forward() 在历史中前进。相当于 router.go(1)；</p> </h1> <p><img loading="lazy" decoding="async" alt="" height="305" src="http://img.555519.xyz/uploads3/20220819/d04a500d530f3553f4cc6ec7997299cf.jpg"></p> <p><img loading="lazy" decoding="async" alt="" height="71" src="http://img.555519.xyz/uploads3/20220819/ee6ffd7ec1554ba5f6808b43bc1ba0a0.jpg"></p> </h1> <p>当我们想使用动画，或者keep-alive,可以使用router-view的增强</p> <p>做动画vue3给我们了内置组件transition组件，但是transition组件必须包裹组件，router-view不是</p> <p>我们可以使用router-view的slot</p> <p><img loading="lazy" decoding="async" alt="" height="178" src="http://img.555519.xyz/uploads3/20220819/b81e407e2c6c758997d8f35d75104e82.jpg"></p> <p>&nbsp;Component：要渲染的组件；</p> <p>route：解析出的标准化路由对象；</p> </h1> <p>在做后台管理系统项目时，我们经常遇到这样的需求，不同角色登录，不同权限，显示不同菜单</p> <p>我们可以根据后台返的数据渲染菜单，但是用户修改url还是会进入别的页面，有安全隐患</p> <p>所有我们不能把routes写死，根据不同的权限添加不同路由</p> <p><img loading="lazy" decoding="async" alt="" height="546" src="http://img.555519.xyz/uploads3/20220819/59d5b2835f7cf0b6d06afd9dbc632307.jpg"></p> <p><img loading="lazy" decoding="async" alt="" height="714" src="http://img.555519.xyz/uploads3/20220819/3ca4ec0a9e31cae1f1a003d201883b3a.jpg"></p> </h1> <p>就是路由跳转过程中一些钩子函数，主要用来通过跳转或取消的方式守卫导航</p> <p>有全局导航守卫，路由独享，组件内</p> <p>这里我们就说下最常用的router.beforeEach全局前置守卫</p> <p>全局的前置守卫beforeEach是在导航触发时会被回调的</p> <p><img loading="lazy" decoding="async" alt="" height="527" src="http://img.555519.xyz/uploads3/20220819/b02ead93ca0bf7d05cf62182cc82bc20.jpg"></p> <p><img loading="lazy" decoding="async" alt="" height="584" src="http://img.555519.xyz/uploads3/20220819/1f5ca312b19e5227ed22090025853e81.jpg"></p> <p>&nbsp;完！！！</p> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-46242.htm">南平宠物市场（南平宠物市场一般啥时候开）</a></p>
+                                        <p>下一个：<a href="/news/article-46731.htm">动物防疫疫苗费取消的相关文件是 动物防疫疫苗费取消的相关文件是什么</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2024-11-25-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新19.8M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新19.8M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-21-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-45737.htm" title="GMSSL ：SM2椭圆曲线公钥密码算法-密钥交换协议">GMSSL ：SM2椭圆曲线公钥密码算法-密钥交换协议</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-10-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新20.2M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.2M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-17-node-share-links.htm" title="V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-24554.htm" title="宠物领养要交押金吗多少钱（领养宠物还要押金嘛）">宠物领养要交押金吗多少钱（领养宠物还要押金嘛）</a></li>
+                        <li class="py-2"><a href="/news/article-21340.htm" title="Mac上解决dose not contain the JNI_CreateJavaVM symbol">Mac上解决dose not contain the JNI_CreateJavaVM symbol</a></li>
+                        <li class="py-2"><a href="/news/article-19975.htm" title="宠物助理考试（宠物助理考试题）">宠物助理考试（宠物助理考试题）</a></li>
+                        <li class="py-2"><a href="/news/article-25029.htm" title="正则表达式规则以及贪婪匹配与非贪婪匹配">正则表达式规则以及贪婪匹配与非贪婪匹配</a></li>
+                        <li class="py-2"><a href="/news/article-30151.htm" title="宠物领养市场前景怎么样（宠物领养市场前景怎么样啊）">宠物领养市场前景怎么样（宠物领养市场前景怎么样啊）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">86</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
