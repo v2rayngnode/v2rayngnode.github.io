@@ -1,0 +1,284 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-49736.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>redis专题：redis键值设计、性能优化以及redis连接池配置</title>
+        <meta name="description" content="文章目录  1.redis键值设计   ①：key设计规范 ②：value设计规范   2. 命令使用优化 3. redis连接池配置参数设计 4. redis连接池预热 5. redis的key过期" />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-49736.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="redis专题：redis键值设计、性能优化以及redis连接池配置" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/ca65b87e212208dbf91f0a11f45134df.webp" />
+        <meta property="og:release_date" content="2025-02-02T09:25:31" />
+    <meta property="og:updated_time" content="2025-02-02T09:25:31" />
+        <meta property="og:description" content="文章目录  1.redis键值设计   ①：key设计规范 ②：value设计规范   2. 命令使用优化 3. redis连接池配置参数设计 4. redis连接池预热 5. redis的key过期" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="redis专题：redis键值设计、性能优化以及redis连接池配置">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                        <li><a href="#">关于</a></li>
+                                                    <li><a href="#">联系</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="index.html"><img src="/assets/website/img/v2rayngnode/logo/logo.png" alt="" /></a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="about.html">About us</a></li>
+                                    <li><a href="contact.html">Contacts</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>redis专题：redis键值设计、性能优化以及redis连接池配置</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <div class="toc"> <h3>文章目录</h3> <ul> <li><a href="#1redis_3" rel="nofollow">1.redis键值设计</a></li> <li> <ul> <li><a href="#key_6" rel="nofollow">①：key设计规范</a></li> <li><a href="#value_27" rel="nofollow">②：value设计规范</a></li> </ul> </li> <li><a href="#2__90" rel="nofollow">2. 命令使用优化</a></li> <li><a href="#3_redis_117" rel="nofollow">3. redis连接池配置参数设计</a></li> <li><a href="#4_redis_167" rel="nofollow">4. redis连接池预热</a></li> <li><a href="#5_rediskey_210" rel="nofollow">5. redis的key过期删除策略</a></li> <li><a href="#6_redis_266" rel="nofollow">6. 秒杀场景下redis性能提升策略</a></li> </ul> </div> <p></p> </h1> <p>redis合理的键值设计，可以增加可读性和可管理性，特别在大型项目中，要特别注意！</p> <h2><a id="key_6" rel="nofollow"></a>①：key设计规范</h2> <ol> <li>【建议】: 可读性和可管理性 以业务名(或数据库名)为前缀(防止key冲突)，用冒号分隔，比如业务名:表名:id</li> </ol> <pre><code>//表示交易系统中的订单号 1 trade:order:1</code></pre> <ol start="2"> <li>【建议】：简洁性 保证语义的前提下，控制key的长度，当key较多时，内存占用也不容忽视，例如：</li> </ol> <pre><code>// 表示某用户的朋友发来的消息 user:{uid}:friends:messages:{mid} 简化为 u:{uid}:fr:m:{mid}</code></pre> <ol start="3"> <li>【强制】：不要包含特殊字符<br /> 反例：包含空格、换行、单双引号以及其他转义字符</li> </ol> <p></p> <h2><a id="value_27" rel="nofollow"></a>②：value设计规范</h2> <p><strong>（1）【强制】：拒绝bigkey(防止网卡流量、慢查询)</strong></p> <p><strong>什么是bigkey?</strong><br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在Redis中，一个字符串最大512MB，一个二级数据结构（例如hash、list、set、zset）可以存 储大约40亿个(2^32-1)个元素，这么大的存储空间，为bigkey的产生创造了条件。如果有以下情况，就认为是bigkey！</p> <p>①：字符串类型：它的big体现在单个value值很大，一般认为超过10KB就是bigkey。</p> <p>②：非字符串类型：哈希、列表、集合、有序集合，它们的big体现在元素个数太多。 一般来说，string类型控制在10KB以内，hash、list、set、zset元素个数不要超过5000。</p> <p><strong>bigkey是如何产生的？</strong><br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在一般来说，bigkey的产生都是由于程序设计不当，或者对于数据规模预料不清楚造成的，比如：<br /> ①：社交类：粉丝列表，如果某些明星或者大v不精心设计下，必是bigkey<br /> ②：统计类：例如按天存储某项功能或者网站的用户集合，除非没几个人用，否则必是bigkey。<br /> ③：缓存类：将数据从数据库load出来序列化放到Redis里。注意缓存必要字段即可！</p> <p><strong>bigkey的危害是什么?</strong></p> <ol> <li> <p>导致redis阻塞<br /> 由于redis操作命令是单线程的，当bigkey太大时，操作bigkey耗时过长，其他命令都会被阻塞！</p> </li> <li> <p>网络拥塞<br /> bigkey也就意味着每次获取要产生的网络流量较大，假设一个bigkey为1MB，客户端每秒访问量为1000，那么每秒产生1000MB的流量，对于普通的千兆网卡(按照字节算是128MB/s)的服务器来说简直是灭顶之灾，而且一般服务器会采用单机多实例的方式来部署，也就是说一个bigkey可能会对其他实例也造成影响，其后果不堪设想。</p> </li> <li> <p>过期删除<br /> 有个bigkey，它安分守己（只执行简单的命令，例如hget、lpop、zscore等），但它设置了过期时间，当它过期后，会被删除，如果没有使用Redis 4.0的过期异步删除(lazyfree-lazy-expire yes)，就会存在阻塞Redis的可能性。</p> </li> </ol> <p><strong>如何优化bigkey？</strong></p> <ol> <li> <p>拆<br /> 比如一个bigkey，存储了100w的用户数据，那么可以把这个key拆分成200个key，每个key下存储5000个用户数据</p> </li> <li> <p>避免使用hgetAll全量获取<br /> 如果bigkey不可避免，也要思考一下要不要每次把所有元素都取出来(例如有时候仅仅需要 hmget，而不是hgetall)，删除也是一样，不要使用del删除，使用hscan、sscan、zscan方式渐进式删除，尽量使用优雅的方式来处理。</p> </li> </ol> <p><strong>（2）【推荐】：选择适合的数据类型。</strong><br /> 场景：存储某个用户(要合理控制和使用数据结构，但也要注意节省内存和性能之间的平衡)</p> <p>正例：使用hash结构</p> <pre><code>hmset user:1 name tom age 19 favor football</code></pre> <p>反例：使用string结构</p> <pre><code>set user:1:name tom set user:1:age 19 set user:1:favor football</code></pre> <p><strong>（3） 【推荐】：控制key的生命周期，redis不是垃圾桶。</strong><br /> 建议使用expire设置过期时间(条件允许可以打散过期时间，防止集中过期)。</p> <p>注意：redis内部默认有16个数据库，<strong>在微服务场景下，不要用redis的数据库做业务数据区分</strong>，比如订单放1库，商品放2库，这样做毫无作用，因为这些库都是一个redis服务，在高并发场景下，虽然访问的时不同的库，但redis还是单线程执行的！！</p> <p></p> </h1> <p>1.【推荐】 使用命令时关注N的数量<br /> 例如hgetall、lrange、smembers、zrange、sinter等并非不能使用，但是需要明确N的值。有遍历的需求可以使用hscan、sscan、zscan代替。</p> <p>2.【推荐】：禁用命令<br /> 禁止线上使用keys、flushall、flushdb等，通过redis的rename机制禁掉命令，或者使用scan的方式渐进式处理。</p> <p>3.【推荐】合理使用redis数据库<br /> redis的多数据库较弱，使用数字进行区分，很多客户端支持较差，同时多业务用多数据库实际还是单线程处理，会有干扰。</p> <p>4.【推荐】使用批量操作提高效率</p> <pre><code>原生命令：例如mget、mset。 非原生命令：可以使用pipeline提高效率。</code></pre> <p>但要注意控制一次批量操作的元素个数(例如500以内，实际也和元素字节数有关)。<br /> 注意两者不同：</p> <ol> <li>原生命令是原子操作，pipeline是非原子操作。</li> <li>pipeline可以打包不同的命令，原生命令做不到</li> <li>pipeline需要客户端和服务端同时支持。</li> </ol> <p>5.【建议】Redis事务功能较弱，不建议过多使用，可以用lua替代</p> <p></p> </h1> <p>redis连接池参数如下：</p> <table> <thead> <tr> <th>参数</th> <th>含义</th> <th>默认值</th> <th>使用建议</th> </tr> </thead> <tbody> <tr> <td>maxTotal</td> <td>资源池中最大连接数</td> <td>8</td> <td>设置建议见下文</td> </tr> <tr> <td>maxIdle</td> <td>资源池允许最大空闲的连接数</td> <td>8</td> <td>设置建议见下文</td> </tr> <tr> <td>minIdle</td> <td>资源池确保最少空闲的连接数</td> <td>0</td> <td>设置建议见下文</td> </tr> <tr> <td>blockWhenExhausted</td> <td>当资源池用尽后，调用者是否要等待。只有当为true时，下面的maxWaitMillis才会生效</td> <td>true</td> <td>建议使用默认值</td> </tr> <tr> <td>maxWaitMillis</td> <td>当资源池连接用尽后，调用者的最大等待时间(单位为毫秒)</td> <td>-1：表示永不超时</td> <td>不建议使用默认值</td> </tr> <tr> <td>testOnBorrow</td> <td>向资源池借用连接时是否做连接有效性检测(ping)，无效连接会被移除</td> <td>false</td> <td>业务量很大时候建议设置为false(多一次ping的开销)。</td> </tr> <tr> <td>testOnReturn</td> <td>向资源池归还连接时是否做连接有效性检测(ping)，无效连接会被移除</td> <td>false</td> <td>业务量很大时候建议设置为false(多一次ping的开销)。</td> </tr> <tr> <td>jmxEnabled</td> <td>是否开启jmx监控，可用于监控</td> <td>true</td> <td>建议开启，但应用本身也要开启</td> </tr> </tbody> </table> <p>优化建议：</p> <p><strong>①：maxtotal：连接池最大连接数，早期版本叫maxActive！</strong><br /> 对于maxtotal的优化要考虑很多因素：</p> <ol> <li>业务希望的redis并发量(QPS)</li> <li>命令执行时间</li> <li>小于redis允许最大连接数<br /> 例如： nodes(例如应用个数) * maxTotal 是不能超过redis的最大连接数maxclients。</li> </ol> <p>用一个例子说明<br /><strong>假如：</strong><br /> 1.业务希望的QPS(每秒并发量)是50000<br /> 2.通过压测工具测得一次命令执行(拿连接+执行命令+归还连接)平均耗时为1ms，算得一个连接的QPS(每秒并发量)是1000</p> <p><strong>结论：</strong><br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;那么理论上需要的资源池大小是50000 / 1000 = 50个。但事实上这是个理论值，还要考虑到要比理论值预留一些资源，通常来讲maxTotal可以比理论值大一些，比如60个。但这个值不是越大越好，连接太多会一方面占用客户端和服务端资源，另一方面对于Redis这种高QPS的服务器，一个大命令的阻塞即使设置再大资源池仍然会无济于事。</p> <p><strong>②：maxIdle：业务需要的最大连接数</strong><br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxTotal是为了给出余量，而maxIdle才是业务需要的最大连接数，所以maxIdle不要设置过小，如果设置与maxTotal差距过大，则会有new Jedis(新建连接)开销。</p> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一般推荐maxIdle可以设置为按上面的业务期望QPS计算出来的理论连接数50个，这样就避免连接池伸缩带来的性能干扰，maxTotal可以再放大一些，为redis预留一些资源！</p> <p><strong>③：minIdle（最小空闲连接数）</strong><br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;minIdle是至少需要保持的空闲的连接数。</p> <p><strong>注意：redis连接池是懒加载的，一开始不会有任何连接，用一个连接连接池帮我们生成一个连接，连接数量根据并发量增加，redis默认取maxIdle配置的连接数量。</strong></p> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;比如 minIdle = 10 ；maxIdle = 20 ；maxtotal = 40。随着并发量逐渐增加，连接数量逐渐变大，但不会超过40，一段时间后，并发量下降，由于redis默认取maxIdle配置的连接数量20，所以超出20的连接会被释放，池中稳定存在20个连接，在这里minIdle配置显得无意义，可以通过配置修改minIdle为redispool默认连接数。</p> <p>在并发非常高的情况下，为了保持redis最佳性能，可以配置maxTotal = maxIdle</p> <p></p> </h1> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于redis连接池初始化时不会有连接，当系统启动时，突然爆发大量请求要获取redis数据，这样在短时间内会创建大量连接，影响系统性能，为了避免出现这种情况，可以给redis连接池做预热！</p> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;比如在系统启动时创建一些redis连接，执行简单命令，类似ping()，快速的将连接池里的空闲连接提升到minIdle的数量。注意执行ping()时不能立即把连接放回连接池，不然连接池只会有一个连接！</p> <p>预热代码如下：</p> <pre><code>List&lt;Jedis&gt; minIdleJedisList = new ArrayList&lt;Jedis&gt;(jedisPoolConfig.getMinIdle());  //拿到minIdle得数量 for (int i = 0; i &lt; jedisPoolConfig.getMinIdle(); i++) {     Jedis jedis = null;     try {         jedis = pool.getResource();         minIdleJedisList.add(jedis);                  //ping建立连接         jedis.ping();              } catch (Exception e) {         logger.error(e.getMessage(), e);     } finally {         //注意，这里不能马上close将连接还回连接池，否则最后连接池里只会建立1个连接。。         //jedis.close();     } } //统一将预热的连接还回连接池 for (int i = 0; i &lt; jedisPoolConfig.getMinIdle(); i++) {     Jedis jedis = null;     try {         jedis = minIdleJedisList.get(i);         //将连接归还回连接池         jedis.close();     } catch (Exception e) {         logger.error(e.getMessage(), e);     } finally {     } }</code></pre> <p></p> </h1> <p><code>redis对于设置了过期时间，且已过期的key有三种清除策略</code>：</p> <ul> <li><strong>①：惰性删除</strong><br /> 当key过期时，不会立即删除，而是等到下一次读/写这个key时，才会先执行删除，再读/写，这也被称为惰性删除。缺点是如果后续一直不访问这个key，那么它会一直留在redis中，占用不必要的内存空间，对内存不友好</li> <li><strong>②：定时删除</strong><br /> 为每个键设置一个定时器，一旦过期时间到了，则将键删除。这种策略对内存很友好，但是对 CPU 不友好，因为每个定时器都会占用一定的 CPU 资源。</li> <li><strong>③：定期扫描</strong><br /> 系统每隔一段时间就定期扫描一次，发现过期的键就进行删除。不过 Redis 的定期扫描只会扫描设置了过期时间的键，因为设置了过期时间的键 Redis 会单独存储，所以不会出现扫描所有键的情况。这种策略相对来说是上面两种策略的折中方案</li> </ul> <p><code>如果reids中所有的key都没有过期，而且此时内存满了</code>，那么客户端继续执行 set 等命令时 Redis 会怎么处理呢？<code>Redis 当中提供了不同的内存淘汰策略来处理这种场景</code>。在Redis 4.0 之前一共实现了 6 种内存淘汰策略，<strong>可通过maxmemory-policy(默认是noeviction)来配置</strong>！在 4.0 之后，又增加了 2 种策略，总共8种如下：</p> <p><strong>a) 针对设置了过期时间的key做处理：</strong></p> <ol> <li>volatile-ttl：在筛选时，会针对设置了过期时间的键值对，根据过期时间的先后进行删除，越早过期的越先被删除。</li> <li>volatile-random：就像它的名称一样，在设置了过期时间的键值对中，进行随机删除。</li> <li>volatile-lru：会使用 LRU 算法筛选设置了过期时间的键值对删除。</li> <li>volatile-lfu：会使用 LFU 算法筛选设置了过期时间的键值对删除。</li> </ol> <p><strong>b) 针对所有的key做处理：</strong></p> <ol start="5"> <li> <p>allkeys-random：从所有键值对中随机选择并删除数据。</p> </li> <li> <p>allkeys-lru：使用 LRU 算法在所有数据中进行筛选删除。</p> </li> <li> <p>allkeys-lfu：使用 LFU 算法在所有数据中进行筛选删除。</p> </li> </ol> <p><strong>c) 不处理：</strong></p> <ol start="8"> <li>noeviction：不会剔除任何数据，拒绝所有写入操作并返回客户端错误信息"(error) OOM command not<br /> allowed when used memory"，此时Redis只响应读操作。redis默认操作</li> </ol> <p><strong>LRU 算法（Least Recently Used，最近最少使用）</strong></p> <ul> <li>传统的LRU算法目的是：淘汰很久没被访问过的数据。在 Redis 当中，并没有采用传统的 LRU 算法，因为传统的 LRU 算法存在 2 个问题：</li> </ul> <ol> <li>需要额外的空间进行存储。</li> <li>可能存在某些 key 值使用很频繁，但是最近没被使用，从而被 LRU 算法删除。</li> </ol> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了避免以上 2 个问题，<code>Redis 当中对传统的 LRU 算法进行了改造，通过抽样的方式进行删除</code>。配置文件中提供了一个属性<code>maxmemory_samples</code><code>5</code>，默认值就是 5，表示随机抽取 5 个 key 值，然后对这 5 个 key 值按照 LRU 算法进行删除，所以很明显，key 值越大，删除的准确度越高。</p> <p><strong>LFU 算法（Least Frequently Used，最近最少频率使用）</strong></p> <ul> <li>淘汰最近一段时间被访问次数最少的数据，以次数作为参考。<strong>热点数据通常用LFU算法！以次数为准</strong></li> </ul> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以上8中清除策略，应根据自身业务类型，配置好maxmemory-policy(默认是noeviction)，推荐使用volatile-lru。如果不设置最大内存，当 Redis 内存超出物理内存限制时，内存的数据会开始和磁盘产生频繁的交换 (swap)，会让 Redis 的性能急剧下降。</p> <p><strong>注意：当Redis运行在主从模式时，只有主节点才会执行过期删除策略，然后把删除操作”del key”同步到从结点删除数据。</strong></p> <p></p> </h1> <p>①：<strong>多商品抢购场景下</strong>，可以加redis服务器。如果是大促场景下，有很多商品待抢购，由于不同的商品id通过槽位分布在不同的redis集群节点上，可以通过增加redis服务器来分散槽位分配，实现高可用的redis架构！</p> <p>②：<strong>单商品秒杀场景下</strong>，增加redis服务器已无法起到优化作用，因为一个商品只能被分配到某一个redis集群节点中，秒杀这个商品会对当前redis节点产生较大压力！可以使用分段库存锁的思路来解决！</p> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;比如要秒杀id为001号商品，库存有1000个，可以把001拆分成001-1、001-2、001-3 … 001-10共拆分成10个小id来表示001号商品，每一个小id存储100库存，通过分段锁把单商品抢购优化为多商品抢购！这样在set key设置商品时由于hash(key)%16384得到的槽位不同，这些商品就被分配到不同的集群节点上，在抢购时判断001-1上是否还有库存，如果没有去其他节点减库存，这样就非常巧妙的实现了水平扩容，增强了系统性能！</p> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-49218.htm">送养一个孩子怎样写协议书范本（送养子女的协议书）</a></p>
+                                        <p>下一个：<a href="/news/article-49737.htm">node.js &#8211; 路由、中间件、mysql</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-22263.htm" title="养猫不吉利怎么化解（养猫不吉利怎么化解吉凶）">养猫不吉利怎么化解（养猫不吉利怎么化解吉凶）</a></li>
+                        <li class="py-2"><a href="/news/article-18894.htm" title="中国兽药公司排名前十名（中国兽药十强企业排名）">中国兽药公司排名前十名（中国兽药十强企业排名）</a></li>
+                        <li class="py-2"><a href="/news/article-24107.htm" title="宠物粮食股 宠物粮食股票">宠物粮食股 宠物粮食股票</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-27-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新22.6M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.6M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-49736.htm" title="redis专题：redis键值设计、性能优化以及redis连接池配置">redis专题：redis键值设计、性能优化以及redis连接池配置</a></li>
+                        <li class="py-2"><a href="/news/article-44256.htm" title="国货彩妆品牌有哪些牌子(大牌美妆有哪些)">国货彩妆品牌有哪些牌子(大牌美妆有哪些)</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-12-free-high-speed-nodes.htm" title="V2rayNG Node节点订阅每天更新22.5M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.5M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-15-node-share-links.htm" title="V2rayNG Node节点订阅每天更新21.6M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新21.6M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-47209.htm" title="动物疫苗周期多久打一次最好（动物疫苗周期多久打一次最好呢）">动物疫苗周期多久打一次最好（动物疫苗周期多久打一次最好呢）</a></li>
+                        <li class="py-2"><a href="/news/article-31107.htm" title="宠物鲜粮市场前景如何呢（宠物鲜粮市场前景如何呢知乎）">宠物鲜粮市场前景如何呢（宠物鲜粮市场前景如何呢知乎）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">92</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
