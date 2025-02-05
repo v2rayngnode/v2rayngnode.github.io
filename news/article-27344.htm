@@ -8,8 +8,35 @@
     <title>HamsterBear F1C200s  Linux v5.17 RTL8188EUS 适配</title>
         <meta name="description" content="HamsterBear F1C200s Linux v5.17 RTL8188EUS 适配   平台 - F1C200s   Linux版本 - 5.17.2   Buildroot - v2022." />
         <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-27344.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="HamsterBear F1C200s  Linux v5.17 RTL8188EUS 适配" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/5d51edc2748b8b386c2c1f0c052ab44e.webp" />
+        <meta property="og:release_date" content="2024-12-18T09:52:42" />
+    <meta property="og:updated_time" content="2024-12-18T09:52:42" />
+        <meta property="og:description" content="HamsterBear F1C200s Linux v5.17 RTL8188EUS 适配   平台 - F1C200s   Linux版本 - 5.17.2   Buildroot - v2022." />
+        
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- all css here -->
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="HamsterBear F1C200s  Linux v5.17 RTL8188EUS 适配">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
     <!-- bootstrap v3.3.6 css -->
     <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
     <!-- owl.carousel css -->
@@ -146,7 +173,7 @@
                   				  				  				<h2 id="hamsterbear-f1c200s-linux-v517-rtl8188eus-适配">HamsterBear F1C200s Linux v5.17 RTL8188EUS 适配</h2> <ul> <li> <p><code>平台</code> - F1C200s</p> </li> <li> <p><code>Linux版本</code> - 5.17.2</p> </li> <li> <p><code>Buildroot</code> - v2022.2</p> </li> </ul> <p>底板做了USB HUB， 用的是FE1.1s，一共做了4路，其中一路拿来连wifi模块，另外<br /> 3个直接做成了USB Type-A接口<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/8c232e3df07dd30a9558288048defab4.jpg" alt="HamsterBear F1C200s  Linux v5.17 RTL8188EUS 适配"><br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/d81bb910f44c4d1266732d2fda3de0f4.jpg" alt="HamsterBear F1C200s  Linux v5.17 RTL8188EUS 适配"></p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/1fec011cc412171929df9adf9ab8ef95.jpg" alt="HamsterBear F1C200s  Linux v5.17 RTL8188EUS 适配"></p> <h2 id="进入-kernel-menuconfig-打开如下选项">进入 kernel menuconfig 打开如下选项</h2> <p>（该驱动位于staging下，选择编译进内核）</p> <h2 id="buildroot中选择如下软件包">buildroot中选择如下软件包</h2> <p>（主要是net-tools iw工具包）</p> <h2 id="启动系统后">启动系统后</h2> <h3 id="1-修改musb-为host模式">1. 修改musb 为host模式</h3> <pre><code class="language-shell">echo host &gt; /sys/devices/platform/soc/1c13000.usb/musb-hdrc.1.auto/mode  [ 1379.560411] phy phy-1c13400.phy.0: Changing dr_mode to 1 [ 1380.223933] usb 1-1: new high-speed USB device number 2 using musb-hdrc [ 1380.405841] hub 1-1:1.0: USB hub found [ 1380.409764] hub 1-1:1.0: 4 ports detected [ 1380.833942] usb 1-1.1: new high-speed USB device number 3 using musb-hdrc [ 1381.146412] r8188eu: module is from the staging directory, the quality is unknown, you have been warned. [ 1381.170314] Chip Version Info: CHIP_8188E_Normal_Chip_TSMC_D_CUT_1T1R_RomVer(0) [ 1381.205020] EEPROM ID = 0x8129 [ 1381.212399] usbcore: registered new interface driver r8188eu</code></pre> <p>ip addr 可以看到对应wifi接口</p> <pre><code class="language-shell"># ip addr 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue qlen 1000     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00     inet 127.0.0.1/8 scope host lo        valid_lft forever preferred_lft forever 2: usb0: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop qlen 1000     link/ether 52:8c:6f:55:1f:64 brd ff:ff:ff:ff:ff:ff 3: wlan0: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop qlen 1000     link/ether 54:ef:33:d6:5e:72 brd ff:ff:ff:ff:ff:ff</code></pre> <h3 id="2-固件的导入">2. 固件的导入</h3> <p>模块在上电的时候会加载固件<code>/lib/firmware/rtlwifi/rtl8188eufw.bin</code><br /> 这个固件可以直接从你们linux pc机相同路径为止拷出来，这是我在调试的时候这样做的，<br /> 其实你们完全可以在编译环节搞定，在buildroot中，找到<br /> Target packages -&gt; Hardware handling -&gt; Firmware<br /> 然后勾选好对应固件就可以了！如果不确定，那就全选上，只要你存储空间够大就行!</p> <h3 id="3-连接到wifi">3. 连接到wifi</h3> <h4 id="上电">上电</h4> <pre><code class="language-shell"># ifconfig wlan0 up [ 1687.899356] R8188EU: Firmware Version 11, SubVersion 1, Signature 0x88e1 [ 1688.274263] MAC Address = 54:ef:33:d6:5e:72</code></pre> <h4 id="扫描附近wifi">扫描附近wifi</h4> <pre><code class="language-shell"># iwlist wlan0 scan wlan0     Scan completed :           Cell 01 - Address: 8C:DE:F9:EC:55:8B                     ESSID:""                     Protocol:IEEE 802.11bgn                     Mode:Master                     Frequency:2.422 GHz (Channel 3)                     Encryption key:off                     Bit Rates:144 Mb/s                     Quality:0  Signal level:0  Noise level:0           Cell 02 - Address: 96:DE:F9:EC:55:8B                     ESSID:"kernelbot"                     Protocol:IEEE 802.11bgn                     Mode:Master                     Frequency:2.422 GHz (Channel 3)                     Encryption key:off                     Bit Rates:144 Mb/s                     IE: Unknown: DD820050F204104A0001101044000101103B00010310470010876543219ABCDEF012340AA3C33C838F102100067869616F6D69102300045241383110240004303030321042000531323334351054000800060050F2040001101100135849414F4D495F524F555445525F4755455354100800020000103C0001031049000600372A000120                     Quality:0  Signal level:0  Noise level:0</code></pre> <h4 id="连接到wifi">连接到wifi</h4> <pre><code class="language-shell"># iwconfig wlan0 essid kernelbot # iwconfig lo        no wireless extensions.  usb0      no wireless extensions.  wlan0     IEEE 802.11bgn  ESSID:"kernelbot"  Nickname:"&lt;WIFI@REALTEK&gt;"           Mode:Managed  Frequency:2.422 GHz  Access Point: 96:DE:F9:EC:55:8B           Bit Rate:72.2 Mb/s   Sensitivity:0/0           Retry:off   RTS thr:off   Fragment thr:off           Encryption key:off           Power Management:off           Link Quality=100/100  Signal level=0 dBm  Noise level=0 dBm           Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0           Tx excessive retries:0  Invalid misc:0   Missed beacon:0</code></pre> <h4 id="请求ip">请求ip</h4> <pre><code class="language-shell"># udhcpc -i wlan0 udhcpc: started, v1.35.0 udhcpc: broadcasting discover udhcpc: broadcasting select for 192.168.19.234, server 192.168.19.1 udhcpc: lease of 192.168.19.234 obtained from 192.168.19.1, lease time 43200 deleting routers adding dns 192.168.19.1</code></pre> <h4 id="尝试访问外网没接天线">尝试访问外网(没接天线)</h4> <pre><code class="language-shell"># ping baidu.com PING baidu.com (220.181.38.148): 56 data bytes 64 bytes from 220.181.38.148: seq=0 ttl=50 time=201.784 ms 64 bytes from 220.181.38.148: seq=1 ttl=50 time=225.148 ms 64 bytes from 220.181.38.148: seq=2 ttl=50 time=15.126 ms 64 bytes from 220.181.38.148: seq=3 ttl=50 time=116.496 ms 64 bytes from 220.181.38.148: seq=4 ttl=50 time=115.356 ms 64 bytes from 220.181.38.148: seq=5 ttl=50 time=21.000 ms 64 bytes from 220.181.38.148: seq=6 ttl=50 time=114.353 ms 64 bytes from 220.181.38.148: seq=7 ttl=50 time=122.406 ms ^C --- baidu.com ping statistics --- 8 packets transmitted, 8 packets received, 0% packet loss round-trip min/avg/max = 15.126/116.458/225.148 ms</code></pre> <h3 id="更多玩法">更多玩法</h3> <h4 id="1-mqtt与上位机通信">1. MQTT与上位机通信</h4> <pre><code>	大概业务就是 扫描传感器数据上报给上位机 	上位机也可以指定从机行为</code></pre> <h4 id="2-移植浏览器访问网页">2. 移植浏览器访问网页</h4> <h4 id="3-挂载主机nfs文件系统">3. 挂载主机NFS文件系统</h4> <h4 id="4-做内网web服务器">4. 做内网WEB服务器</h4> <h4 id="5-暂时没想到">5. 暂时没想到</h4> <h3 id="总结以及遇到的一些问题">总结以及遇到的一些问题</h3> <h4 id="总结">总结</h4> <p>因为一开始设计思路就比较清晰，所以整个过程还是比较顺利的，底板设计的时候，因为<br /> 粗心大意连错了线，所以又再版了。</p> <p>内核 buildroot那两块等有空再写详细点。</p> <p>有问题可以联系我邮箱(writeforever@foxmail.com)</p> <h4 id="问题">问题</h4> <ol> <li>模块上电后扫描自动断开连接<br /> 后来发现是供电不够，一开始一直用电脑USB接口供电，但那个最大电流貌似就500mA，<br /> 换了个充电头就ok了。</li> </ol> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>上一个：<a href="/news/article-26893.htm">淮北宠物寄养（安徽淮北宠物救助站）</a></p>
-                                        <p>下一个：<a href="/news/article-27346.htm">广州宠物粮食批发市场（广州宠物粮食批发市场在哪里）</a></p>
+                                        <p>下一个：<a href="/news/article-28282.htm">vscode-vue 代码保存自动eslint格式化配置</a></p>
                                     </div>
                                 </div>
                 <div class="col-md-3">
@@ -156,16 +183,16 @@
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/news/article-25029.htm" title="正则表达式规则以及贪婪匹配与非贪婪匹配">正则表达式规则以及贪婪匹配与非贪婪匹配</a></li>
-                        <li class="py-2"><a href="/news/article-21805.htm" title="被宠物猫抓伤流血了需要打疫苗吗（被宠物猫抓出一点点血要打针吗）">被宠物猫抓伤流血了需要打疫苗吗（被宠物猫抓出一点点血要打针吗）</a></li>
-                        <li class="py-2"><a href="/news/article-19049.htm" title="判断数A中是否存在一棵同构于B的子树">判断数A中是否存在一棵同构于B的子树</a></li>
-                        <li class="py-2"><a href="/news/article-25028.htm" title="指针的高级运用——指针进阶">指针的高级运用——指针进阶</a></li>
-                        <li class="py-2"><a href="/news/article-23173.htm" title="最大生成树Bad Cowtractors_在线工具">最大生成树Bad Cowtractors_在线工具</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-12-12-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-11-node-share-links.htm" title="V2rayNG Node节点订阅每天更新19.1M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新19.1M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-16-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新21M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新21M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-12-6-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新21.3M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新21.3M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-26-node-share.htm" title="V2rayNG Node节点订阅每天更新18.9M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新18.9M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-22263.htm" title="养猫不吉利怎么化解（养猫不吉利怎么化解吉凶）">养猫不吉利怎么化解（养猫不吉利怎么化解吉凶）</a></li>
+                        <li class="py-2"><a href="/news/article-35238.htm" title="python之33个关键字详解_Python之33个关键字是哪些">python之33个关键字详解_Python之33个关键字是哪些</a></li>
+                        <li class="py-2"><a href="/news/article-48192.htm" title="动物疫病预防中心是几类事业单位（动物疫病预防控制中心是公益几类）">动物疫病预防中心是几类事业单位（动物疫病预防控制中心是公益几类）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-3-free-high-speed-nodes.htm" title="V2rayNG Node节点订阅每天更新18.8M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新18.8M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-5-node-share-links.htm" title="V2rayNG Node节点订阅每天更新19.4M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新19.4M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-4-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-40779.htm" title="全国领养宠物 全国领养宠物平台">全国领养宠物 全国领养宠物平台</a></li>
+                        <li class="py-2"><a href="/news/article-19050.htm" title="给动物打疫苗要多少钱一针呀（给动物打的疫苗是什么）">给动物打疫苗要多少钱一针呀（给动物打的疫苗是什么）</a></li>
+                        <li class="py-2"><a href="/news/article-33961.htm" title="宠物粮食设备 宠物粮生产设备">宠物粮食设备 宠物粮生产设备</a></li>
+                        <li class="py-2"><a href="/news/article-39782.htm" title="中国农大动物医院预约（中国农大动物医院的咨询电话）">中国农大动物医院预约（中国农大动物医院的咨询电话）</a></li>
                     </ul>
     </div>
 </div>
@@ -177,7 +204,13 @@
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">60</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">92</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>

@@ -8,8 +8,35 @@
     <title>java 退出_JVM安全退出（如何优雅的关闭java服务）</title>
         <meta name="description" content="背景 用户：货都到了，购物车里怎么还有刚买的东西，what? 产品：有用户反映，提单完成了，怎么没清购物车，研发赶紧看看是不是有bug啊？ 研发：恩，我看看，！@#￥%……&amp;*()一顿狂查，搜" />
         <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-26415.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="java 退出_JVM安全退出（如何优雅的关闭java服务）" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/2536103527f3b4dc4e6e1415c71506ab.webp" />
+        <meta property="og:release_date" content="2024-12-16T10:11:25" />
+    <meta property="og:updated_time" content="2024-12-16T10:11:25" />
+        <meta property="og:description" content="背景 用户：货都到了，购物车里怎么还有刚买的东西，what? 产品：有用户反映，提单完成了，怎么没清购物车，研发赶紧看看是不是有bug啊？ 研发：恩，我看看，！@#￥%……&amp;*()一顿狂查，搜" />
+        
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- all css here -->
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="java 退出_JVM安全退出（如何优雅的关闭java服务）">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
     <!-- bootstrap v3.3.6 css -->
     <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
     <!-- owl.carousel css -->
@@ -146,7 +173,7 @@
                   				  				  				<div id="content_views" class="htmledit_views"> <div style="font-size:16px;"> <p>背景</p> <p>用户：货都到了，购物车里怎么还有刚买的东西，what?</p> <p>产品：有用户反映，提单完成了，怎么没清购物车，研发赶紧看看是不是有bug啊？</p> <p>研发：恩，我看看，！@#￥%……&amp;*()一顿狂查，搜嘎，当时在上线，重启应用，异步任务丢了……</p> <p>产品：能不能行，上线你就丢任务，丢不丢人啊！</p> <p>研发：…………</p> <p>上线!重启!你还在为丢失任务而烦恼么？看这里看这里，从此不再丢任务，JVM可以安全退出的</p> <p>在交易流程中，为了提升服务的性能，我们做了一些异步化的优化，比如更新用户最近使用的收货地址、提单完成后通过MQ去发送各种通知类消息、清理用户的购物车等等这些操作，异步化加快了应用的响应速度同时也带来一个隐患，如何保障异步操作的执行？这个场景主要发生在应用重启时，对于通过线程或线程池进行的异步化，JVM重启时，后台执行的异步操作可能尚未完成。这时，需要通过JVM安全关闭来保证异步操作进行完成后，JVM再执行关闭。</p> <p>更广泛的说，在Linux上很多应用通常会通过kill -9 pid的方式强制将进程杀掉，这种方式简单高效，因此很多应用的停止脚本经常会选择使用kill -9 pid的方式。强制进程退出,会带来一些副作用，对应用程序而言其效果等同于突然掉电，可能会导致如下一些问题：</p> <p>缓存中的数据尚未持久化到磁盘中，导致数据丢失；</p> <p>正在进行文件的write操作，没有更新完成，突然退出，导致文件损坏；</p> <p>线程池的任务队列中尚有接收到的任务还没来得及处理，导致任务丢失；</p> <p>数据库操作已经完成，例如账户余额更新，准备返回应答消息给客户端时，消息尚在通信线程的发送队列中排队等待发送，进程强制退出导致应答消息没有返回给客户端，客户端发起超时重试，会带来重复更新问题；</p> <p>其它问题等…</p> <p>这些问题都有可能对我们的业务产生影响，造成不必要的损失，为了避免这些问题，我们需要在JVM关闭时做些扫尾的工作，为此JVM提供了关闭钩子(shutdown hooks)来做这些事情。本文探讨了利用关闭钩子的相关内容。</p> <p>JVM 关闭</p> <p>首先，我们了解下哪些情况会导致JVM关闭，如下图</p> <p align="center"><img decoding="async" src="http://img.555519.xyz/uploads/20230112/6cce256cc47350379568328322b4adbe.jpg" alt="java 退出_JVM安全退出（如何优雅的关闭java服务）"></p> <p>对于强制关闭的几种情况，系统关机，操作系统会通知JVM进程关闭并等待，一旦等待超时，系统会强制中止JVM进程；kill -9、Runtime.halt()、断电、系统crash这些种方式会直接无商量中止JVM进程，JVM完全没有执行扫尾工作的机会。因此对用应用程序而言，我们强烈不建议使用kill -9 这种暴力方式退出。</p> <p>而对于正常关闭、异常关闭的几种情况，JVM关闭前，都会调用已注册的shutdown hooks，基于这种机制，我们可以将扫尾的工作放在shutdown hooks中，进而使我们的应用程序安全的退出。基于平台通用性的考虑，我们更推荐应用程序使用System.exit(0)这种方式退出JVM。</p> <p>JVM 与 shutdown hooks 交互流程如下图所示，可以对照源码进一步的学习shutdown hooks工作原理。</p> <p align="center"><img decoding="async" src="http://img.555519.xyz/uploads/20230112/98fcdf1e9dc1d61666e47fdf612ed1c5.jpg" alt="java 退出_JVM安全退出（如何优雅的关闭java服务）"></p> <p>Jvm安全退出</p> <p>对于tomcat类Web应用，我们可以直接通过Runtime.addShutdownHook(Thread hook)注册自定义钩子，在钩子中实现资源的清理；而对于worker类应用，我们可以采用如下的方式安全的退出应用。</p> <p>基于信号的进程通知机制</p> <p>信号是在软件层次上对中断机制的一种模拟，在原理上，一个进程收到一个信号与处理器收到一个中断请求可以说是一样的。通俗来讲，信号就是进程间的一种异步通信机制。信号具有平台相关性，Linux平台支持的一些终止进程信号如下所示：</p> <p>信号名称用途</p> <p>SIGKILL</p> <p>终止进程，强制杀死进程</p> <p>SIGTERM</p> <p>终止进程，软件终止信号</p> <p>SIGTSTP</p> <p>停止进程，终端来的停止信号</p> <p>SIGPROF</p> <p>终止进程，统计分布图用计时器到时</p> <p>SIGUSR1</p> <p>终止进程，用户定义信号1</p> <p>SIGUSR2</p> <p>终止进程，用户定义信号2</p> <p>SIGINT</p> <p>终止进程，中断进程</p> <p>SIGQUIT</p> <p>建立CORE文件终止进程，并且生成core文件</p> <p>Windows平台存在一些差异，它的一些信号举例如下所示：</p> <p>信号名称用途</p> <p>SIGINT</p> <p>Ctrl+C中断</p> <p>SIGTERM</p> <p>kill发出的软件终止</p> <p>SIGBREAK</p> <p>Ctrl+Break中断</p> <p>信号选择：为了不干扰正常信号的运作，又能模拟Java异步通知，在Linux上我们需要先选定一种特殊的信号。通过查看信号列表上的描述，发现 SIGUSR1 和 SIGUSR2 是允许用户自定义的信号,我们可以选择SIGUSR2，在Windows上我们可以选择SIGINT。</p> <p>通过这种信号机制，对应用程序JVM发送特定信号,JVM可以感知并处理该信号，进而可以接受程序退出指令。</p> <p>安全退出实现</p> <p>首先看下通用的JVM安全退出的流程图：</p> <p align="center"><img decoding="async" src="http://img.555519.xyz/uploads/20230112/6eb122bd85595cc8899b991a74622e71.jpg" alt="java 退出_JVM安全退出（如何优雅的关闭java服务）"></p> <p>第一步，应用进程启动的时候，初始化Signal实例，它的代码示例如下：</p> <p>1 Signal sig = new Signal(getOSSignalType());</p> <p>其中Signal构造函数的参数为String字符串，也就上文介绍的信号量名称。</p> <p>第二步，根据操作系统的名称来获取对应的信号名称，代码如下：</p> <p>1 privateString getOSSignalType()2 {3 return System.getProperties().getProperty("os.name").4 toLowerCase().startsWith("win") ? "INT" : "USR2";5 }</p> <p>判断是否是windows操作系统，如果是则选择SIGINT，接收Ctrl+C中断的指令；否则选择USR2信号，接收SIGUSR2(等价于kill -12 pid)指令。</p> <p>第三步，将实例化之后的SignalHandler注册到JVM的Signal，一旦JVM进程接收到kill -12 或者 Ctrl+C则回调handle接口，代码示例如下：</p> <p>1 Signal.handle(sig, shutdownHandler);</p> <p>其中shutdownHandler实现了SignalHandler接口的handle(Signal sgin)方法，代码示例如下：</p> <p>1 public class ShutdownHandler implementsSignalHandler {2 /**</p> <p>3 * 处理信号4 *5 *@paramsignal 信号6 */</p> <p>7 public voidhandle(Signal signal) {8 }9 }</p> <p>第四步，在接收到信号回调的handle接口中，初始化JVM的ShutdownHook线程，并将其注册到Runtime中，示例代码如下：</p> <p>1 private voidregisterShutdownHook()2 {3 Thread t = new Thread(new ShutdownHook(), "ShutdownHook-Thread");4 Runtime.getRuntime().addShutdownHook(t);5 }</p> <p>第五步，接收到进程退出信号后，在回调的handle接口中执行虚拟机的退出操作，示例代码如下：</p> <p>1 Runtime.getRuntime().exit(0);</p> <p>JVM退出时，底层会自动检测用户是否注册了ShutdownHook任务，如果有，则会自动执行注册钩子的Run方法，应用只需要在ShutdownHook中执行扫尾工作即可，示例代码如下：</p> <p>1 class ShutdownHook implementsRunnable2 {3 @Override4 public voidrun() {5 System.out.println("ShutdownHook execute start...");6 try{7 TimeUnit.SECONDS.sleep(10);//模拟应用进程退出前的处理操作</p> <p>8 } catch(InterruptedException e) {9 e.printStackTrace();10 }11 System.out.println("ShutdownHook execute end...");12 }13 }</p> <p>通过以上的几个步骤，我们可以轻松实现JVM的安全退出，另外，通常安全退出需要有超时控制机制，例如30S，如果到达超时时间仍然没有完成退出，则由停机脚本直接调用kill -9强制退出。</p> <p>使用关闭钩子的注意事项</p> <p>关闭钩子本质上是一个线程(也称为Hook线程)，对于一个JVM中注册的多个关闭钩子它们将会并发执行，所以JVM并不保证它们的执行顺序；由于是并发执行的，那么很可能因为代码不当导致出现竞态条件或死锁等问题，为了避免该问题，强烈建议在一个钩子中执行一系列操作。</p> <p>Hook线程会延迟JVM的关闭时间，这就要求在编写钩子过程中必须要尽可能的减少Hook线程的执行时间，避免hook线程中出现耗时的计算、等待用户I/O等等操作。</p> <p>关闭钩子执行过程中可能被强制打断,比如在操作系统关机时，操作系统会等待进程停止，等待超时，进程仍未停止，操作系统会强制的杀死该进程，在这类情况下，关闭钩子在执行过程中被强制中止。</p> <p>在关闭钩子中，不能执行注册、移除钩子的操作，JVM将关闭钩子序列初始化完毕后，不允许再次添加或者移除已经存在的钩子，否则JVM抛出 IllegalStateException。</p> <p>不能在钩子调用System.exit()，否则卡住JVM的关闭过程，但是可以调用Runtime.halt()。</p> <p>Hook线程中同样会抛出异常，对于未捕捉的异常，线程的默认异常处理器处理该异常，不会影响其他hook线程以及JVM正常退出。</p> <p>总结</p> <p>为了保障应用重启过程中异步操作的执行，避免强制退出JVM可能产生的各种问题，我们可以采用关闭钩子、自定义信号的方式，主动的通知JVM退出，并在JVM关闭前，执行应用程序的一些扫尾工作，进一步保证应用程序可以安全的退出。</p> </div></div> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>上一个：<a href="/news/article-25951.htm">哈尔滨农大动物医院地址在哪儿（哈尔滨农大宠物医院的地址和电话）</a></p>
-                                        <p>下一个：<a href="/news/article-26416.htm">动物医院申请条件有哪些内容呢图片（动物医院申请条件有哪些内容呢图片大全）</a></p>
+                                        <p>下一个：<a href="/news/article-28282.htm">vscode-vue 代码保存自动eslint格式化配置</a></p>
                                     </div>
                                 </div>
                 <div class="col-md-3">
@@ -156,16 +183,16 @@
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/news/article-19049.htm" title="判断数A中是否存在一棵同构于B的子树">判断数A中是否存在一棵同构于B的子树</a></li>
-                        <li class="py-2"><a href="/news/article-26893.htm" title="淮北宠物寄养（安徽淮北宠物救助站）">淮北宠物寄养（安徽淮北宠物救助站）</a></li>
-                        <li class="py-2"><a href="/news/article-22721.htm" title="动物打完疫苗需要注意什么吗知乎（动物打了疫苗）">动物打完疫苗需要注意什么吗知乎（动物打了疫苗）</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-29-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新18.8M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新18.8M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-21340.htm" title="Mac上解决dose not contain the JNI_CreateJavaVM symbol">Mac上解决dose not contain the JNI_CreateJavaVM symbol</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-27-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-25028.htm" title="指针的高级运用——指针进阶">指针的高级运用——指针进阶</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-12-5-node-share-links.htm" title="V2rayNG Node节点订阅每天更新19.4M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新19.4M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-18894.htm" title="中国兽药公司排名前十名（中国兽药十强企业排名）">中国兽药公司排名前十名（中国兽药十强企业排名）</a></li>
-                        <li class="py-2"><a href="/news/article-27809.htm" title="公务员国考报名时间表2024（公务员国考报名时间202年）">公务员国考报名时间表2024（公务员国考报名时间202年）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-13-node-share-links.htm" title="V2rayNG Node节点订阅每天更新19.4M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新19.4M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-35777.htm" title="python中，用pyspark读写Hive数据">python中，用pyspark读写Hive数据</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-27-node-share.htm" title="V2rayNG Node节点订阅每天更新22.1M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.1M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-31-node-share.htm" title="V2rayNG Node节点订阅每天更新20.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.2M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-32059.htm" title="宠物领养证如何办理流程图解图片（正规领养宠物流程）">宠物领养证如何办理流程图解图片（正规领养宠物流程）</a></li>
+                        <li class="py-2"><a href="/news/article-48190.htm" title="动物疫苗接种时间表图片大全 动物疫苗接种时间表图片大全集">动物疫苗接种时间表图片大全 动物疫苗接种时间表图片大全集</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-20-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新21.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新21.3M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-33962.htm" title="宠物领养app有哪些平台 宠物领养app有哪些平台可以用">宠物领养app有哪些平台 宠物领养app有哪些平台可以用</a></li>
+                        <li class="py-2"><a href="/news/article-32542.htm" title="为什么猫不打疫苗不能绝育呢视频（家猫为什么不打疫苗）">为什么猫不打疫苗不能绝育呢视频（家猫为什么不打疫苗）</a></li>
+                        <li class="py-2"><a href="/news/article-46730.htm" title="vue3 vue-router的使用">vue3 vue-router的使用</a></li>
                     </ul>
     </div>
 </div>
@@ -177,7 +204,13 @@
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">57</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">92</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>

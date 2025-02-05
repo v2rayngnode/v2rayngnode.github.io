@@ -8,8 +8,35 @@
     <title>正则表达式规则以及贪婪匹配与非贪婪匹配</title>
         <meta name="description" content="原文地址：http://blog.csdn.net/jethai/article/details/52345368 1、什么是正则表达式的贪婪与非贪婪匹配 如：String str="abcaxc";" />
         <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-25029.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="正则表达式规则以及贪婪匹配与非贪婪匹配" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/459a0c6729bd530682003b7ecf82e5b0.webp" />
+        <meta property="og:release_date" content="2024-12-13T12:03:42" />
+    <meta property="og:updated_time" content="2024-12-13T12:03:42" />
+        <meta property="og:description" content="原文地址：http://blog.csdn.net/jethai/article/details/52345368 1、什么是正则表达式的贪婪与非贪婪匹配 如：String str="abcaxc";" />
+        
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- all css here -->
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="正则表达式规则以及贪婪匹配与非贪婪匹配">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
     <!-- bootstrap v3.3.6 css -->
     <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
     <!-- owl.carousel css -->
@@ -146,7 +173,7 @@
                   				  				  				<div id="content_views" class="htmledit_views"> <p><span style="font-size:12px">原文地址：<a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://blog.csdn.net/jethai/article/details/52345368"  rel="nofollow">http://blog.csdn.net/jethai/article/details/52345368</a></span></p> <p><span style="font-size:18px; color:#006600"><strong>1、什么是正则表达式的贪婪与非贪婪匹配</strong></span></p> <p><strong></strong>如：String str="abcaxc";</p> <p>　　　　Patter p="ab*c";</p> <p><strong>　　贪婪匹配：</strong>正则表达式一般趋向于最大长度匹配，也就是所谓的贪婪匹配。如上面使用模式p匹配字符串str，结果就是匹配到：<strong>abcaxc</strong>(ab*c)。</p> <p><strong>非贪婪匹配：</strong>就是匹配到结果就好，就少的匹配字符。如上面使用模式p匹配字符串str，结果就是匹配到：<strong>abc</strong>(ab*c)。</p> <p><span style="font-size:18px; color:#006600"><strong>2、编程中如何区分两种模式</strong></span></p> <p><strong><span style="color:#ff0000">默认是贪婪模式；在量词后面直接加上一个问号？就是非贪婪模式。</span></strong></p> <p>　　下面的都是量词：</p> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {m,n}：m到n个</p> <p>　　　　　*：任意多个</p> <p>　　　　　+：一个到多个</p> <p>　　　　　？：0或一个</p> <p>demo代码：</p> <pre><code class="language-java">import java.util.regex.Matcher;  import java.util.regex.Pattern;    public class RegularTest {            public static void main(String[] arg){          String text="(content:\"rcpt to root\";pcre:\"word\";)";          String rule1="content:\".+\"";    //贪婪模式          String rule2="content:\".+?\"";    //非贪婪模式                    System.out.println("文本："+text);          System.out.println("贪婪模式："+rule1);          Pattern p1 =Pattern.compile(rule1);          Matcher m1 = p1.matcher(text);          while(m1.find()){              System.out.println("匹配结果："+m1.group(0));          }                    System.out.println("非贪婪模式："+rule2);          Pattern p2 =Pattern.compile(rule2);          Matcher m2 = p2.matcher(text);          while(m2.find()){              System.out.println("匹配结果："+m2.group(0));          }      }  }</code></pre> <p><span style="color:#FF0000"><strong>贪婪匹配：在满足匹配时，匹配尽可能长的字符串，默认情况下，采用贪婪匹配</strong></span></p> <div class="dp-highlighter bg_java"> <div class="bar"> <div class="tools"><strong>[java]</strong><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://blog.csdn.net/jethai/article/details/52345368#"  class="ViewSource" title="view plain" rel="nofollow"> view plain</a><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://blog.csdn.net/jethai/article/details/52345368#"  class="CopyToClipboard" title="copy" rel="nofollow"> copy</a></div> </div> <ol start="1" class="dp-j"> <li class="alt">string&nbsp;pattern1&nbsp;=&nbsp;@<span class="string">"a.*c"</span>;<span class="comment">//&nbsp;greedy&nbsp;match&nbsp;Regex&nbsp;regex&nbsp;=&nbsp;new&nbsp;Regex(pattern1);</span></li> <li>regex.Match(<span class="string">"abcabc"</span>);<span class="comment">//&nbsp;return&nbsp;"abcabc"</span></li> </ol> </div> <p><strong><span style="color:#FF0000">非贪婪匹配：在满足匹配时，匹配尽可能短的字符串，使用?来表示非贪婪匹配</span></strong></p> <div class="dp-highlighter bg_java"> <div class="bar"> <div class="tools"><strong>[java]</strong><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://blog.csdn.net/jethai/article/details/52345368#"  class="ViewSource" title="view plain" rel="nofollow"> view plain</a><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://blog.csdn.net/jethai/article/details/52345368#"  class="CopyToClipboard" title="copy" rel="nofollow"> copy</a></div> </div> <ol start="1" class="dp-j"> <li class="alt">string&nbsp;pattern1&nbsp;=&nbsp;@<span class="string">"a.*?c"</span>;<span class="comment">//&nbsp;non-greedy&nbsp;match&nbsp;Regex&nbsp;regex&nbsp;=&nbsp;new&nbsp;Regex(pattern1);</span></li> <li>regex.Match(<span class="string">"abcabc"</span>);<span class="comment">//&nbsp;return&nbsp;"abc"</span></li> </ol> </div> <p>几个常用的非贪婪匹配Pattern</p> <div class="dp-highlighter bg_java"> <div class="bar"> <div class="tools"><strong>[java]</strong><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://blog.csdn.net/jethai/article/details/52345368#"  class="ViewSource" title="view plain" rel="nofollow"> view plain</a><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://blog.csdn.net/jethai/article/details/52345368#"  class="CopyToClipboard" title="copy" rel="nofollow"> copy</a></div> </div> <ol start="1" class="dp-j"> <li class="alt">*?&nbsp;重复任意次，但尽可能少重复</li> <li>+?&nbsp;重复<span class="number">1</span>次或更多次，但尽可能少重复</li> <li class="alt">??&nbsp;重复<span class="number">0</span>次或<span class="number">1</span>次，但尽可能少重复</li> <li>{n,m}?&nbsp;重复n到m次，但尽可能少重复</li> <li class="alt">{n,}?&nbsp;重复n次以上，但尽可能少重复</li> </ol> </div> <p><span style="font-size:18px; color:#006600"><strong>3、正则表达式规则</strong></span></p> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 正则表达式的详细规则描述如下所示：</p> <p><a target="_blank" href="http://img.555519.xyz/uploads3/20220609/f389be9ee288371e962897991f2412bc.jpg" rel="nofollow" class="fancybox" data-fancybox-group="button"><img decoding="async" src="http://img.555519.xyz/uploads3/20220609/f389be9ee288371e962897991f2412bc.jpg" alt="正则表达式规则以及贪婪匹配与非贪婪匹配" title="正则表达式.png"></a></p> <p><span style="color:#006600"><strong><br /></strong></span></p> <p><span style="color:#006600"><strong>注意：上述规则应该是标准的Unix正则规则，可能因为软件的不同可能会有所差别。比如之前在使用UltraEdit的正则搜索功能时，发现UltraEdit有自己的正则规则，和标准的Unix规则不太一样，比如在Unix中“.”（点）表示匹配除\n以外的任意字符，但是在UltraEdit中“?”（问号）才表示匹配\n以外的任意字符。</strong><span style="color:#000000">如果要了解UltraEdit详细的正则规则描述，可以从UltraEdit的主菜单中找到使用帮助菜单项，打开UltraEdit的帮助文档，在帮助文档中有详细的说明。</span></span></p> <p></p> <p>参考文章：</p> <p><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://www.cnblogs.com/xudong-bupt/p/3586889.html"  rel="nofollow">http://www.cnblogs.com/xudong-bupt/p/3586889.html</a></div> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>上一个：<a href="/news/article-25028.htm">指针的高级运用——指针进阶</a></p>
-                                        <p>下一个：<a href="/news/article-25492.htm">Tomcat 部署 Web项目以及更改项目名</a></p>
+                                        <p>下一个：<a href="/news/article-28282.htm">vscode-vue 代码保存自动eslint格式化配置</a></p>
                                     </div>
                                 </div>
                 <div class="col-md-3">
@@ -156,16 +183,16 @@
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2024-11-16-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新21M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新21M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/news/article-22721.htm" title="动物打完疫苗需要注意什么吗知乎（动物打了疫苗）">动物打完疫苗需要注意什么吗知乎（动物打了疫苗）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-31-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新21.4M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新21.4M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-19-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新18.8M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.8M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-29-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新22.6M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.6M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-23641.htm" title="长春哪里宠物医院好不贵点（长春最好的宠物医院是哪家）">长春哪里宠物医院好不贵点（长春最好的宠物医院是哪家）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-31-node-share.htm" title="V2rayNG Node节点订阅每天更新20.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.2M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-25493.htm" title="附近免费领养小猫小狗（附近领养宠物小猫）">附近免费领养小猫小狗（附近领养宠物小猫）</a></li>
                         <li class="py-2"><a href="/free-nodes/2024-12-17-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新22.6M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新22.6M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-12-16-free-high-speed-nodes.htm" title="V2rayNG Node节点订阅每天更新22M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新22M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-19975.htm" title="宠物助理考试（宠物助理考试题）">宠物助理考试（宠物助理考试题）</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-12-10-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新20.2M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.2M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-25-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新19.8M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新19.8M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-19-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新18.5M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新18.5M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-23-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新18.7M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新18.7M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-12-13-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新21M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新21M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-25029.htm" title="正则表达式规则以及贪婪匹配与非贪婪匹配">正则表达式规则以及贪婪匹配与非贪婪匹配</a></li>
-                        <li class="py-2"><a href="/news/article-25951.htm" title="哈尔滨农大动物医院地址在哪儿（哈尔滨农大宠物医院的地址和电话）">哈尔滨农大动物医院地址在哪儿（哈尔滨农大宠物医院的地址和电话）</a></li>
+                        <li class="py-2"><a href="/news/article-41253.htm" title="动物疫苗的重要性有哪些呢（动物疫苗的概念）">动物疫苗的重要性有哪些呢（动物疫苗的概念）</a></li>
                     </ul>
     </div>
 </div>
@@ -177,7 +204,13 @@
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">57</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">92</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>

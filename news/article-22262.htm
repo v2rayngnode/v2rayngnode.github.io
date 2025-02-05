@@ -8,8 +8,35 @@
     <title>liunx中搭建python3.7环境和安装pycharm并搭建Django</title>
         <meta name="description" content="首先第一步我们先安装python3.7的环境在liunx中，先去下面这个网站然后找到Gzipped source tarball https://www.python.org/downloads/re" />
         <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-22262.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="liunx中搭建python3.7环境和安装pycharm并搭建Django" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/0d3b7a18c1a25769d61b0ada94f7ed73.webp" />
+        <meta property="og:release_date" content="2024-12-07T10:20:57" />
+    <meta property="og:updated_time" content="2024-12-07T10:20:57" />
+        <meta property="og:description" content="首先第一步我们先安装python3.7的环境在liunx中，先去下面这个网站然后找到Gzipped source tarball https://www.python.org/downloads/re" />
+        
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- all css here -->
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="liunx中搭建python3.7环境和安装pycharm并搭建Django">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
     <!-- bootstrap v3.3.6 css -->
     <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
     <!-- owl.carousel css -->
@@ -146,7 +173,7 @@
                   				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <p>首先第一步我们先安装python3.7的环境在liunx中，先去下面这个网站然后找到Gzipped source tarball<br /> https://www.python.org/downloads/release/python-377/<br /> 下拉到最底下选择它然后下载<br /> 如果python中已经安装就跳过这一步<br /> 用python --version<br /> 检查后如果已经装好python就不用安装<br /><img decoding="async" src="http://img.555519.xyz/uploads/20230108/47e0c55aa4bf54660e4df73f033df826.jpg" alt="liunx中搭建python3.7环境和安装pycharm并搭建Django"></p> </h1> <p><img decoding="async" src="http://img.555519.xyz/uploads/20230108/98b500f3221eabfda1ec8df3ae11dc03.jpg" alt="liunx中搭建python3.7环境和安装pycharm并搭建Django"><br /> 然后解压出来tar -xvf Python-3.7.7.tgz<br /> 解压python3.7的安装包到目录中<br /> 然后切换到python的安装目录中<br /> cd /root/Python-3.7.7<br /> 检查是否有遗漏的没有装的内容<br /> ./configure<br /> 没有问题后就执行安装<br /> make &amp;&amp; make install<br /> 然后输入python如果能进入python就代表安装成功。</p> </h1> <p>去到pycharm官网然后点击Professional版本不然我们后面django无法安装<br /> https://www.jetbrains.com/pycharm/download/#section=linux<br /> 然后用xftp上传到liunx服务器中<img decoding="async" src="http://img.555519.xyz/uploads/20230108/2a207593a3da14f9df3d058815a276ba.jpg" alt="liunx中搭建python3.7环境和安装pycharm并搭建Django"><br /> 然后用tar-xvf pycharm-community-2022.3.1.tar.gz<br /> 解压<br /> 然后cd /root/pycharm-community-2022.3.1/bin<br /> 切换到目录里面/<br /> ./pycharm.sh<br /> 然后进入编辑器环境<br /><img decoding="async" src="http://img.555519.xyz/uploads/20230108/5e783aaeb19798701af1c7fda6eacd35.jpg" alt="liunx中搭建python3.7环境和安装pycharm并搭建Django"><br /> 新建一个项目然后输入print(‘hello world’)显示出来即可<br /><img decoding="async" src="http://img.555519.xyz/uploads/20230108/557c52f60deedf7e9314c77dbb185876.jpg" alt="liunx中搭建python3.7环境和安装pycharm并搭建Django"></p> </h1> <pre><code class="prism language-python">sudo gedit <span class="token operator">/</span>usr<span class="token operator">/</span>share<span class="token operator">/</span>applications<span class="token operator">/</span>Pycharm<span class="token punctuation">.</span>desktop </code></pre> <p>然后修改文件</p> <pre><code class="prism language-python"><span class="token punctuation">[</span>Desktop Entry<span class="token punctuation">]</span> Type<span class="token operator">=</span>Application Name<span class="token operator">=</span>Pycharm GenericName<span class="token operator">=</span>Pycharm3 Comment<span class="token operator">=</span>Pycharm3<span class="token punctuation">:</span>The Python IDE Exec<span class="token operator">=</span>sh <span class="token operator">/</span>root<span class="token operator">/</span>pycharm<span class="token operator">-</span><span class="token number">2022.3</span><span class="token number">.1</span><span class="token operator">/</span><span class="token builtin">bin</span><span class="token operator">/</span>pycharm<span class="token punctuation">.</span>sh Icon<span class="token operator">=</span><span class="token operator">/</span>root<span class="token operator">/</span>pycharm<span class="token operator">-</span><span class="token number">2022.3</span><span class="token number">.1</span><span class="token operator">/</span><span class="token builtin">bin</span><span class="token operator">/</span>pycharm<span class="token punctuation">.</span>png Terminal<span class="token operator">=</span>pycharm Categories<span class="token operator">=</span>Pycharm<span class="token punctuation">;</span> </code></pre> <p>然后重启一下就可以看到快捷命令出现，但是有一种情况就是安装失败，你需要切换成管理员用户才能出现pycharm的快捷启动图标<br /><img decoding="async" src="http://img.555519.xyz/uploads/20230108/94222e9f1de4aaf79dab29a08a521f05.jpg" alt="liunx中搭建python3.7环境和安装pycharm并搭建Django"></p> </h1> <p>pip3 install django -i https://pypi.douban.com/simple/<br /> 用国内镜像下载快，如果pip3没有安装的话会默认帮你安装按y下一步即可<br /><img decoding="async" src="http://img.555519.xyz/uploads/20230108/c98a092981c1eefa01deeecc8acb2c45.jpg" alt="liunx中搭建python3.7环境和安装pycharm并搭建Django"><br /> python -m django --version<br /> 验证django的版本<br /><img decoding="async" src="http://img.555519.xyz/uploads/20230108/cffbf8453cc6a565721e131f7c6b270f.jpg" alt="liunx中搭建python3.7环境和安装pycharm并搭建Django"><br /> 、<br /> 在pycharm中Terminal中将镜像更改成国内镜像这样第一次创建django项目时速度会很快</p> <pre><code class="prism language-java">pip config set global<span class="token punctuation">.</span>index<span class="token operator">-</span>url https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>pypi<span class="token punctuation">.</span>doubanio<span class="token punctuation">.</span>com<span class="token operator">/</span>simple </code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads/20230108/cb322def9502c9b399f2fa5991a201ae.jpg" alt="liunx中搭建python3.7环境和安装pycharm并搭建Django"></p> <p>然后新建一个项目选择django，Location就是你的文件本地路径可以自己修改，New enviroment using就是django的配置环境默认你的系统安装python的版本，这里不用修改用默认即可。<br /><img decoding="async" src="http://img.555519.xyz/uploads/20230108/7f6d3d7a77ba661446e3c0068adf148d.jpg" alt="liunx中搭建python3.7环境和安装pycharm并搭建Django"></p> <p>点击开始箭头然后启动django<br /><img decoding="async" src="http://img.555519.xyz/uploads/20230108/9919ca5dae567186763d6c64b3e8ffc5.jpg" alt="liunx中搭建python3.7环境和安装pycharm并搭建Django"><br /> 启动之后默认地址就是127.0.0.1:8000<br /><img decoding="async" src="http://img.555519.xyz/uploads/20230108/e38ae3f1acba9839e1ad3e80b55473d7.jpg" alt="liunx中搭建python3.7环境和安装pycharm并搭建Django"><br /> 在浏览器输入http://127.0.0.1:8000/能够跳转到django默认的页面就代表搭建成功<br /><img decoding="async" src="http://img.555519.xyz/uploads/20230108/05e4e3fc8c7083b7e9326c8aab9831ed.jpg" alt="liunx中搭建python3.7环境和安装pycharm并搭建Django"></p> </p></div> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>上一个：<a href="/news/article-21806.htm">宠物粮价格及图片 宠物粮食价格表</a></p>
-                                        <p>下一个：<a href="/news/article-22263.htm">养猫不吉利怎么化解（养猫不吉利怎么化解吉凶）</a></p>
+                                        <p>下一个：<a href="/news/article-28282.htm">vscode-vue 代码保存自动eslint格式化配置</a></p>
                                     </div>
                                 </div>
                 <div class="col-md-3">
@@ -156,16 +183,16 @@
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/news/article-19974.htm" title="Centos7 离线安装 KVM，并安装 Csr1000v">Centos7 离线安装 KVM，并安装 Csr1000v</a></li>
-                        <li class="py-2"><a href="/news/article-21340.htm" title="Mac上解决dose not contain the JNI_CreateJavaVM symbol">Mac上解决dose not contain the JNI_CreateJavaVM symbol</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-13-node-share-links.htm" title="V2rayNG Node节点订阅每天更新19.4M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新19.4M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-22721.htm" title="动物打完疫苗需要注意什么吗知乎（动物打了疫苗）">动物打完疫苗需要注意什么吗知乎（动物打了疫苗）</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-12-15-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新19.5M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新19.5M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-26416.htm" title="动物医院申请条件有哪些内容呢图片（动物医院申请条件有哪些内容呢图片大全）">动物医院申请条件有哪些内容呢图片（动物医院申请条件有哪些内容呢图片大全）</a></li>
-                        <li class="py-2"><a href="/free-nodes/2024-11-23-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新18.7M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新18.7M/S免费节点订阅链接</a></li>
-                        <li class="py-2"><a href="/news/article-25493.htm" title="附近免费领养小猫小狗（附近领养宠物小猫）">附近免费领养小猫小狗（附近领养宠物小猫）</a></li>
-                        <li class="py-2"><a href="/news/article-23175.htm" title="哪个牌子的狗粮好一些（哪种品牌的狗粮好）">哪个牌子的狗粮好一些（哪种品牌的狗粮好）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-7-node-share.htm" title="V2rayNG Node节点订阅每天更新19.6M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.6M/S免费节点订阅链接地址分享</a></li>
                         <li class="py-2"><a href="/news/article-24554.htm" title="宠物领养要交押金吗多少钱（领养宠物还要押金嘛）">宠物领养要交押金吗多少钱（领养宠物还要押金嘛）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-24-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新20.6M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.6M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-20-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新22.2M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新22.2M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-25-node-share-links.htm" title="V2rayNG Node节点订阅每天更新22.1M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.1M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-42762.htm" title="vscode for c/c++（ACM配置）">vscode for c/c++（ACM配置）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-4-node-share-links.htm" title="V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-37324.htm" title="宠物产品品牌大全（宠物产品品牌大全图片）">宠物产品品牌大全（宠物产品品牌大全图片）</a></li>
+                        <li class="py-2"><a href="/news/article-43757.htm" title="动物疫苗常温多长时间失效啊 动物疫苗常温多长时间失效啊">动物疫苗常温多长时间失效啊 动物疫苗常温多长时间失效啊</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-11-12-node-share-links.htm" title="V2rayNG Node节点订阅每天更新22.7M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新22.7M/S免费节点订阅链接</a></li>
                     </ul>
     </div>
 </div>
@@ -177,7 +204,13 @@
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">57</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">92</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
