@@ -1,0 +1,285 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-57299.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Pygame从0实战10(泡泡小游戏添加音效)</title>
+        <meta name="description" content="1.Pygame从0实战10(泡泡小游戏添加音效) 这节我们将如何在Pygame游戏中添加音效并且在上节未完成的泡泡游戏中 添加音效 下面是资源链接&nbsp;点击打开链接&nbsp;密码：hfjz " />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-57299.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="Pygame从0实战10(泡泡小游戏添加音效)" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/95c3617cb0d721f959364eda0a28c65c.webp" />
+        <meta property="og:release_date" content="2025-02-16T07:18:50" />
+    <meta property="og:updated_time" content="2025-02-16T07:18:50" />
+        <meta property="og:description" content="1.Pygame从0实战10(泡泡小游戏添加音效) 这节我们将如何在Pygame游戏中添加音效并且在上节未完成的泡泡游戏中 添加音效 下面是资源链接&nbsp;点击打开链接&nbsp;密码：hfjz " />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Pygame从0实战10(泡泡小游戏添加音效)">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                    </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="/">V2rayNG Node</a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                                                        <li><a href="/">首页</a></li>
+                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                    </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>Pygame从0实战10(泡泡小游戏添加音效)</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> <h5>1.Pygame从0实战10(泡泡小游戏添加音效)</h5> <p>这节我们将如何在Pygame游戏中添加音效并且在上节未完成的泡泡游戏中</p> <p>添加音效 下面是资源链接&nbsp;<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://pan.baidu.com/s/1cWL5530tuxptnT0LcEwLfA"  rel="nofollow">点击打开链接</a>&nbsp;密码：hfjz</p> <p><strong>播放声音和音效</strong></p> <p><strong>建议将将.ogg格式作为背景音乐,.wav作为音效</strong></p> <p><strong>播放背景音乐:</strong><br />-pygame.mixer.music对象<br />pygame.mixer.music:<br /><span style="white-space:pre;"> </span>pygame module for controlling streamed audio<br />music对象的方法:<br /><span style="white-space:pre;"> </span>方法<span style="white-space:pre;"> </span> 含义<br />load()<span style="white-space:pre;"> </span>载入音乐<br />play()<span style="white-space:pre;"> </span>播放音乐<br />rewind()<span style="white-space:pre;"> </span>重新播放<br />stop()<span style="white-space:pre;"> </span>停止播放<br />pause()<span style="white-space:pre;"> </span>暂停播放<br />unpause()<span style="white-space:pre;"> </span>恢复播放<br />fadeout()<span style="white-space:pre;"> </span>淡出<br />set_volumn()<span style="white-space:pre;"> </span>设置音量<br />get_volumn()<span style="white-space:pre;"> </span>获取音量<br />get_busy()<span style="white-space:pre;"> </span>检测音乐流是否正在播放<br />set_pos()<span style="white-space:pre;"> </span>设置开始播放的位置<br />get_pos()<span style="white-space:pre;"> </span>获取已经播放的时间<br />queue()<span style="white-space:pre;"> </span>将音乐文件放入待播放列表中<br />set_endevent()<span style="white-space:pre;"> </span>在音乐播放完毕时发送事件</p> <p>get_endevent()<span style="white-space:pre;"> </span>获取音乐播放完毕时发送的事件类型</p> <p>运行程序，在屏幕上鼠标左键点击发出狗叫声，右键点击发出鸟叫声</p> <p>空格键控制背景音乐的播放和暂停</p> <pre><code class="language-python"># -*- coding: utf-8 -*- # @Author: Clarence # @Date:   2018-03-10 16:09:22 # @Last Modified by:   Clarence # @Last Modified time: 2018-03-10 23:34:24 import pygame import sys from pygame.locals import *  pygame.init() #Initialize the mixer module for Sound loading and playback. #使用之前最好先初始化一下 pygame.mixer.init()  pygame.mixer.music.load("bg_music.ogg") pygame.mixer.music.set_volume(0.2) pygame.mixer.music.play() #开始播放  bird_sound = pygame.mixer.Sound("birdsound.wav") bird_sound.set_volume(0.2) dog_sound = pygame.mixer.Sound("dogbark.wav") dog_sound.set_volume(0.2)   bg_size = width, height = 300, 200 screen = pygame.display.set_mode(bg_size) pygame.display.set_caption("MusicPlayDemo")  #空格表示暂停，再次按空格播放音乐 pause = False  pause_image = pygame.image.load("pause.png").convert_alpha() unpause_image = pygame.image.load("unpause.png").convert_alpha() pause_rect = pause_image.get_rect() #将按钮显示到屏幕的正中央 pause_rect.left, pause_rect.top = (width - pause_rect.width) // 2,\ (height - pause_rect.height) // 2  clock = pygame.time.Clock()  while True: 	for event in pygame.event.get(): 		if event.type == QUIT: 			sys.exit()  		if event.type == MOUSEBUTTONDOWN: 			if event.button == 1: 				#鼠标按左键播放狗叫声 				dog_sound.play() 			if event.button == 3: 				#鼠标按右键播放鸟叫声 				bird_sound.play()  		if event.type == KEYDOWN: 			#按下空格键 控制背景音乐的暂停和播放 			if event.key == K_SPACE: 				pause = not pause   	screen.fill((255, 255, 255))  	if pause: 		screen.blit(pause_image, pause_rect) 		pygame.mixer.music.pause() 	else: 		screen.blit(unpause_image, pause_rect) 		pygame.mixer.music.unpause()  	pygame.display.flip()  	clock.tick(30)</code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads/20230110/7f6a10bb68fd5eb60dab8a44ff50e49b.jpg" alt="Pygame从0实战10(泡泡小游戏添加音效)" width="200" height="200"></p> <p></p> <p>下面是加入背景音乐的泡泡游戏代码</p> <pre><code class="language-python">import  pygame import sys from pygame.locals import * from random import *  class Ball(pygame.sprite.Sprite): 	def __init__(self, image, position, speed, bg_size): 		# Call the parent class (Sprite) constructor 		pygame.sprite.Sprite.__init__(self)  		self.image = pygame.image.load(image).convert_alpha() 		self.rect = self.image.get_rect() 		#小球的位置 		self.rect.left, self.rect.top = position 		self.speed = speed 		self.width, self.height = bg_size[0], bg_size[1] 		#self.width = self.width / 2  	''' 	Pygame.Rect.move(): 		moves the rectangle  		move(x, y) -&gt; Rect 		Returns a new rectangle that is moved by the given offset. The 		x and y arguments can be any integer value, positive or  		negative. 		可以在Rect对象的move方法中添加可正可负的两元素 		如果要实现小球的移动，则要在类中添加一个move()方法，并且在绘图的时候调用小球 		对象的move()方法 	''' 	def move(self): 		self.rect = self.rect.move(self.speed)  		#类似实现贪吃蛇穿入墙壁从对面墙壁出来(左右方向) 		if self.rect.right &lt; 0: 			self.rect.left = self.width 		elif self.rect.left &gt; self.width: 			self.rect.right = 0  		#(上下方向) 从下往上 和 从上往下 		elif self.rect.bottom &lt; 0: 			self.rect.top = self.height 		elif self.rect.top &gt; self.height: 			self.rect.bottom = 0   def main(): 	pygame.init()  	ball_image = "gray_ball.png" 	bg_image = "background.png"  	running = True  	# 添加模型的背景音乐 	pygame.mixer.music.load("bg_music.ogg") 	pygame.mixer.music.play()  	# 添加音效 	loser_sound = pygame.mixer.Sound("loser.wav") 	laugh_sound = pygame.mixer.Sound("laugh.wav") 	winner_sound = pygame.mixer.Sound("winner.wav") 	hole_sound = pygame.mixer.Sound("hole.wav")  	# 音乐播放完时游戏结束,将GAMEOVER事件加入到事件队列中去 	# USEREVENT为用户自定义的事件 	# 如果想定义第二个事件可以是GAMEOVERTWO = USEREVENT + 1 	GAMEOVER = USEREVENT 	#背景音乐结束后发生GAMEOVER事件消息 	pygame.mixer.music.set_endevent(GAMEOVER)  	# 根据背景图片指定游戏界面尺寸 	bg_size = width, height = 1024, 681 	screen = pygame.display.set_mode(bg_size) 	pygame.display.set_caption("Play the Ball")  	#.png格式可以加入apha通道 	background = pygame.image.load(bg_image).convert_alpha()  	#用来存放小球对象的列表 	balls = [] 	group = pygame.sprite.Group()  	for i in range(5): 		#球的尺寸是100*100 随机产生小球的位置 		position = randint(0, width-100), randint(0, height-100) 		#两个元素的一个列表，表示x轴和y轴方向的速度 		speed = [randint(-10, 10), randint(-10, 10)] 		#实例化小球对象 分别传入Surface对象 位置二元组 速度两元素列表 		ball = Ball(ball_image, position, speed, bg_size) 		#碰撞检测之后不从组里面删除 		while pygame.sprite.spritecollide(ball, group, False, pygame.sprite.collide_circle): 			ball.rect.left, ball.rect.top = randint(0, width - 100),\ 			randint(0, height - 100)  		balls.append(ball) #将小球加入到小球列表中 		group.add(ball)  	# CLock()对象用来设置小球的帧率 	clock = pygame.time.Clock()  	while  running: 		for event in pygame.event.get(): 			if event.type == QUIT: 				sys.exit()  			elif event.type == GAMEOVER: 				loser_sound.play() 				pygame.time.delay(2000) 				laugh_sound.play() 				running = False #结束循环  		screen.blit(background, (0, 0))  		for each in balls: 			each.move() 			screen.blit(each.image, each.rect)   		for each in group: 			group.remove(each)  			if pygame.sprite.spritecollide(each, group, False, pygame.sprite.collide_circle): 				each.speed[0] = -each.speed[0] 				each.speed[1] = -each.speed[1]  			group.add(each)  		pygame.display.flip() #将显示缓冲区中的数据刷入显示器中 		clock.tick(30)   if __name__ == "__main__": 	main() </code></pre> <p> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-56735.htm">动物医院在哪个位置好 动物医院在哪个位置好一点</a></p>
+                                        <p>下一个：<a href="/news/article-57300.htm">1970年4月24日是什么日子（1970年4月24日出生的是什么星座）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-2-16-node-share.htm" title="V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-42762.htm" title="vscode for c/c++（ACM配置）">vscode for c/c++（ACM配置）</a></li>
+                        <li class="py-2"><a href="/news/article-37323.htm" title="动物疫苗的重要性有哪些内容（动物疫苗的重要性有哪些内容呢）">动物疫苗的重要性有哪些内容（动物疫苗的重要性有哪些内容呢）</a></li>
+                        <li class="py-2"><a href="/news/article-23642.htm" title="河南省兽药经销商企业名录（河南省兽药生产企业名录）">河南省兽药经销商企业名录（河南省兽药生产企业名录）</a></li>
+                        <li class="py-2"><a href="/news/article-25951.htm" title="哈尔滨农大动物医院地址在哪儿（哈尔滨农大宠物医院的地址和电话）">哈尔滨农大动物医院地址在哪儿（哈尔滨农大宠物医院的地址和电话）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-25-node-share-links.htm" title="V2rayNG Node节点订阅每天更新22.6M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.6M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-57867.htm" title="动物疫苗监管部门是哪里的公司（动物疫苗经营）">动物疫苗监管部门是哪里的公司（动物疫苗经营）</a></li>
+                        <li class="py-2"><a href="/news/article-56175.htm" title="两个女人的战争全部演员表(两个女人的战争剧情介绍_分集剧情介绍)">两个女人的战争全部演员表(两个女人的战争剧情介绍_分集剧情介绍)</a></li>
+                        <li class="py-2"><a href="/news/article-45738.htm" title="做宠物零食（做宠物零食需要什么手续）">做宠物零食（做宠物零食需要什么手续）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2024-12-5-node-share-links.htm" title="V2rayNG Node节点订阅每天更新19.4M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新19.4M/S免费节点订阅链接</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">51</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">92</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
