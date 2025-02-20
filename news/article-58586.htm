@@ -1,0 +1,285 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-58586.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>JavaScript秒表开始、暂停、继续、重置功能的实现及连击的优化</title>
+        <meta name="description" content="JS中秒表的计时，是练习定时器的最好的方式之一，它包含了定时器的创建、清除、变量等相关问题，而秒表的功能实现是多样化的，比如：特定按钮的disabled、是否需要秒表的记录等。这里我用事件的委托的方法" />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-58586.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="JavaScript秒表开始、暂停、继续、重置功能的实现及连击的优化" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/fa6bb49a2a78a07773d31ab7153c6840.webp" />
+        <meta property="og:release_date" content="2025-02-18T09:44:02" />
+    <meta property="og:updated_time" content="2025-02-18T09:44:02" />
+        <meta property="og:description" content="JS中秒表的计时，是练习定时器的最好的方式之一，它包含了定时器的创建、清除、变量等相关问题，而秒表的功能实现是多样化的，比如：特定按钮的disabled、是否需要秒表的记录等。这里我用事件的委托的方法" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="JavaScript秒表开始、暂停、继续、重置功能的实现及连击的优化">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                    </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="/">V2rayNG Node</a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                                                        <li><a href="/">首页</a></li>
+                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                    </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>JavaScript秒表开始、暂停、继续、重置功能的实现及连击的优化</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <ul> <li>JS中秒表的计时，是练习定时器的最好的方式之一，它包含了定时器的创建、清除、变量等相关问题，而秒表的功能实现是多样化的，比如：特定按钮的disabled、是否需要秒表的记录等。这里我用事件的委托的方法来实现秒表四个功能，譬如下面的代码，这里没有设置花哨的样式(主要还是审美力的问题~~~)，这里主要体现JS的代码思路，首先，先贴出一个gif图，让大家先看一下效果，欢迎大家评论、提异。</li> </ul> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221230/ac4cc579589b5af850b505adfac2c779.jpg" alt="JavaScript秒表开始、暂停、继续、重置功能的实现及连击的优化"></p> <pre><code class="prism language-javascript"><span class="token operator">&lt;</span><span class="token operator">!</span><span class="token constant">DOCTYPE</span> html<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>html lang<span class="token operator">=</span><span class="token string">"en"</span><span class="token operator">&gt;</span>  <span class="token operator">&lt;</span>head<span class="token operator">&gt;</span>     <span class="token operator">&lt;</span>meta charset<span class="token operator">=</span><span class="token string">"UTF-8"</span><span class="token operator">&gt;</span>     <span class="token operator">&lt;</span>meta name<span class="token operator">=</span><span class="token string">"viewport"</span> content<span class="token operator">=</span><span class="token string">"width=device-width, initial-scale=1.0"</span><span class="token operator">&gt;</span>     <span class="token operator">&lt;</span>meta http<span class="token operator">-</span>equiv<span class="token operator">=</span><span class="token string">"X-UA-Compatible"</span> content<span class="token operator">=</span><span class="token string">"ie=edge"</span><span class="token operator">&gt;</span>     <span class="token operator">&lt;</span>title<span class="token operator">&gt;</span>Document<span class="token operator">&lt;</span><span class="token operator">/</span>title<span class="token operator">&gt;</span>     <span class="token operator">&lt;</span>style<span class="token operator">&gt;</span>         #box <span class="token punctuation">{<!-- --></span>             border<span class="token punctuation">:</span> <span class="token number">1</span>px solid black<span class="token punctuation">;</span>             margin<span class="token punctuation">:</span> <span class="token number">0</span> auto<span class="token punctuation">;</span>             width<span class="token punctuation">:</span> <span class="token number">200</span>px<span class="token punctuation">;</span>             height<span class="token punctuation">:</span> <span class="token number">200</span>px<span class="token punctuation">;</span>         <span class="token punctuation">}</span>          <span class="token punctuation">.</span>show <span class="token punctuation">{<!-- --></span>             text<span class="token operator">-</span>align<span class="token punctuation">:</span> center<span class="token punctuation">;</span>             font<span class="token operator">-</span>size<span class="token punctuation">:</span> <span class="token number">30</span>px<span class="token punctuation">;</span>             margin<span class="token punctuation">:</span> <span class="token number">20</span>px auto<span class="token punctuation">;</span>         <span class="token punctuation">}</span>          button<span class="token punctuation">:</span>nth<span class="token operator">-</span><span class="token keyword">of</span><span class="token operator">-</span><span class="token function">type</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>             margin<span class="token operator">-</span>left<span class="token punctuation">:</span> <span class="token number">7</span>px<span class="token punctuation">;</span><span class="token comment">//为了让button按钮视觉上居中</span>         <span class="token punctuation">}</span>     <span class="token operator">&lt;</span><span class="token operator">/</span>style<span class="token operator">&gt;</span> <span class="token operator">&lt;</span><span class="token operator">/</span>head<span class="token operator">&gt;</span>  <span class="token operator">&lt;</span>body<span class="token operator">&gt;</span>     <span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"box"</span><span class="token operator">&gt;</span>         <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"show"</span><span class="token operator">&gt;</span><span class="token number">00</span><span class="token punctuation">:</span><span class="token number">00</span><span class="token punctuation">:</span><span class="token number">00</span><span class="token punctuation">:</span><span class="token number">00</span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>         <span class="token operator">&lt;</span>button name<span class="token operator">=</span><span class="token string">"btn1"</span><span class="token operator">&gt;</span>开始<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span>         <span class="token operator">&lt;</span>button name<span class="token operator">=</span><span class="token string">"btn2"</span> <span class="token operator">-</span>disabled<span class="token operator">&gt;</span>暂停<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span>         <span class="token operator">&lt;</span>button name<span class="token operator">=</span><span class="token string">"btn3"</span> <span class="token operator">-</span>disabled<span class="token operator">&gt;</span>继续<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span>         <span class="token operator">&lt;</span>button name<span class="token operator">=</span><span class="token string">"btn4"</span> <span class="token operator">-</span>disabled<span class="token operator">&gt;</span>重置<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span>     <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>     <span class="token operator">&lt;</span>script<span class="token operator">&gt;</span>         <span class="token comment">// 变量的定义</span>         <span class="token keyword">var</span> oBox <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'#box'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token keyword">var</span> oShow <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'.show'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token keyword">var</span> time <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment">//全局定时器名</span>         <span class="token keyword">var</span> h <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>    <span class="token comment">//时，计时全局变量</span>         <span class="token keyword">var</span> m <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>    <span class="token comment">//分，计时全局变量</span>         <span class="token keyword">var</span> s <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>    <span class="token comment">//秒，计时全局变量</span>         <span class="token keyword">var</span> ms <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>   <span class="token comment">//1毫秒*10，计时全局变量</span>         <span class="token keyword">var</span> hStr <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment">//时，存储计时后的显示数据</span>         <span class="token keyword">var</span> mStr <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment">//分，存储计时后的显示数据</span>         <span class="token keyword">var</span> sStr <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment">//秒，存储计时后的显示数据</span>         <span class="token keyword">var</span> msStr <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token comment">//1ms*10，存储计时后的显示数据</span>         <span class="token comment">//全局计时变量，是为了防止定时器清除时，数据清零</span>          <span class="token comment">// 点击事件</span>         oBox<span class="token punctuation">.</span><span class="token function-variable function">onclick</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>             <span class="token comment">//当然这里的参数e.target应当有兼容，主要是针对低版本IE浏览器 ||scrElement...</span>             <span class="token comment">//这里就不写了</span>             <span class="token keyword">var</span> eTarget <span class="token operator">=</span> e<span class="token punctuation">.</span>target<span class="token punctuation">;</span>             <span class="token keyword">if</span> <span class="token punctuation">(</span>eTarget<span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'btn1'</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>                 <span class="token function">setTimeStr</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>             <span class="token punctuation">}</span>             <span class="token keyword">if</span> <span class="token punctuation">(</span>eTarget<span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'btn2'</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>                 <span class="token function">clearInterval</span><span class="token punctuation">(</span>time<span class="token punctuation">)</span><span class="token punctuation">;</span>             <span class="token punctuation">}</span>             <span class="token keyword">if</span> <span class="token punctuation">(</span>eTarget<span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'btn3'</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>                 <span class="token function">setTimeStr</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>             <span class="token punctuation">}</span>             <span class="token keyword">if</span> <span class="token punctuation">(</span>eTarget<span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'btn4'</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>                 <span class="token comment">// 将所有的变量、内容恢复至初始状态</span>                 h <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>                 m <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>                 s <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>                 ms <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>                 hStr <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>                 mStr <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>                 sStr <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>                 msStr <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>                 <span class="token function">clearInterval</span><span class="token punctuation">(</span>time<span class="token punctuation">)</span><span class="token punctuation">;</span>                 oShow<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> <span class="token string">'00:00:00:00'</span><span class="token punctuation">;</span>             <span class="token punctuation">}</span>         <span class="token punctuation">}</span>          <span class="token comment">// 计时器</span>         <span class="token keyword">function</span> <span class="token function">setTimeStr</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>             <span class="token comment">//防止调用函数时，多次创建定时器</span>             <span class="token function">clearInterval</span><span class="token punctuation">(</span>time<span class="token punctuation">)</span><span class="token punctuation">;</span>             <span class="token comment">// 创建定时器</span>             time <span class="token operator">=</span> <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>                 ms<span class="token operator">++</span><span class="token punctuation">;</span>                 <span class="token keyword">if</span> <span class="token punctuation">(</span>ms <span class="token operator">==</span> <span class="token number">100</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>                     ms <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>                     s<span class="token operator">++</span><span class="token punctuation">;</span>                 <span class="token punctuation">}</span>                 <span class="token keyword">if</span> <span class="token punctuation">(</span>s <span class="token operator">==</span> <span class="token number">60</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>                     s <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>                     m<span class="token operator">++</span><span class="token punctuation">;</span>                 <span class="token punctuation">}</span>                 <span class="token keyword">if</span> <span class="token punctuation">(</span>m <span class="token operator">==</span> <span class="token number">60</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>                     m <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>                     h<span class="token operator">++</span><span class="token punctuation">;</span>                 <span class="token punctuation">}</span>                 <span class="token keyword">if</span> <span class="token punctuation">(</span>h <span class="token operator">&gt;</span> <span class="token number">99</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>                     h <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>                 <span class="token punctuation">}</span>                 msStr <span class="token operator">=</span> ms <span class="token operator">&gt;=</span> <span class="token number">10</span> <span class="token operator">?</span> ms <span class="token punctuation">:</span> <span class="token string">'0'</span> <span class="token operator">+</span> ms<span class="token punctuation">;</span>                 sStr <span class="token operator">=</span> s <span class="token operator">&gt;=</span> <span class="token number">10</span> <span class="token operator">?</span> s <span class="token punctuation">:</span> <span class="token string">'0'</span> <span class="token operator">+</span> s<span class="token punctuation">;</span>                 mStr <span class="token operator">=</span> m <span class="token operator">&gt;=</span> <span class="token number">10</span> <span class="token operator">?</span> m <span class="token punctuation">:</span> <span class="token string">'0'</span> <span class="token operator">+</span> m<span class="token punctuation">;</span>                 hStr <span class="token operator">=</span> h <span class="token operator">&gt;=</span> <span class="token number">10</span> <span class="token operator">?</span> h <span class="token punctuation">:</span> <span class="token string">'0'</span> <span class="token operator">+</span> h<span class="token punctuation">;</span>                 <span class="token comment">//每次定时，都有向页面写入内容</span>                 <span class="token keyword">return</span> oShow<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> <span class="token template-string"><span class="token string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${<!-- --></span>hStr<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${<!-- --></span>mStr<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${<!-- --></span>sStr<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${<!-- --></span>msStr<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">;</span>             <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span>         <span class="token punctuation">}</span>      <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span> <span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">&gt;</span>  <span class="token operator">&lt;</span><span class="token operator">/</span>html<span class="token operator">&gt;</span> </code></pre> <p>欢迎大家评论、提异哦！</p> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-57868.htm">米加小镇狗粮在哪里买（米加小镇养宠物）</a></p>
+                                        <p>下一个：<a href="/news/article-58588.htm">宠物零食一件代发货源哪里找（宠物用品一件代发进货渠道）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2024-11-17-node-share-links.htm" title="V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接">V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-21-node-share.htm" title="V2rayNG Node节点订阅每天更新20.1M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.1M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-32542.htm" title="为什么猫不打疫苗不能绝育呢视频（家猫为什么不打疫苗）">为什么猫不打疫苗不能绝育呢视频（家猫为什么不打疫苗）</a></li>
+                        <li class="py-2"><a href="/news/article-47692.htm" title="在打包vue项目时报错的问题解决">在打包vue项目时报错的问题解决</a></li>
+                        <li class="py-2"><a href="/news/article-50255.htm" title="动物医院的仪器设备叫什么（动物医院仪器有哪些）">动物医院的仪器设备叫什么（动物医院仪器有哪些）</a></li>
+                        <li class="py-2"><a href="/news/article-33962.htm" title="宠物领养app有哪些平台 宠物领养app有哪些平台可以用">宠物领养app有哪些平台 宠物领养app有哪些平台可以用</a></li>
+                        <li class="py-2"><a href="/news/article-53967.htm" title="新手养猫入门必备攻略 新手养猫入门必备攻略论文">新手养猫入门必备攻略 新手养猫入门必备攻略论文</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-7-node-share.htm" title="V2rayNG Node节点订阅每天更新19.6M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.6M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-32059.htm" title="宠物领养证如何办理流程图解图片（正规领养宠物流程）">宠物领养证如何办理流程图解图片（正规领养宠物流程）</a></li>
+                        <li class="py-2"><a href="/news/article-20429.htm" title="动物疫苗行业排名榜最新 动物疫苗行业排名榜最新">动物疫苗行业排名榜最新 动物疫苗行业排名榜最新</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">92</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">93</span> <a href="/date/2024-12/" title="2024-12 归档">2024-12</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">25</span> <a href="/date/2024-11/" title="2024-11 归档">2024-11</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
