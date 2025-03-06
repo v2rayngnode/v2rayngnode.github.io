@@ -1,0 +1,282 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-67447.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>FreeRTOS进阶之队列示例完全解析_操作系统</title>
+        <meta name="description" content="目录  前言 1.队列创建函数 2.入队  2.1 xQueueGenericSend() 2.2 xQueueGenericSendFromISR ()  3.出队     前言 FreeRTOS提" />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-67447.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="FreeRTOS进阶之队列示例完全解析_操作系统" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/b32e8665d28e51b5cb79a4c887d08c79.webp" />
+        <meta property="og:release_date" content="2025-03-05T11:10:22" />
+    <meta property="og:updated_time" content="2025-03-05T11:10:22" />
+        <meta property="og:description" content="目录  前言 1.队列创建函数 2.入队  2.1 xQueueGenericSend() 2.2 xQueueGenericSendFromISR ()  3.出队     前言 FreeRTOS提" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="FreeRTOS进阶之队列示例完全解析_操作系统">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                    </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="/">V2rayNG Node</a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                                                        <li><a href="/">首页</a></li>
+                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                    </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>FreeRTOS进阶之队列示例完全解析_操作系统</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                  				  				  				<div id="navCategory"> <h5 class="catalogue">目录</h5> <ul class="first_class_ul"> <li><a href="#_label0" rel="nofollow">前言</a></li> <li><a href="#_label1" rel="nofollow">1.队列创建函数</a></li> <li><a href="#_label2" rel="nofollow">2.入队</a></li> <ul class="second_class_ul"> <li><a href="#_lab2_2_0" rel="nofollow">2.1 xQueueGenericSend()</a></li> <li><a href="#_lab2_2_1" rel="nofollow">2.2 xQueueGenericSendFromISR ()</a></li> </ul> <li><a href="#_label3" rel="nofollow">3.出队</a></li> <ul class="second_class_ul"></ul> </ul> </div> <p class="maodian"><a name="_label0" rel="nofollow"></a></p> <h2>前言</h2> <p>FreeRTOS提供了多种任务间通讯方式，包括：</p> <ul> <li>任务通知（版本V8.2以及以上版本）</li> <li>队列</li> <li>二进制信号量</li> <li>计数信号量</li> <li>互斥量</li> <li>递归互斥量</li> </ul> <p>其中，二进制信号量、计数信号量、互斥量和递归互斥量都是使用队列来实现的，因此掌握队列的运行机制，是很有必要的。</p> <p>队列是FreeRTOS主要的任务间通讯方式。可以在任务与任务间、中断和任务间传送信息。发送到队列的消息是通过拷贝实现的，这意味着队列存储的数据是原数据，而不是原数据的引用。先看一下队列的数据结构：</p> <div class="ay1code"> <pre class="brush:cpp;">typedef struct QueueDefinition  {      int8_t *pcHead;             /* 指向队列存储区起始位置,即第一个队列项 */      int8_t *pcTail;             /* 指向队列存储区结束后的下一个字节 */      int8_t *pcWriteTo;          /* 指向下队列存储区的下一个空闲位置 */      union                       /* 使用联合体用来确保两个互斥的结构体成员不会同时出现 */      {          int8_t *pcReadFrom;     /* 当结构体用于队列时,这个字段指向出队项目中的最后一个. */          UBaseType_t uxRecursiveCallCount;/* 当结构体用于互斥量时,用作计数器,保存递归互斥量被"获取"的次数. */      } u;      List_t xTasksWaitingToSend;      /* 因为等待入队而阻塞的任务列表,按照优先级顺序存储 */      List_t xTasksWaitingToReceive;   /* 因为等待队列项而阻塞的任务列表,按照优先级顺序存储 */      volatile UBaseType_t uxMessagesWaiting;/*&lt; 当前队列的队列项数目 */      UBaseType_t uxLength;            /* 队列项的数目 */      UBaseType_t uxItemSize;          /* 每个队列项的大小 */      volatile BaseType_t xRxLock;   /* 队列上锁后,存储从队列收到的列表项数目，如果队列没有上锁，设置为queueUNLOCKED */      volatile BaseType_t xTxLock;   /* 队列上锁后,存储发送到队列的列表项数目，如果队列没有上锁，设置为queueUNLOCKED */      #if ( configUSE_QUEUE_SETS == 1 )          struct QueueDefinition *pxQueueSetContainer;      #endif       #if ( configUSE_TRACE_FACILITY == 1 )          UBaseType_t uxQueueNumber;          uint8_t ucQueueType;      #endif      #if ( configSUPPORT_STATIC_ALLOCATION == 1 )          uint8_t ucStaticAllocationFlags;      #endif  } xQUEUE;   typedef xQUEUE Queue_t;</pre> </div> <p>下面的所有API函数都是围绕这个数据结构展开，因此数据结构的每个成员都需要了解。如果你是第一次看这篇文章，即使有注释，可能你对结构体的某些成员还是不理解，不要着急，这是正常的。后面介绍API函数的时候，会一一使用这些成员，结合着具体实例，会很容理解的，你需要做的，是要反复翻到这里查看。</p> <p class="maodian"><a name="_label1" rel="nofollow"></a></p> <h2>1.队列创建函数</h2> <p>在<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.jb51.net/article/243727.htm"  target="_blank" rel="nofollow">FreeRTOS队列API函数</a>一文中，我们介绍了创建队列API函数xQueueCreate()，但其实这是一个宏，只是定义的像函数而已。真正被执行的函数是xQueueGenericCreate()，我们称这个函数为通用队列创建函数。</p> <p>我们来分析一下xQueueGenericCreate()函数，函数原型为：</p> <div class="ay1code"> <pre class="brush:cpp;">QueueHandle_t xQueueGenericCreate          (                   const UBaseType_t uxQueueLength,                   const UBaseType_t uxItemSize,                   uint8_t *pucQueueStorage,                   StaticQueue_t *pxStaticQueue,                   const uint8_t ucQueueType           )</pre> </div> <p><code>uxQueueLength</code>：队列项数目</p> <p><code>uxItemSize</code>：每个队列项的大小</p> <p><code>pucQueueStorage</code>：使用静态分配队列时才使用，指向定义队列存储空间，如果使用动态分配队列空间（默认），向这个参数传递NULL。</p> <p><code>pxStaticQueue</code>：使用静态分配队列时才使用，指向队列控制结构体，如果使用动态分配队列空间（默认），向这个参数传递NULL。<br />ucQueueType：类型。可能的值为：</p> <blockquote> <p>queueQUEUE_TYPE_BASE：表示队列<br />queueQUEUE_TYPE_SET：表示队列集合<br />queueQUEUE_TYPE_MUTEX：表示互斥量<br />queueQUEUE_TYPE_COUNTING_SEMAPHORE：表示计数信号量<br />queueQUEUE_TYPE_BINARY_SEMAPHORE：表示二进制信号量<br />queueQUEUE_TYPE_RECURSIVE_MUTEX ：表示递归互斥量</p> </blockquote> <p>然而，等下我们看源码，就会看到，在xQueueGenericCreate()函数中，参数ucQueueType只是用来可视化跟踪调试用。</p> <p>xQueueGenericCreate()函数的源码如下所示：</p> <div class="ay1code"> <pre class="brush:cpp;">QueueHandle_t xQueueGenericCreate(                 const UBaseType_t uxQueueLength,                 const UBaseType_t uxItemSize,                uint8_t *pucQueueStorage,                StaticQueue_t *pxStaticQueue,                const uint8_t ucQueueType )  {  Queue_t *pxNewQueue;      /* 如果使能可视化跟踪调试,这里用来消除编译器警告. */      ( void ) ucQueueType;      /*分配队列结构体和队列项存储空间.可以静态也可以动态分配,取决于参数值,FreeRTOS默认采取动态分配 */      pxNewQueue = prvAllocateQueueMemory( uxQueueLength, uxItemSize, &amp;pucQueueStorage, pxStaticQueue );      if( pxNewQueue != NULL )      {          if( uxItemSize == ( UBaseType_t ) 0 )          {              /* 没有为队列项存储分配内存,但是pcHead指针不能设置为NULL,因为队列用作互斥量时,pcHead要设置成NULL.这里只是将pcHead指向一个已知的区域 */              pxNewQueue-&gt;pcHead = ( int8_t * ) pxNewQueue;          }          else          {              /* 指向队列项存储区域*/              pxNewQueue-&gt;pcHead = ( int8_t * ) pucQueueStorage;          }          /* 初始化队列结构体成员*/          pxNewQueue-&gt;uxLength = uxQueueLength;          pxNewQueue-&gt;uxItemSize = uxItemSize;          ( void ) xQueueGenericReset( pxNewQueue, pdTRUE );          #if ( configUSE_TRACE_FACILITY == 1 )          {              pxNewQueue-&gt;ucQueueType = ucQueueType;          }          #endif /* configUSE_TRACE_FACILITY */          traceQUEUE_CREATE( pxNewQueue );      }      return ( QueueHandle_t ) pxNewQueue;  }</pre> </div> <p>我们以默认的动态分配队列存储空间方式讲述一下队列创建过程。首先调用函数prvAllocateQueueMemory分配队列结构体和队列项存储空间，结构体和队列项在存储空间上是连续的，如图1-1所示。</p> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220420/aaa16252e11a8e2f00185c2095a17b73.jpg"></p> <p>图1-1：为队列分配的内存</p> <p>如果队列内存申请成功，接下来会初始化队列结构体成员，先是pcHead成员，然后是uxLength和uxItemSize成员，最后调用函数xQueueGenericReset()初始化剩下的结构体成员。</p> <p>假设我们申请了3个队列项，每个队列项占用4字节存储空间（即uxLength=3、uxItemSize=4），则经过初始化后的队列内存如图1-2所示。（这个图形象的描述了队列结构体的大部分成员的作用）。</p> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220420/11375d63b40005529efca6354a93fbb6.jpg"></p> <p>图1-2：初始化后的队列项内存</p> <p class="maodian"><a name="_label2" rel="nofollow"></a></p> <h2>2.入队</h2> <p>队列项入队也称为投递（Send），分为带中断保护的入队操作和不带中断保护的入队操作。每种情况下又分为从队列尾部入队和从队列首部入队两种操作，从队列尾部入队还有一种特殊情况，覆盖式入队，即队列满后自动覆盖最旧的队列项。如表2-1所示。</p> <p>表2-1：入队API接口列表</p> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220420/02ae985c28aaf656b751ebfff7a97fbb.jpg"></p> <p class="maodian"><a name="_lab2_2_0" rel="nofollow"></a></p> <h3>2.1 xQueueGenericSend()</h3> <p>这个函数用于入队操作，绝不可以用在中断服务程序中。根据参数的不同，可以从队列尾入队、从队列首入队和覆盖式入队。覆盖式入队用于只有一个队列项的场合，入队时如果队列已满，则将之前的队列项覆盖掉。函数原型为：</p> <div class="ay1code"> <pre class="brush:cpp;">BaseType_t xQueueGenericSend  				(   					QueueHandle_t xQueue,   					const void * const pvItemToQueue,   					TickType_t xTicksToWait,   					const BaseType_t xCopyPosition   				)</pre> </div> <p><code>xQueue</code>：队列句柄pvItemToQueue：指针，指向要入队的项目</p> <p><code>xTicksToWait</code>：如果队列满，等待队列空闲的最大时间，如果队列满并且xTicksToWait被设置成0，函数立刻返回。时间单位为系统节拍时钟周期，宏portTICK_PERIOD_MS可以用来辅助计算真实延时值。</p> <p>如果INCLUDE_vTaskSuspend设置成1，并且指定延时为portMAX_DELAY将引起任务无限阻塞（没有超时）。</p> <p><code>xCopyPosition</code>：入队位置，可以选择从队列尾入队、从队列首入队和覆盖式入队。</p> <p>这个函数为了获得最高效率而放宽了编码标准：有多个返回点。因此如果纯粹以文字方式来讲解，我觉得很难达到好的效果，所以我首先给出整理后的源码（去除调试和队列集合有关代码），然后画出流程图，对函数的关键点做重点描述。</p> <p>整理后的源码：</p> <div class="ay1code"> <pre class="brush:cpp;">BaseType_t xQueueGenericSend(   				QueueHandle_t xQueue,   				const void * const pvItemToQueue,   				TickType_t xTicksToWait,   				const BaseType_t xCopyPosition )  {  BaseType_t xEntryTimeSet = pdFALSE, xYieldRequired;  TimeOut_t xTimeOut;  Queue_t * const pxQueue = ( Queue_t * ) xQueue;       for( ;; )      {          taskENTER_CRITICAL();          {              /* 队列还有空闲?正在运行的任务一定要比等待访问队列的任务优先级高.如果使用覆盖式入队,则不需要关注队列是否满*/              if( ( pxQueue-&gt;uxMessagesWaiting &lt; pxQueue-&gt;uxLength ) || ( xCopyPosition == queueOVERWRITE ) )              {                  /*完成数据拷贝工作,分为从队列尾入队,从队列首入队和覆盖式入队*/                  xYieldRequired = prvCopyDataToQueue( pxQueue, pvItemToQueue, xCopyPosition );                  /* 如果有任务在此等待队列数据到来,则将该任务解除阻塞*/                  if( listLIST_IS_EMPTY( &amp;( pxQueue-&gt;xTasksWaitingToReceive ) ) == pdFALSE )                  {                      /*有任务因等待出队而阻塞,则将任务从队列等待接收列表中删除,然后加入到就绪列表*/                      if( xTaskRemoveFromEventList( &amp;( pxQueue-&gt;xTasksWaitingToReceive ) ) != pdFALSE )                      {                          /* 解除阻塞的任务有更高的优先级,则当前任务要让出CPU,因此触发一个上下文切换.又因为现在还在临界区,要等退出临界区后,才会执行上下文切换.*/                          queueYIELD_IF_USING_PREEMPTION();                      }                  }                  else if( xYieldRequired != pdFALSE )                  {                      /* 这个分支处理特殊情况*/                      queueYIELD_IF_USING_PREEMPTION();                  }                  taskEXIT_CRITICAL();                  return pdPASS;              }              else              {                  if( xTicksToWait == ( TickType_t ) 0 )                  {                      /* 如果队列满并且没有设置超时,则直接退出 */                      taskEXIT_CRITICAL();                      /* 返回队列满错误码 */                      return errQUEUE_FULL;                  }                  else if( xEntryTimeSet == pdFALSE )                  {                      /* 队列满并且规定了阻塞时间,因此需要配置超时结构体对象 */                      vTaskSetTimeOutState( &amp;xTimeOut );                      xEntryTimeSet = pdTRUE;                  }              }          }          taskEXIT_CRITICAL();          /* 退出临界区,至此,中断和其它任务可以向这个队列执行入队(投递)或出队(读取)操作.因为队列满,任务无法入队,下面的代码将当前任务将阻塞在这个队列上,在这段代码执行过程中我们需要挂起调度器,防止其它任务操作队列事件列表;挂起调度器虽然可以禁止其它任务操作这个队列,但并不能阻止中断服务程序操作这个队列,因此还需要将队列上锁,防止中断程序读取队列后,使阻塞在出队操作其它任务解除阻塞,执行上下文切换(因为调度器挂起后,不允许执行上下文切换) */          vTaskSuspendAll();          prvLockQueue( pxQueue );          /* 查看任务的超时时间是否到期 */          if( xTaskCheckForTimeOut( &amp;xTimeOut, &amp;xTicksToWait ) == pdFALSE )          {              if( prvIsQueueFull( pxQueue ) != pdFALSE )              {                  /*超时时间未到期,并且队列仍然满*/                  vTaskPlaceOnEventList( &amp;( pxQueue-&gt;xTasksWaitingToSend ), xTicksToWait );                  /* 解除队列锁,如果有任务要解除阻塞,则将任务移到挂起就绪列表中(因为当前调度器挂起,所以不能移到就绪列表)*/                  prvUnlockQueue( pxQueue );                  /* 恢复调度器,将任务从挂起就绪列表移到就绪列表中*/                  if( xTaskResumeAll() == pdFALSE )                  {                      portYIELD_WITHIN_API();                  }              }              else              {                  /* 队列有空闲,重试 */                  prvUnlockQueue( pxQueue );                  ( void ) xTaskResumeAll();              }          }          else          {              /* 超时时间到期,返回队列满错误码*/              prvUnlockQueue( pxQueue );              ( void ) xTaskResumeAll();              traceQUEUE_SEND_FAILED( pxQueue );              return errQUEUE_FULL;          }      }  }</pre> </div> <p>程序流程如图2-1所示，我们对图中红色字体标注的部分做详解。</p> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220420/373b950f02dd2780e2a782c700f9f66f.jpg"></p> <p>图2-1:通用入队操作流程图</p> <p>当任务将数据入队时，如果队列未满或者以覆盖式入队，情况是最简单的，调用函数prvCopyDataToQueue()将要入队的数据拷贝到队列。</p> <p>这个函数处理三种入队情况</p> <p>第一种是队列项大小为0时（即队列结构体成员uxItemSize为0，比如二进制信号量和计数信号量），不进行数据拷贝工作，而是将队列项计数器加1（即队列结构体成员uxMessagesWaiting++）；</p> <p>第二种情况是从队列尾入队时，则将数据拷贝到指针pxQueue-&gt;pcWriteTo指向的地方、更新指针指向的位置、队列项计数器加1；</p> <p>第三种情况是从队列首入队时，则将数据拷贝到指针pxQueue-&gt;u.pcReadFrom指向的地方、更新指针指向的位置、队列项计数器加1。如果是覆盖式入队，还会调整队列项计数器的值。</p> <p>完成数据入队操作后，还要检查是否有任务因为等待出队而阻塞，因为这次数据入队，队列至少有一个队列项，如果有阻塞任务，则阻塞的最高优先级任务可以解除阻塞了。</p> <p>因等待出队而阻塞的任务会将任务的事件列表项（即任务TCB结构体成员xEventListItem，我们在<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.jb51.net/article/243826.htm"  target="_blank" rel="nofollow">FreeRTOS任务创建分析</a>一文中讲到过事件列表项，它是任务TCB的一个结构体成员）挂接到队列的等待出队列表上（即队列结构体成员xTasksWaitingToReceive）。</p> <p>现在，因为要解除任务阻塞，我们需要将任务的事件列表项从队列的等待出队队列上删除，并且将任务移动到就绪列表中。这一切，都是调用函数xTaskRemoveFromEventList()实现的。</p> <p>之后，如果解除阻塞的任务优先级比当前任务优先级更高，则触发一个PendSV中断，等退出临界区后，进行上下文切换。入队任务完成。</p> <p>上面讨论了最理想的情况，过程也简洁明了，但如果任务入队时，队列满并且不允许覆盖入队，则情况会变得复杂起来。</p> <p>在这种情况下，先看一个简单分支：阻塞时间为0的情况。设置阻塞时间为0意味着当队列满时，函数立即返回，返回一个错误代码，表示队列满。</p> <p>如果阻塞时间不为0，则本任务会因为等待入队而进入阻塞。在将任务设置为阻塞的过程中，是不希望有其它任务和中断操作这个队列的事件列表的（队列结构体成员xTasksWaitingToReceive列表和xTasksWaitingToSend列表），因为操作队列事件列表可能引起其它任务解除阻塞，这可能会发生优先级翻转。</p> <p>比如任务A的优先级低于本任务，但是在本任务进入阻塞的过程中，任务A却因为其它原因解除阻塞了，这显然是要绝对禁止的。因此FreeRTOS使用挂起调度器来简单粗暴的禁止其它任务操作队列，因为挂起调度器意味着任务不能切换并且不准调用可能引起任务切换的API函数。</p> <p>但挂起调度器并不会禁止中断，中断服务函数仍然可以操作队列事件列表，可能会解除任务阻塞、可能会进行上下文切换，这是不允许的。于是，解决办法是不但挂起调度器，还要给队列上锁！</p> <p>队列结构体中有两个成员跟队列上锁有关：xRxLock和xTxLock。</p> <p>这两个成员变量为queueUNLOCKED（宏，定义为-1）时，表示队列未上锁；</p> <p>当这两个成员变量为queueLOCKED_UNMODIFIED（宏，定义为0）时，表示队列上锁。</p> <p>给队列上锁是调用宏prvLockQueue()实现的，代码很简单，将队列结构体成员xRxLock和xTxLock都设置为queueLOCKED_UNMODIFIED。</p> <p>我们看一下给队列上锁是如何起作用的。当中断服务程序操作队列并且导致阻塞的任务解除阻塞时，会首先判断该队列是否上锁，如果没有上锁，则解除被阻塞的任务，还会根据需要设置上下文切换请求标志；</p> <p>如果队列已经上锁，则不会解除被阻塞的任务，取而代之的是，将xRxLock或xTxLock加1，表示队列上锁期间出队或入队的数目，也表示有任务可以解除阻塞了。这部分代码在带中断保护的入队和出队API函数中，后面我们会讲到，这里先有个印象。</p> <p>有将队列上锁操作，就会有解除队列锁操作。函数prvUnlockQueue()用于解除队列锁，将可以解除阻塞的任务插入到就绪列表，解除任务的最大数量由xRxLock和xTxLock指定。</p> <p>经过一系列的逻辑判断，发现本任务还是要进入阻塞状态，则调用函数vTaskPlaceOnEventList()来实现。这个函数将揭示任务因等待特定事件而进入阻塞的详细步骤，其实非常简单，只有两步：第一步，将任务的事件列表项（任务TCB结构体成员xEventListItem）插入到队列的等待入队列表（队列结构体成员xTasksWaitingToSend）中；第二步，将任务的状态列表项（任务TCB结构体成员xStateListItem）从就绪列表中删除，然后插入到延时列表中，任务的最大延时时间放入xStateListItem. xItemValue中，每次系统节拍定时器中断服务函数中，都会检查这个值，检测任务是否超时。</p> <p>当任务成功阻塞在等待入队操作后，当前任务就没有必要再占用CPU了，所以接下来解除队列锁、恢复调度器、进行任务切换，下一个处于最高优先级的就绪任务就会被运行了。</p> <p class="maodian"><a name="_lab2_2_1" rel="nofollow"></a></p> <h3>2.2 xQueueGenericSendFromISR ()</h3> <p>这个函数用于入队，用于中断服务程序中。根据参数的不同，可以从队列尾入队、从队列首入队也可以覆盖式入队。覆盖式入队用于只有一个队列项的场合，入队时如果队列已满，则将之前的队列项覆盖掉。函数原型为：</p> <div class="ay1code"> <pre class="brush:cpp;">BaseType_t xQueueGenericSendFromISR  				(   						QueueHandle_t xQueue,   						const void * const pvItemToQueue,   						BaseType_t * const pxHigherPriorityTaskWoken,   						const BaseType_t xCopyPosition   				)</pre> </div> <p><code>xQueue</code>：队列句柄。</p> <p><code>pvItemToQueue</code>：指针，指向要入队的项目。</p> <p><code>pxHigherPriorityTaskWoken</code>：如果入队导致一个任务解锁，并且解锁的任务优先级高于当前运行的任务，则该函数将*pxHigherPriorityTaskWoken设置成pdTRUE。</p> <p>如果xQueueSendFromISR()设置这个值为pdTRUE，则中断退出前需要一次上下文切换。从FreeRTOS V7.3.0起，pxHigherPriorityTaskWoken称为一个可选参数，并可以设置为NULL。</p> <p><code>xCopyPosition</code>：入队位置，可以选择从队列尾入队、从队列首入队和覆盖式入队。</p> <p>这个函数和xQueueGenericSend()很相似，但是当队列满时不会阻塞，直接返回一个错误码，表示队列满（相当于阻塞时间为0）。因此，有了分析xQueueGenericSend()的基础，这个函数我们很快就能看完。源码简化后如下所示：</p> <div class="ay1code"> <pre class="brush:cpp;">BaseType_t xQueueGenericSendFromISR(   				QueueHandle_t xQueue,   				const void * const pvItemToQueue,   				BaseType_t * const pxHigherPriorityTaskWoken,   				const BaseType_t xCopyPosition )  {  BaseType_t xReturn;  UBaseType_t uxSavedInterruptStatus;  Queue_t * const pxQueue = ( Queue_t * ) xQueue;      uxSavedInterruptStatus = portSET_INTERRUPT_MASK_FROM_ISR();      {          if( ( pxQueue-&gt;uxMessagesWaiting &lt; pxQueue-&gt;uxLength ) || ( xCopyPosition == queueOVERWRITE ) )          {              traceQUEUE_SEND_FROM_ISR( pxQueue );              /*完成数据拷贝工作,分为从队列尾入队,从队列首入队和覆盖式入队*/              ( void ) prvCopyDataToQueue( pxQueue, pvItemToQueue, xCopyPosition );              /*检查队列是否上锁,如果上锁,则队列事件列表不能被改变 */              if( pxQueue-&gt;xTxLock == queueUNLOCKED )              {   /*队列没有上锁*/                  if( listLIST_IS_EMPTY( &amp;( pxQueue-&gt;xTasksWaitingToReceive ) ) == pdFALSE )                  {                      if( xTaskRemoveFromEventList( &amp;( pxQueue-&gt;xTasksWaitingToReceive ) ) != pdFALSE )                      {                          /* 解除阻塞的任务优先级比当前任务高,记录上下文切换请求,等返回中断服务程序后,可以显示的强制上下文切换 */                          if( pxHigherPriorityTaskWoken != NULL )                          {                              *pxHigherPriorityTaskWoken = pdTRUE;                          }                      }                  }              }              else              {                  /* 队列上锁,增加锁计数器,等到任务解除队列锁时,使用这个计数器就可以知道有多少数据入队,可以最多解除多少个因等待从队列读数据而阻塞的任务 */                  ++( pxQueue-&gt;xTxLock );              }              xReturn = pdPASS;          }          else          {              xReturn = errQUEUE_FULL;          }      }      portCLEAR_INTERRUPT_MASK_FROM_ISR( uxSavedInterruptStatus );      return xReturn;  }</pre> </div> <p>因为没有阻塞，所以代码简单了很多，唯一值得注意的是，当成功入队后，如果有因为等待出队而阻塞的任务，现在可以将其中最高优先级的任务解除阻塞，在执行解除阻塞操作之前，会判断队列是否上锁。</p> <p>如果没有上锁，则解除被阻塞的任务，还会根据需要设置上下文切换请求标志；</p> <p>如果队列已经上锁，则不会解除被阻塞的任务，取而代之的是将xTxLock加1，表示队列上锁期间入队的个数，也表示有任务可以解除阻塞了。</p> <p class="maodian"><a name="_label3" rel="nofollow"></a></p> <h2>3.出队</h2> <p>出队的API函数要相对少一些，也分为带中断保护的出队操作和不带中断保护的出队操作。每种出队情况都可以选择是否删除队列项。出队API函数如表3-1所示。</p> <p>表3-1:出队API接口列表</p> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220420/63a8d65d1e28d4b1ec2b367b44222e7b.jpg"></p> <p>出队操作和入队操作有很多相似性，将入队流程理解透彻，出队操作不在话下，因此我们不再分析源码。</p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-66823.htm">动物生物疫苗概念股票有哪些 动物生物疫苗概念股票有哪些公司</a></p>
+                                        <p>下一个：<a href="/news/article-67448.htm">宠物寄养协议书范本免费模板图片高清（宠物寄养协议书范本免费模板图片高清下载）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-2-22-node-share-links.htm" title="V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-46241.htm" title="宠物诊所申请动物诊疗许可证的条件是什么（宠物诊所办理流程）">宠物诊所申请动物诊疗许可证的条件是什么（宠物诊所办理流程）</a></li>
+                        <li class="py-2"><a href="/news/article-48698.htm" title="祖峰（祖峰演过的电视剧大全）">祖峰（祖峰演过的电视剧大全）</a></li>
+                        <li class="py-2"><a href="/news/article-65580.htm" title="让猫挠了轻微出血有事吗（让猫挠了轻微出血有事吗猫打了狂犬疫苗）">让猫挠了轻微出血有事吗（让猫挠了轻微出血有事吗猫打了狂犬疫苗）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-14-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-50254.htm" title="国内十大宠物粮食品牌排名榜最新图片（宠物粮销量排名）">国内十大宠物粮食品牌排名榜最新图片（宠物粮销量排名）</a></li>
+                        <li class="py-2"><a href="/news/article-38797.htm" title="上海宠物领养中心地址电话号码查询（上海的宠物领养中心）">上海宠物领养中心地址电话号码查询（上海的宠物领养中心）</a></li>
+                        <li class="py-2"><a href="/news/article-58588.htm" title="宠物零食一件代发货源哪里找（宠物用品一件代发进货渠道）">宠物零食一件代发货源哪里找（宠物用品一件代发进货渠道）</a></li>
+                        <li class="py-2"><a href="/news/article-37323.htm" title="动物疫苗的重要性有哪些内容（动物疫苗的重要性有哪些内容呢）">动物疫苗的重要性有哪些内容（动物疫苗的重要性有哪些内容呢）</a></li>
+                        <li class="py-2"><a href="/news/article-37324.htm" title="宠物产品品牌大全（宠物产品品牌大全图片）">宠物产品品牌大全（宠物产品品牌大全图片）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">17</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">83</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
