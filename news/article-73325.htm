@@ -1,0 +1,282 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-73325.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>numpy和tensor类型更改（增加或减少）参数维度（reshape）</title>
+        <meta name="description" content="首先需注意的是numpy和tensor的维度排列顺序不一样，这里拿一张图片的shape举例： to_tensor = torchvision.transforms.ToTensor() img = c" />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-73325.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="numpy和tensor类型更改（增加或减少）参数维度（reshape）" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/765f92d768e3bfe5c359babfd039b683.webp" />
+        <meta property="og:release_date" content="2025-03-14T07:04:24" />
+    <meta property="og:updated_time" content="2025-03-14T07:04:24" />
+        <meta property="og:description" content="首先需注意的是numpy和tensor的维度排列顺序不一样，这里拿一张图片的shape举例： to_tensor = torchvision.transforms.ToTensor() img = c" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="numpy和tensor类型更改（增加或减少）参数维度（reshape）">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                    </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="/">V2rayNG Node</a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                                                        <li><a href="/">首页</a></li>
+                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                    </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>numpy和tensor类型更改（增加或减少）参数维度（reshape）</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> <p>首先需注意的是numpy和tensor的维度排列顺序不一样，这里拿一张图片的shape举例：</p> <pre><code>to_tensor = torchvision.transforms.ToTensor() img = cv2.imread("sample.jpg") img_tensor = to_tensor(img) print(type(img))  # &lt;class 'numpy.ndarray'&gt; print(img.shape)  # (450, 500, 3) print(type(img_tensor))  # &lt;class 'torch.Tensor'&gt; print(img_tensor.shape)  # torch.Size([3, 450, 500]) </code></pre> <p>如果想改变数组内元素的排列顺序，torch和numpy都自带reshape方法：</p> <pre><code># 展平操作 print(np.reshape(img, (1, 1, -1)).shape)  # (1, 1, 675000) print(torch.reshape(img_tensor, (1, 1, -1)).shape)  # torch.Size([1, 1, 675000]) # 注意-1的含义是让计算机自己计算这里的值（因为元素总数是不会变的，该例3*450*500 = 675000） # 但“-1”至多出现一次，也很好理解，假若两个位置需要计算机计算（-1），显然是无法做到的 </code></pre> <p>增加（减少）维度，以numpy为例（tensor同用法）：</p> <pre><code># 减少维度 img_1 = img[:, :, 1]  # 截取 img_2 = np.reshape(img, (450, -1))  # reshape方法必须保证总量不变 print(img_1.shape)  # (450, 500) print(img_2.shape)  # (450, 1500)  # 增加维度 a = np.array((3, 2, 3)) b = a[:, None, None] c = np.reshape(a, (3, 1, -1)) print(a.shape)  # (3,) print(b.shape)  # (3, 1, 1) print(c.shape)  # (3, 1, 1)</code></pre> <p>实例应用：</p> <p>在图像标准化处理中假设我们计算得到RGB的均值(mean)为（127， 127， 127）&nbsp;标准差std为（8， 8， 8），那么我们接下来要对整个图片各个位置的RGB进行(img - mean) / std&nbsp;计算，显然是不能直接计算的，因为原图是个三维矩阵，而我们计算得到的均值和标准差都是一维的（包含三个值），所以在计算过程中需要对mean和std进行增加维度操作。</p> <pre><code># 举例 img = np.random.randint(0, 255, (2, 2, 3)) mean = np.array((127, 127, 127)) std = np.array((8, 8, 8)) img_result = (img - mean[None, None, :]) / std[None, None, :] print("处理前：", img) # [[[177   1 231] #   [  1 109 203]] #  #  [[177 135 146] #   [ 66  89 122]]] print("处理后", img_result) # [[[  6.25  -15.75   13.   ] #   [-15.75   -2.25    9.5  ]] #  #  [[  6.25    1.      2.375] #   [ -7.625  -4.75   -0.625]]] </code></pre> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-72653.htm">宠物医院手续（宠物医院办理流程）</a></p>
+                                        <p>下一个：<a href="/news/article-73326.htm">模型的威力：基于模型，快速梳理源码_在线工具</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-1-25-node-share-links.htm" title="V2rayNG Node节点订阅每天更新22.1M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.1M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-43259.htm" title="C#语法糖系列第一篇：聊聊 params 参数底层玩法">C#语法糖系列第一篇：聊聊 params 参数底层玩法</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-6-node-share-links.htm" title="V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-44255.htm" title="一个高频问题：异步操作会创建线程吗？">一个高频问题：异步操作会创建线程吗？</a></li>
+                        <li class="py-2"><a href="/news/article-41254.htm" title="中国宠物粮食品牌排行榜前十名有哪些（中国宠物粮食品牌排行榜前十名有哪些公司）">中国宠物粮食品牌排行榜前十名有哪些（中国宠物粮食品牌排行榜前十名有哪些公司）</a></li>
+                        <li class="py-2"><a href="/news/article-49218.htm" title="送养一个孩子怎样写协议书范本（送养子女的协议书）">送养一个孩子怎样写协议书范本（送养子女的协议书）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-15-free-high-speed-nodes.htm" title="V2rayNG Node节点订阅每天更新22.7M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.7M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-1-node-share.htm" title="V2rayNG Node节点订阅每天更新18.7M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.7M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-27-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新20.6M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.6M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-6-node-share.htm" title="V2rayNG Node节点订阅每天更新21.8M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新21.8M/S免费节点订阅链接地址分享</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">44</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">83</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
