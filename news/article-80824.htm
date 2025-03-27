@@ -1,0 +1,282 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-80824.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>MySQL 优化：explain 执行计划详解与示例分析</title>
+        <meta name="description" content="MySQL 优化：explain 执行计划详解  一、准备测试数据 二、什么是explain 执行计划   2.1 执行计划的定义 2.2 执行计划有什么用处 2.3 使用方法 2.4 执行计划的结果" />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-80824.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="MySQL 优化：explain 执行计划详解与示例分析" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/0d3b7a18c1a25769d61b0ada94f7ed73.webp" />
+        <meta property="og:release_date" content="2025-03-25T08:16:36" />
+    <meta property="og:updated_time" content="2025-03-25T08:16:36" />
+        <meta property="og:description" content="MySQL 优化：explain 执行计划详解  一、准备测试数据 二、什么是explain 执行计划   2.1 执行计划的定义 2.2 执行计划有什么用处 2.3 使用方法 2.4 执行计划的结果" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="MySQL 优化：explain 执行计划详解与示例分析">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                    </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="/">V2rayNG Node</a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                                                        <li><a href="/">首页</a></li>
+                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                    </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>MySQL 优化：explain 执行计划详解与示例分析</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                  				  				  				<div id="content_views" class="markdown_views prism-tomorrow-night"> <div class="toc"> <h3>MySQL 优化：explain 执行计划详解</h3> <ul> <li><a href="#_2" rel="nofollow">一、准备测试数据</a></li> <li><a href="#explain__46" rel="nofollow">二、什么是explain 执行计划</a></li> <li> <ul> <li><a href="#21__47" rel="nofollow">2.1 执行计划的定义</a></li> <li><a href="#22__52" rel="nofollow">2.2 执行计划有什么用处</a></li> <li><a href="#23__61" rel="nofollow">2.3 使用方法</a></li> <li><a href="#24__64" rel="nofollow">2.4 执行计划的结果集</a></li> </ul> </li> <li><a href="#_82" rel="nofollow">三、参数详解</a></li> <li> <ul> <li><a href="#31_id_83" rel="nofollow">3.1 id</a></li> <li><a href="#32_select_type_108" rel="nofollow">3.2 select_type</a></li> <li> <ul> <li><a href="#321_simple_110" rel="nofollow">3.2.1 simple</a></li> <li><a href="#322_primarysubquery_119" rel="nofollow">3.2.2 primary、subquery</a></li> <li><a href="#323_derivedunionunion_result_131" rel="nofollow">3.2.3 derived、union、union result</a></li> </ul> </li> <li><a href="#33_table_155" rel="nofollow">3.3 table</a></li> <li><a href="#34_partitions_158" rel="nofollow">3.4 partitions</a></li> <li><a href="#35_type_161" rel="nofollow">3.5 type</a></li> <li> <ul> <li><a href="#351_ALL_172" rel="nofollow">3.5.1 ALL</a></li> <li><a href="#352_index_177" rel="nofollow">3.5.2 index</a></li> <li><a href="#353_range_188" rel="nofollow">3.5.3 range</a></li> <li><a href="#354_ref_203" rel="nofollow">3.5.4 ref</a></li> <li><a href="#355_eq_ref_215" rel="nofollow">3.5.5 eq_ref</a></li> <li><a href="#356_const_230" rel="nofollow">3.5.6 const</a></li> <li><a href="#357_system_241" rel="nofollow">3.5.7 system</a></li> </ul> </li> <li><a href="#36_possible_keys_254" rel="nofollow">3.6 possible_keys</a></li> <li><a href="#37_key_257" rel="nofollow">3.7 key</a></li> <li><a href="#38_key_len_260" rel="nofollow">3.8 key_len</a></li> <li> <ul> <li><a href="#381__261" rel="nofollow">3.8.1 定义</a></li> <li><a href="#382__268" rel="nofollow">3.8.2 计算方式</a></li> </ul> </li> <li><a href="#39_ref_287" rel="nofollow">3.9 ref</a></li> <li><a href="#310_rows_304" rel="nofollow">3.10 rows</a></li> <li><a href="#311_filtered_307" rel="nofollow">3.11 filtered</a></li> <li><a href="#312_Extra_310" rel="nofollow">3.12 Extra</a></li> <li> <ul> <li><a href="#3121_using_filesort_314" rel="nofollow">3.12.1 using filesort</a></li> <li><a href="#3122_Using_temporary_335" rel="nofollow">3.12.2 Using temporary</a></li> </ul> </li> </ul> </li> <li><a href="#_350" rel="nofollow">四、总结</a></li> </ul> </div> </h1> <p>MySQL 版本：5.7.35</p> <p>建立课程表、教师表、教师证表如下：</p> <pre><code class="prism language-sql"><span class="token keyword">create</span><span class="token keyword">table</span> course<span class="token punctuation">(</span> 	cid<span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 	cname<span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 	tid<span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">create</span><span class="token keyword">table</span> teacher<span class="token punctuation">(</span> 	tid<span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 	tname<span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 	tcid<span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">create</span><span class="token keyword">table</span> teacherCard<span class="token punctuation">(</span> 	tcid<span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 	tcdesc<span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre> <p>分别添加数据如下：</p> <pre><code class="prism language-sql"><span class="token keyword">insert</span><span class="token keyword">into</span> course<span class="token keyword">values</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">'java'</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">insert</span><span class="token keyword">into</span> course<span class="token keyword">values</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token string">'html'</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">insert</span><span class="token keyword">into</span> course<span class="token keyword">values</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string">'sql'</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">insert</span><span class="token keyword">into</span> course<span class="token keyword">values</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token string">'web'</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">insert</span><span class="token keyword">into</span> teacher<span class="token keyword">values</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">'tz'</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">insert</span><span class="token keyword">into</span> teacher<span class="token keyword">values</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token string">'tw'</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">insert</span><span class="token keyword">into</span> teacher<span class="token keyword">values</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string">'tl'</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">insert</span><span class="token keyword">into</span> teacherCard<span class="token keyword">values</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">'tzdesc'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">insert</span><span class="token keyword">into</span> teacherCard<span class="token keyword">values</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token string">'twdesc'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">insert</span><span class="token keyword">into</span> teacherCard<span class="token keyword">values</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string">'tldesc'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre> </h1> <h2><a id="21__47" rel="nofollow"></a>2.1 执行计划的定义</h2> <p>什么是执行计划？简而言之，就是 SQL 在数据库中执行时的表现情况，通常用于 SQL 性能分析、优化和加锁分析等场景，执行过程会在 MySQL 查询过程中由解析器，预处理器和查询优化器共同生成。</p> <p>在 MySQL 中使用 explain 关键字来查看。</p> <h2><a id="22__52" rel="nofollow"></a>2.2 执行计划有什么用处</h2> <p>它可以用来分析 SQL 语句和表结构的性能瓶颈：</p> <ul> <li>关联查询的执行顺序</li> <li>查询操作的操作类型</li> <li>哪些索引可以被命中</li> <li>哪些索引实际被命中</li> <li>每张表有多少记录参与查询</li> </ul> <h2><a id="23__61" rel="nofollow"></a>2.3 使用方法</h2> <p>在 select 语句前加上 explain</p> <h2><a id="24__64" rel="nofollow"></a>2.4 执行计划的结果集</h2> <p>explain 的结果集：</p> <ol> <li>id：执行编号</li> <li>select_type：查询类型</li> <li>table：表</li> <li>partitions：命中的分区</li> <li>type：类型</li> <li>possible_keys：预测用到的索引</li> <li>key：实际使用的索引</li> <li>key_len：实际使用索引的长度</li> <li>ref：表之间的引用</li> <li>rows：通过索引查询到的数据量</li> <li>filtered：实际命中数据量的占比</li> <li>Extra：额外的信息</li> </ol> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220901/3c7cdd637d339b964fd8c9ac59486c60.jpg" alt="MySQL 优化：explain 执行计划详解与示例分析"></p> </h1> <h2><a id="31_id_83" rel="nofollow"></a>3.1 id</h2> <p>在这里，id 实际上就代表着 sql 语句的执行顺序。</p> <ol> <li>id 值相同时，<strong>从上往下</strong>，顺序执行</li> <li>id 值不同时，id值<strong>越大越优先</strong>查询</li> </ol> <p>示例分析：查找教授SQL 课程的老师的描述</p> <pre><code class="prism language-sql"><span class="token keyword">EXPLAIN</span><span class="token keyword">SELECT</span> teacherCard<span class="token punctuation">.</span>tcdesc<span class="token keyword">FROM</span> teacherCard<span class="token punctuation">,</span> teacher<span class="token keyword">WHERE</span> teacherCard<span class="token punctuation">.</span>tcid<span class="token operator">=</span> teacher<span class="token punctuation">.</span>tcid<span class="token operator">AND</span> teacher<span class="token punctuation">.</span>tid<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">SELECT</span> course<span class="token punctuation">.</span>tid<span class="token keyword">FROM</span> course<span class="token keyword">WHERE</span> course<span class="token punctuation">.</span>cname<span class="token operator">=</span><span class="token string">"sql"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220901/722cb88a1d753799b2c85f6007de1bc9.jpg" alt="MySQL 优化：explain 执行计划详解与示例分析"></p> <p>从结果上看，course 表对应的 sql 语句最先执行，其后是 teacher 表，最后是 teacherCard 表。</p> <p>也就是说，在执行嵌套子查询时，会<strong>先执行内层的子查询语句</strong>，再执行外层的语句。</p> <p>那么为什么外层语句的执行顺序是先 teacher 再 teacherCard 表呢？</p> <p>事实上，这个 select 的返回结果集是笛卡尔积。</p> <p>出于对性能的考虑，MySQL 会将数据量小的表或子结果作为笛卡尔积的左域，也就是会<strong>优先查询数据量小的数据表</strong>。</p> <p>具体的由MySQL 查询优化器进行选择。</p> <h2><a id="32_select_type_108" rel="nofollow"></a>3.2 select_type</h2> <p>select_type，显示本行是简单或复杂查询。</p> <h3><a id="321_simple_110" rel="nofollow"></a>3.2.1 simple</h3> <p>simple，最简单的查询，在查询中不包含子查询或者 union 交并差集等操作。</p> <p>示例：查询course 表的所有数据</p> <pre><code class="prism language-sql"><span class="token keyword">EXPLAIN</span><span class="token keyword">SELECT</span><span class="token operator">*</span><span class="token keyword">from</span> course<span class="token punctuation">;</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220901/d2afa607a1c30760c94b156bf14f4657.jpg" alt="MySQL 优化：explain 执行计划详解与示例分析"></p> <h3><a id="322_primarysubquery_119" rel="nofollow"></a>3.2.2 primary、subquery</h3> <p>primary，当查询语句中包含任何复杂的子部分(union 或子查询)，最外层查询则被标记为 primary。</p> <p>subquery，当查询语句中包含任何复杂的子部分(union 或子查询)，非最外层查询则被标记为 subquery。</p> <p>示例分析：查找教授SQL 课程的老师的描述</p> <pre><code class="prism language-sql"><span class="token keyword">EXPLAIN</span><span class="token keyword">SELECT</span> teacherCard<span class="token punctuation">.</span>tcdesc<span class="token keyword">FROM</span> teacherCard<span class="token punctuation">,</span> teacher<span class="token keyword">WHERE</span> teacherCard<span class="token punctuation">.</span>tcid<span class="token operator">=</span> teacher<span class="token punctuation">.</span>tcid<span class="token operator">AND</span> teacher<span class="token punctuation">.</span>tid<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">SELECT</span> course<span class="token punctuation">.</span>tid<span class="token keyword">FROM</span> course<span class="token keyword">WHERE</span> course<span class="token punctuation">.</span>cname<span class="token operator">=</span><span class="token string">"sql"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220901/733729ea137e7093afc2700ea00918a2.jpg" alt="MySQL 优化：explain 执行计划详解与示例分析"><br /> SELECT course.tid FROM course WHERE course.cname = “sql” 为子查询语句，因此被标记为subquery ，而最外层的select 语句则是被标记为primary 。</p> <h3><a id="323_derivedunionunion_result_131" rel="nofollow"></a>3.2.3 derived、union、union result</h3> <p>derived，衍生查询，使用到了临时表。</p> <p>derived 分为两种情形：</p> <ol> <li>在 from 子查询中，只有一张表</li> <li>在 from 子查询中，如果有 t1 union t2 ，则 t1 的 select_type 为derived ，t2 为 union</li> </ol> <p>示例分析：</p> <pre><code class="prism language-sql"><span class="token keyword">EXPLAIN</span><span class="token keyword">select</span> cr<span class="token punctuation">.</span>cname<span class="token keyword">from</span><span class="token punctuation">(</span><span class="token keyword">select</span><span class="token operator">*</span><span class="token keyword">from</span> course<span class="token keyword">limit</span><span class="token number">2</span><span class="token punctuation">)</span> cr<span class="token punctuation">;</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220901/a6bd5c4cdd77678167dd7e5b48669bad.jpg" alt="MySQL 优化：explain 执行计划详解与示例分析"><br /> 可以看到最外层查询的table 列是 &lt; derived2 &gt; ，这表示涉及到了衍生表，对应的数据集为执行编码id 为2 的查询结果集。</p> <p>示例分析：</p> <pre><code class="prism language-sql"><span class="token keyword">EXPLAIN</span><span class="token keyword">select</span> cr<span class="token punctuation">.</span>cname<span class="token keyword">from</span><span class="token punctuation">(</span><span class="token keyword">select</span><span class="token operator">*</span><span class="token keyword">from</span> course<span class="token keyword">limit</span><span class="token number">2</span><span class="token punctuation">)</span> cr<span class="token keyword">union</span><span class="token keyword">select</span> cr<span class="token punctuation">.</span>cname<span class="token keyword">from</span><span class="token punctuation">(</span><span class="token keyword">select</span><span class="token operator">*</span><span class="token keyword">from</span> course<span class="token keyword">limit</span><span class="token number">3</span><span class="token punctuation">)</span> cr</code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220901/370d724319cff4291d8bcf4cc2317494.jpg" alt="MySQL 优化：explain 执行计划详解与示例分析"><br /> 可以看到执行计划的最后一行的select_type 是 union result ，对应的 table 列的结果是 &lt;union1,3&gt; ，表示对执行编码 id 为 1 和 3 的查询结果进行了 union 操作。</p> <h2><a id="33_table_155" rel="nofollow"></a>3.3 table</h2> <p>table，查询的表名，并不一定是真实存在的表，也可能为临时表。</p> <h2><a id="34_partitions_158" rel="nofollow"></a>3.4 partitions</h2> <p>partitions，查询时匹配到的分区信息，对于非分区表值为 NULL，当查询的是分区表时，partitions 显示分区表命中的分区情况。</p> <h2><a id="35_type_161" rel="nofollow"></a>3.5 type</h2> <p>type，联接类型，显示了连接使用了哪种类别、有无使用索引，在 SQL 优化中是一个非常重要的指标。</p> <p>性能从好到坏依次是：</p> <p><strong>system &gt; const &gt; eq_ref &gt; ref &gt; ref_or_null &gt; index_merge &gt; unique_subquery &gt; index_subquery &gt; range &gt; index &gt; ALL</strong></p> <p>要对 type 进行优化的前提：<strong>有索引</strong>。</p> <p>以下我们只介绍几种最常见的类型：</p> <h3><a id="351_ALL_172" rel="nofollow"></a>3.5.1 ALL</h3> <p>ALL，全表扫描，通常意味着 MySQL 必须从头到尾扫描整张表，去查找匹配的行的行，性能极差。</p> <p>但是，如果在查询里使用了 LIMIT n，虽然 type 依然是 ALL，但是 MySQL 只需要扫描到符合条件的前 n 行数据，就会停止继续扫描。</p> <h3><a id="352_index_177" rel="nofollow"></a>3.5.2 index</h3> <p>index，按索引次序全表扫描，避免了排序的开销。</p> <p>示例：</p> <pre><code class="prism language-sql"><span class="token keyword">create</span><span class="token keyword">INDEX</span> name_index<span class="token keyword">on</span> course<span class="token punctuation">(</span>cname<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">EXPLAIN</span><span class="token keyword">select</span> cname<span class="token keyword">from</span> course<span class="token punctuation">;</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220901/9938327fddce01d887dd5855097cd7ef.jpg" alt="MySQL 优化：explain 执行计划详解与示例分析"></p> <h3><a id="353_range_188" rel="nofollow"></a>3.5.3 range</h3> <p>range，范围扫描，一个有限制的索引扫描。</p> <p>范围扫描分为以下两种情况：</p> <ol> <li>范围条件查询：在 WHERE 子句里带有 BETWEEN、&gt;、&lt;、&gt;=、&lt;= 的查询。</li> <li>多个等值条件查询：使用 IN() 和 OR ，以及使用 like 进行前缀匹配模糊查询。</li> </ol> <p>示例：</p> <pre><code class="prism language-sql"><span class="token keyword">EXPLAIN</span><span class="token keyword">select</span> cname<span class="token keyword">from</span> course<span class="token keyword">where</span> cname<span class="token operator">like</span><span class="token string">'s%'</span><span class="token punctuation">;</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220901/d09e4e7dfb306bcf1108b73c5d66e57f.jpg" alt="MySQL 优化：explain 执行计划详解与示例分析"></p> <h3><a id="354_ref_203" rel="nofollow"></a>3.5.4 ref</h3> <p>ref，索引访问，返回所有匹配索引值的数据行，每个索引可能有 0 个或多个匹配的数据行。</p> <p>只有当使用非唯一性索引或者唯一性索引的非唯一性前缀时才会发生。</p> <p>示例：</p> <pre><code class="prism language-sql"><span class="token keyword">create</span><span class="token keyword">INDEX</span> tid_index<span class="token keyword">on</span> course<span class="token punctuation">(</span>tid<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">EXPLAIN</span><span class="token keyword">select</span><span class="token operator">*</span><span class="token keyword">from</span> course<span class="token keyword">where</span> tid<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220901/92b52923f747caf635cf34d773269134.jpg" alt="MySQL 优化：explain 执行计划详解与示例分析"></p> <h3><a id="355_eq_ref_215" rel="nofollow"></a>3.5.5 eq_ref</h3> <p>eq_ref，唯一性索引，对于每个索引键的查询，只能返回唯一一行匹配的数据，不能多也不能少。</p> <p>常见于唯一索引、主键索引。</p> <p>示例：</p> <pre><code class="prism language-sql"><span class="token keyword">alter</span><span class="token keyword">table</span> teachercard<span class="token keyword">add</span><span class="token keyword">CONSTRAINT</span> pk_tcid<span class="token keyword">PRIMARY</span><span class="token keyword">key</span><span class="token punctuation">(</span>tcid<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">alter</span><span class="token keyword">table</span> teacher<span class="token keyword">add</span><span class="token keyword">CONSTRAINT</span> uk_tcid<span class="token keyword">unique</span><span class="token keyword">index</span><span class="token punctuation">(</span>tcid<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">EXPLAIN</span><span class="token keyword">select</span> t<span class="token punctuation">.</span>tcid<span class="token keyword">from</span> teacher t<span class="token punctuation">,</span>teacherCard tc<span class="token keyword">where</span> t<span class="token punctuation">.</span>tcid<span class="token operator">=</span> tc<span class="token punctuation">.</span>tcid<span class="token punctuation">;</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220901/47e932c48fa5f51dbb9af89b291d75e6.jpg" alt="MySQL 优化：explain 执行计划详解与示例分析"></p> <h3><a id="356_const_230" rel="nofollow"></a>3.5.6 const</h3> <p>const，最多只会有一条记录匹配。只见于唯一索引和主键索引进行等值条件查询。</p> <p>示例：</p> <pre><code class="prism language-sql"><span class="token keyword">create</span><span class="token keyword">UNIQUE</span><span class="token keyword">INDEX</span> id_index<span class="token keyword">on</span> course<span class="token punctuation">(</span>cid<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">EXPLAIN</span><span class="token keyword">select</span><span class="token operator">*</span><span class="token keyword">from</span> course<span class="token keyword">where</span> cid<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220901/5e9dd13259f74c51b9105a5016532805.jpg" alt="MySQL 优化：explain 执行计划详解与示例分析"></p> <h3><a id="357_system_241" rel="nofollow"></a>3.5.7 system</h3> <p>官方文档原文是：</p> <blockquote> <p>The table has only one row (= system table). This is a special case of the const join type.</p> </blockquote> <p>该表只有一行（=系统表）。这是 const 关联类型的特例。</p> <p>示例：从系统库 mysq l的系统表 proxies_priv 里查询数据，这里的数据在Mysql 服务启动时候已经加载在内存中，不需要进行磁盘IO 。</p> <pre><code class="prism language-sql"><span class="token keyword">EXPLAIN</span><span class="token keyword">SELECT</span><span class="token operator">*</span><span class="token keyword">FROM</span><span class="token identifier"><span class="token punctuation">`</span>mysql<span class="token punctuation">`</span></span><span class="token punctuation">.</span><span class="token identifier"><span class="token punctuation">`</span>proxies_priv<span class="token punctuation">`</span></span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220901/0ba03d5bc1323f52107f3d4e7719e958.jpg" alt="MySQL 优化：explain 执行计划详解与示例分析"></p> <h2><a id="36_possible_keys_254" rel="nofollow"></a>3.6 possible_keys</h2> <p>possible_keys，可能用到的索引，只是一种预测，不一定准。</p> <h2><a id="37_key_257" rel="nofollow"></a>3.7 key</h2> <p>key，实际使用到的索引。</p> <h2><a id="38_key_len_260" rel="nofollow"></a>3.8 key_len</h2> <h3><a id="381__261" rel="nofollow"></a>3.8.1 定义</h3> <p>key_len，实际使用到的索引的长度，可以用来判断复合索引中使用到的具体索引。</p> <p>在不损失精确性的情况下，原则上长度越短越好。</p> <p>key_len 只计算 where 条件中用到的索引长度，而排序和分组即便是用到了索引，也不会计算到 key_len 中。</p> <h3><a id="382__268" rel="nofollow"></a>3.8.2 计算方式</h3> <p>key_len 索引长度的计算方式：</p> <ul> <li>对于所有的索引字段，如果没有设置为 not null，则加 1 个字节。</li> <li>int 占 4 个字节，date 占 3 个字节，char(n) 占 n 个字符，varchar(n) 占 n 个字符 +2 个字节。</li> <li>对于不同的字符集，一个字符所占用的字节数也不一样： <ol> <li>latin1 编码一个字符占用一个字节</li> <li>gbk 编码一个字符占用两个字节</li> <li>utf8 编码一个字符占用三个字节</li> <li>utf8mb4 编码一个字符占用四个字节</li> </ol> </li> </ul> <p>示例分析：</p> <pre><code class="prism language-sql"><span class="token keyword">EXPLAIN</span><span class="token keyword">select</span><span class="token operator">*</span><span class="token keyword">from</span> course<span class="token keyword">where</span> cid<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220901/6d881e9472c027df11ee10083c0d8d16.jpg" alt="MySQL 优化：explain 执行计划详解与示例分析"><br /> 可以看到，key_len 为5 ，由 int 的 4 个字节 + null 的 1 个字节构成。</p> <h2><a id="39_ref_287" rel="nofollow"></a>3.9 ref</h2> <p>ref，指明当前表所参照的字段或常量。</p> <p>示例分析：</p> <pre><code class="prism language-sql"><span class="token keyword">EXPLAIN</span><span class="token keyword">select</span><span class="token operator">*</span><span class="token keyword">from</span> course<span class="token keyword">where</span> cid<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220901/f64b3d65f71a8e9e59fdca535d33973d.jpg" alt="MySQL 优化：explain 执行计划详解与示例分析"><br /> 可以看到ref 这一列的值是const，因为cid 索引的条件值是一个常量。</p> <pre><code class="prism language-sql"><span class="token keyword">EXPLAIN</span><span class="token keyword">select</span> t<span class="token punctuation">.</span>tcid<span class="token keyword">from</span> teacher t<span class="token punctuation">,</span>teacherCard tc<span class="token keyword">where</span> t<span class="token punctuation">.</span>tcid<span class="token operator">=</span> tc<span class="token punctuation">.</span>tcid<span class="token punctuation">;</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220901/84c5e065746661211fa5aa40a9168d20.jpg" alt="MySQL 优化：explain 执行计划详解与示例分析"><br /> 可以看到，tc 表的ref 值是testmysql.t.tcid，表示tc.tcid 的参照字段是testmysql 数据库的 t 表的 tcid 列。</p> <h2><a id="310_rows_304" rel="nofollow"></a>3.10 rows</h2> <p>rows，实际通过索引查询到的数据行数。</p> <h2><a id="311_filtered_307" rel="nofollow"></a>3.11 filtered</h2> <p>filtered，命中率，表里符合条件的记录数所占百分比。</p> <h2><a id="312_Extra_310" rel="nofollow"></a>3.12 Extra</h2> <p>Extra，额外的补充信息，对SQL 优化有重要作用。</p> <p>常见类型：</p> <h3><a id="3121_using_filesort_314" rel="nofollow"></a>3.12.1 using filesort</h3> <p>using filesort，需要一次额外的排序，常见于order by 或 group by 没有命中索引时。<strong>需要进行优化。</strong></p> <p>示例分析：</p> <pre><code class="prism language-sql"><span class="token keyword">EXPLAIN</span><span class="token keyword">select</span><span class="token operator">*</span><span class="token keyword">from</span> course<span class="token keyword">where</span> cname<span class="token operator">=</span><span class="token string">'sql'</span><span class="token keyword">order</span><span class="token keyword">by</span> tid<span class="token punctuation">;</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220901/ced4d4e07572ff78b3360796c3a56c81.jpg" alt="MySQL 优化：explain 执行计划详解与示例分析"><br /> 对于单列索引，where 条件的字段与order by 的字段不一致时，会产生Using filesort。</p> <p>对于复合索引，如果不遵循最左前缀原则，也会产生Using filesort 。</p> <pre><code class="prism language-sql"><span class="token keyword">drop</span><span class="token keyword">index</span> id_index<span class="token keyword">on</span> course<span class="token punctuation">;</span><span class="token keyword">drop</span><span class="token keyword">index</span> name_index<span class="token keyword">on</span> course<span class="token punctuation">;</span><span class="token keyword">drop</span><span class="token keyword">index</span> tid_index<span class="token keyword">on</span> course<span class="token punctuation">;</span><span class="token keyword">create</span><span class="token keyword">INDEX</span> id_name__tid_index<span class="token keyword">on</span> course<span class="token punctuation">(</span>cid<span class="token punctuation">,</span>cname<span class="token punctuation">,</span>tid<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">EXPLAIN</span><span class="token keyword">select</span><span class="token operator">*</span><span class="token keyword">from</span> course<span class="token keyword">where</span> cname<span class="token operator">=</span><span class="token string">'sql'</span><span class="token keyword">order</span><span class="token keyword">by</span> tid<span class="token punctuation">;</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220901/78221721125c3b166303874dc39335c8.jpg" alt="MySQL 优化：explain 执行计划详解与示例分析"></p> <h3><a id="3122_Using_temporary_335" rel="nofollow"></a>3.12.2 Using temporary</h3> <p>Using temporary，用临时表保存中间结果，常用于order by 或 group by 操作中。<strong>需要进行优化。</strong></p> <p>产生条件：</p> <ul> <li>如果group by 的列没有索引，产生临时表</li> <li>如果group by 的列有索引，order by 的列没索引，产生临时表</li> <li>如果group by 的列和order by 的列不一样，即使都有索引也会产生临时表</li> </ul> <p>示例：</p> <pre><code class="prism language-sql"><span class="token keyword">explain</span><span class="token keyword">select</span> tid<span class="token keyword">from</span> teacher<span class="token keyword">group</span><span class="token keyword">by</span> tid<span class="token punctuation">;</span></code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220901/26552b6004990af9614562b8d52384ca.jpg" alt="MySQL 优化：explain 执行计划详解与示例分析"></p> </h1> <p>参考视频：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://study.163.com/course/courseMain.htm?courseId=1005993008"  rel="nofollow">SQL优化（MySQL版）</a></p> <p>注意：视频内容不一定匹配当前数据库版本。</p> <p>暂时先到这里吧，后续需要补充的话，再在文末进行添加。</p> <p><mark>我是陈冰安，Java 工程师，时不时也会整一整Linux 。<br /> 欢迎关注我的公众号【暗星涌动】，愿与你一同进步。</mark></p> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-80112.htm">聊城市宠物店有哪些（聊城市宠物店位置）</a></p>
+                                        <p>下一个：<a href="/news/article-80825.htm">同安宠物领养中心电话多少号（同安哪里有宠物医院）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-36841.htm" title="兽用疫苗放在冰箱对食物 兽用疫苗放在冰箱对食物有影响吗">兽用疫苗放在冰箱对食物 兽用疫苗放在冰箱对食物有影响吗</a></li>
+                        <li class="py-2"><a href="/news/article-50760.htm" title="PHP如何在同一文件中定义多个命名空间">PHP如何在同一文件中定义多个命名空间</a></li>
+                        <li class="py-2"><a href="/news/article-80112.htm" title="聊城市宠物店有哪些（聊城市宠物店位置）">聊城市宠物店有哪些（聊城市宠物店位置）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-29-free-high-speed-nodes.htm" title="V2rayNG Node节点订阅每天更新18.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.2M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-35777.htm" title="python中，用pyspark读写Hive数据">python中，用pyspark读写Hive数据</a></li>
+                        <li class="py-2"><a href="/news/article-59016.htm" title="mybatis-spring-boot-starter 原理分析">mybatis-spring-boot-starter 原理分析</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-18-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新22.5M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.5M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-62519.htm" title="基于Ansible实现Apache Doris快速部署运维指南">基于Ansible实现Apache Doris快速部署运维指南</a></li>
+                        <li class="py-2"><a href="/news/article-41254.htm" title="中国宠物粮食品牌排行榜前十名有哪些（中国宠物粮食品牌排行榜前十名有哪些公司）">中国宠物粮食品牌排行榜前十名有哪些（中国宠物粮食品牌排行榜前十名有哪些公司）</a></li>
+                        <li class="py-2"><a href="/news/article-70022.htm" title="动物疫苗属于疫苗的分类吗对吗对吗（疫苗包括动物疫苗吗）">动物疫苗属于疫苗的分类吗对吗对吗（疫苗包括动物疫苗吗）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">79</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">83</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,281 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-82209.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Rust如何开发eBPF应用</title>
+        <meta name="description" content="前言 eBPF是一项革命性的技术，可以在Linux内核中运行沙盒程序，而无需重新编译内核或加载内核模块。它能够在许多内核 hook 点安全地执行字节码，主要应用在云原生网络、安全、跟踪监控等方面。 e" />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-82209.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="Rust如何开发eBPF应用" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/2536103527f3b4dc4e6e1415c71506ab.webp" />
+        <meta property="og:release_date" content="2025-03-27T08:12:21" />
+    <meta property="og:updated_time" content="2025-03-27T08:12:21" />
+        <meta property="og:description" content="前言 eBPF是一项革命性的技术，可以在Linux内核中运行沙盒程序，而无需重新编译内核或加载内核模块。它能够在许多内核 hook 点安全地执行字节码，主要应用在云原生网络、安全、跟踪监控等方面。 e" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Rust如何开发eBPF应用">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                    </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="/">V2rayNG Node</a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                                                        <li><a href="/">首页</a></li>
+                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                    </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>Rust如何开发eBPF应用</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                  				  				  				<p><span style="font-size: 24px">前言</span></p> <p><strong>eBPF是一项革命性的技术，可以在Linux内核中运行沙盒程序，而无需重新编译内核或加载内核模块。它能够在许多内核 hook 点安全地执行字节码，主要应用在云原生网络、安全、跟踪监控等方面。</strong></p> <p><strong>eBPF 基金会 (<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://ebpf.io"  target="_blank" rel="nofollow">https://ebpf.io</a>) 是一个为 eBPF 技术而创建的非盈利性组织，隶属于 Linux 基金会，其意在推动 eBPF 更好地发展，使其得到更加广泛的运用。</strong></p> <p>下面我将介绍如何在Rust中开发基于eBPF技术的应用示例。（该示例教程主要面向具备Rust开发基础的同学）</p> <p>(一)环境准备</p> <p>一台VM或Linux系统主机</p> <p>推荐系统：Ubuntu20.04</p> <p>内存：4G以上</p> <p>Rust开发工具链：v1.56~</p> <p>(二)安装llvm13（编译bpf字节码需要）</p> <pre class="language-bash"><code>apt-get update  apt-get -y install wget build-essential software-properties-common lsb-release libelf-dev linux-headers-generic pkg-config wget https://apt.llvm.org/llvm.sh chmod +x llvm.sh ./llvm.sh 13 rm -f ./llvm.sh</code></pre> <pre class="language-bash"><code>//检验是否安装成功，输出版本号表示安装成功 llvm-config-13 --version | grep 13</code></pre> <p>(三)安装 cargo-bpf脚手架</p> <pre class="language-bash"><code>cargo install cargo-bpf --no-default-features --features=llvm13</code></pre> <p>(四)应用示例</p> <pre class="language-bash"><code>#1、创建用户空间代码目录 cargo new bpfdemo cd bpfdemo #2、创建bpf代码目录 cargo bpf new probes ls &gt;&gt;Cargo.lock  Cargo.toml  probes  src #3、编写一个openmonitor bpf程序 输出系统打开的文件 cd probes cargo bpf add openmonitor cd src  ls &gt;&gt;lib.rs  openmonitor cd openmonitor nano main.rs</code></pre> <p>完整openmonitor/main.rs代码如下：</p> <pre class="language-bash"><code>#![no_std] #![no_main]  use probes::openmonitor::*; use redbpf_probes::kprobe::prelude::*;  program!(0xFFFFFFFE, "GPL");  #[map] static mut OPEN_PATHS: PerfMap&lt;OpenPath&gt; = PerfMap::with_max_entries(1024);  #[kprobe] fn do_sys_open(regs: Registers) {     let mut path = OpenPath::default();     unsafe {         let filename = regs.parm2() as *const u8;         if bpf_probe_read_user_str(             path.filename.as_mut_ptr() as *mut _,             path.filename.len() as u32,             filename as *const _,         ) &lt;= 0         {             bpf_trace_printk(b"error on bpf_probe_read_user_str\0");             return;         }         OPEN_PATHS.insert(regs.ctx, &amp;path);     } }</code></pre> <p>完整openmonitor/mod.rs代码如下</p> <pre class="language-bash"><code>pub const PATHLEN: usize = 256;  #[repr(C)] #[derive(Debug, Clone)] pub struct OpenPath {     pub filename: [u8; PATHLEN], }  impl Default for OpenPath {     fn default() -&gt; OpenPath {         OpenPath {             filename: [0; PATHLEN],         }     } }</code></pre> <pre class="language-bash"><code>#4.在probes目录下编译bpf程序,生成openmonitor.elf文件 cargo bpf build --target-dir=../target ls ../target/bpf/programs/openmonitor/openmonitor.elf  #5.在用户空间代码中使用bpf程序，获取系统打开文件 cd ../src nano main.rs</code></pre> <p>完整bpfdemo/src/main.rs代码如下</p> <pre class="language-bash"><code>use futures::stream::StreamExt; use std::{ffi::CStr, ptr}; use tracing::Level; use tracing_subscriber::FmtSubscriber;  use redbpf::load::Loader;  use probes::openmonitor::OpenPath;  fn probe_code() -&gt; &amp;'static [u8] {     include_bytes!(concat!(         env!("CARGO_MANIFEST_DIR"),         "/target/bpf/programs/openmonitor/openmonitor.elf"     )) }  #[tokio::main(flavor = "current_thread")] async fn main() {     let subscriber = FmtSubscriber::builder()         .with_max_level(Level::WARN)         .finish();     tracing::subscriber::set_global_default(subscriber).unwrap();      let mut loaded = Loader::load(probe_code()).expect("error on Loader::load");      let probe = loaded         .kprobe_mut("do_sys_open")         .expect("error on Loaded::kprobe_mut");     probe         .attach_kprobe("do_sys_open", 0)         .expect("error on KProbe::attach_kprobe");     probe         .attach_kprobe("do_sys_openat2", 0)         .expect("error on KProbe::attach_kprobe");      while let Some((map_name, events)) = loaded.events.next().await {         if map_name == "OPEN_PATHS" {             for event in events {                 let open_path = unsafe { ptr::read(event.as_ptr() as *const OpenPath) };                 unsafe {                     let cfilename = CStr::from_ptr(open_path.filename.as_ptr() as *const _);                     println!("{}", cfilename.to_string_lossy());                 };             }         }     } }</code></pre> <pre class="language-bash"><code>#6.在bpfdemo目录下编译运行 cargo build cargo run  #将会输出系统实时打开的文件 &gt;&gt; /proc/driver/nvidia/params /dev/nvidia0 /proc/driver/nvidia/params /dev/nvidia0 /proc/driver/nvidia/params /dev/nvidia0 /etc/localtime /lib/x86_64-linux-gnu/libcuda.so.1 /lib/x86_64-linux-gnu/libm.so.6 /etc/netconfig /sys/fs/cgroup/unified/system.slice/systemd-udevd.service/cgroup.procs /sys/fs/cgroup/unified/system.slice/systemd-udevd.service/cgroup.threads /proc/3084/cmdline /proc/3729/cmdline /proc/3994/cmdline /proc/8823/cmdline /proc/2231364/cmdline /proc/2431788/cmdline /proc/2560949/cmdline /sys/class/hwmon /sys/class/hwmon/hwmon6 /sys/class/hwmon/hwmon4 /sys/class/hwmon/hwmon2 /sys/class/hwmon/hwmon0 /sys/class/hwmon/hwmon7 /sys/class/hwmon/hwmon5</code></pre> <p>完毕！</p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-82208.htm">vue3+echarts：地图不显示，echarts地图空白</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-1-19-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新18.8M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.8M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-46242.htm" title="南平宠物市场（南平宠物市场一般啥时候开）">南平宠物市场（南平宠物市场一般啥时候开）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-28-node-share-links.htm" title="V2rayNG Node节点订阅每天更新22.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.2M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-1-node-share.htm" title="V2rayNG Node节点订阅每天更新18.7M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.7M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-17-node-share.htm" title="V2rayNG Node节点订阅每天更新19.7M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.7M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-67447.htm" title="FreeRTOS进阶之队列示例完全解析_操作系统">FreeRTOS进阶之队列示例完全解析_操作系统</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-22-node-share-links.htm" title="V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-51303.htm" title="系统设计限流算法及其周边">系统设计限流算法及其周边</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-16-node-share.htm" title="V2rayNG Node节点订阅每天更新22M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-44255.htm" title="一个高频问题：异步操作会创建线程吗？">一个高频问题：异步操作会创建线程吗？</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">79</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">83</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
