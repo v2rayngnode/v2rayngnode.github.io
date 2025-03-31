@@ -1,0 +1,282 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-83618.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>vue中Element UI表格分页功能的实现</title>
+        <meta name="description" content="一、需求问题 在vue的开发中，如果需要开发管理系统，那么Element UI就是一个不错的UI框架。在Element UI中的表格数据，如果数据量大的话，通过后端进行分页。如果数据量不大的话，我们可" />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-83618.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="vue中Element UI表格分页功能的实现" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/765f92d768e3bfe5c359babfd039b683.webp" />
+        <meta property="og:release_date" content="2025-03-29T08:58:40" />
+    <meta property="og:updated_time" content="2025-03-29T08:58:40" />
+        <meta property="og:description" content="一、需求问题 在vue的开发中，如果需要开发管理系统，那么Element UI就是一个不错的UI框架。在Element UI中的表格数据，如果数据量大的话，通过后端进行分页。如果数据量不大的话，我们可" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="vue中Element UI表格分页功能的实现">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                    </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="/">V2rayNG Node</a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                                                        <li><a href="/">首页</a></li>
+                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                    </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>vue中Element UI表格分页功能的实现</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-light"> <p><strong>一、需求问题</strong></p> <p>在vue的开发中，如果需要开发管理系统，那么<code>Element UI</code>就是一个不错的UI框架。在<code>Element UI</code>中的表格数据，如果数据量大的话，通过后端进行分页。如果数据量不大的话，我们可以直接通过前端进行分页。在<code>Element UI</code>中也提供了分页组件 <code>el-pagination</code>,下面就是通过 <code>el-pagination</code> 实现表格的分页功能。</p> <p><strong>二、需求分析</strong></p> <p>在使用<code>Element UI</code>的<code>el-pagination</code>分页组件的时候，需要写明 <code>page-size</code>、<code>current-page.sync</code>和<code>total</code>，<code>page-size</code>是每页的数据条数，<code>current-page</code> 是初始页，<code>total</code>是默认的数据总数，绑定属性，在<code>data</code>中也同样设置好<code>currentPage</code>和 <code>pageSize</code>的值。由于需要对整个表格的数据进行分页，那么在<code>el-table</code>中的<code>data</code>也需要进行计算属性，比如说<code>:data="nowTableData"</code>，那么在<code>computed</code>中，进行相关的计算，对数据请求进行处理。</p> <p><strong>三、需求实现</strong></p> <p><strong>代码完整示例如下：</strong></p> <pre><code class="prism language-js"><span class="token operator">&lt;</span>template<span class="token operator">&gt;</span>     <span class="token operator">&lt;</span>div<span class="token operator">&gt;</span>         <span class="token operator">&lt;</span>el<span class="token operator">-</span>table             <span class="token punctuation">:</span>data<span class="token operator">=</span><span class="token string">"nowTableData"</span>             border             style<span class="token operator">=</span><span class="token string">"width: 100%"</span><span class="token operator">&gt;</span>             <span class="token operator">&lt;</span>el<span class="token operator">-</span>table<span class="token operator">-</span>column                 prop<span class="token operator">=</span><span class="token string">"date"</span>                 label<span class="token operator">=</span><span class="token string">"注册日期"</span><span class="token operator">&gt;</span>             <span class="token operator">&lt;</span><span class="token operator">/</span>el<span class="token operator">-</span>table<span class="token operator">-</span>column<span class="token operator">&gt;</span>             <span class="token operator">&lt;</span>el<span class="token operator">-</span>table<span class="token operator">-</span>column                 prop<span class="token operator">=</span><span class="token string">"username"</span>                 label<span class="token operator">=</span><span class="token string">"用户姓名"</span><span class="token operator">&gt;</span>             <span class="token operator">&lt;</span><span class="token operator">/</span>el<span class="token operator">-</span>table<span class="token operator">-</span>column<span class="token operator">&gt;</span>             <span class="token operator">&lt;</span>el<span class="token operator">-</span>table<span class="token operator">-</span>column                 prop<span class="token operator">=</span><span class="token string">"email"</span>                 label<span class="token operator">=</span><span class="token string">"用户邮箱"</span><span class="token operator">&gt;</span>             <span class="token operator">&lt;</span><span class="token operator">/</span>el<span class="token operator">-</span>table<span class="token operator">-</span>column<span class="token operator">&gt;</span>             <span class="token operator">&lt;</span>el<span class="token operator">-</span>table<span class="token operator">-</span>column                 label<span class="token operator">=</span><span class="token string">"操作"</span><span class="token operator">&gt;</span>                 <span class="token operator">&lt;</span>template slot<span class="token operator">-</span>scope<span class="token operator">=</span><span class="token string">"scope"</span><span class="token operator">&gt;</span>                     <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> scope<span class="token punctuation">.</span>$index 为每行的索引     scope<span class="token punctuation">.</span>row  为每一行的数据 <span class="token operator">--</span><span class="token operator">&gt;</span>                     <span class="token operator">&lt;</span>el<span class="token operator">-</span>button size<span class="token operator">=</span><span class="token string">"small"</span> @click<span class="token operator">=</span><span class="token string">"handleToFreeze(scope.$index, scope.row)"</span><span class="token operator">&gt;</span><span class="token punctuation">{<!-- --></span><span class="token punctuation">{<!-- --></span> scope<span class="token punctuation">.</span>row<span class="token punctuation">.</span>isFreeze <span class="token operator">?</span> <span class="token string">"已冻结"</span> <span class="token punctuation">:</span> <span class="token string">"未冻结"</span> <span class="token punctuation">}</span><span class="token punctuation">}</span> <span class="token operator">&lt;</span><span class="token operator">/</span>el<span class="token operator">-</span>button<span class="token operator">&gt;</span>                     <span class="token operator">&lt;</span>el<span class="token operator">-</span>button size<span class="token operator">=</span><span class="token string">"small"</span> @click<span class="token operator">=</span><span class="token string">"handleToDelete(scope.$index, scope.row)"</span> type<span class="token operator">=</span><span class="token string">"danger"</span><span class="token operator">&gt;</span>删除<span class="token operator">&lt;</span><span class="token operator">/</span>el<span class="token operator">-</span>button<span class="token operator">&gt;</span>                 <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">&gt;</span>             <span class="token operator">&lt;</span><span class="token operator">/</span>el<span class="token operator">-</span>table<span class="token operator">-</span>column<span class="token operator">&gt;</span>         <span class="token operator">&lt;</span><span class="token operator">/</span>el<span class="token operator">-</span>table<span class="token operator">&gt;</span>         <span class="token operator">&lt;</span>el<span class="token operator">-</span>pagination <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"page"</span>             background             layout<span class="token operator">=</span><span class="token string">"prev, pager, next"</span>             <span class="token punctuation">:</span>page<span class="token operator">-</span>size<span class="token operator">=</span><span class="token string">"pageSize"</span>             <span class="token punctuation">:</span>current<span class="token operator">-</span>page<span class="token punctuation">.</span>sync<span class="token operator">=</span><span class="token string">"currentPage"</span>             <span class="token punctuation">:</span>total<span class="token operator">=</span><span class="token string">"tableData.length"</span><span class="token operator">&gt;</span>         <span class="token operator">&lt;</span><span class="token operator">/</span>el<span class="token operator">-</span>pagination<span class="token operator">&gt;</span>     <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span> <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">&gt;</span>  <span class="token operator">&lt;</span>script<span class="token operator">&gt;</span> <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{<!-- --></span>     name<span class="token punctuation">:</span> <span class="token string">'users'</span><span class="token punctuation">,</span>     <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>         <span class="token keyword">return</span> <span class="token punctuation">{<!-- --></span>             tableData<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>             currentPage<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>             pageSize<span class="token punctuation">:</span> <span class="token number">3</span>         <span class="token punctuation">}</span>     <span class="token punctuation">}</span><span class="token punctuation">,</span>     <span class="token function">mounted</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>         <span class="token keyword">this</span><span class="token punctuation">.</span>axios<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'/api2/admin/usersList'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{<!-- --></span>             <span class="token keyword">var</span> status <span class="token operator">=</span> res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>status<span class="token punctuation">;</span>             <span class="token keyword">if</span> <span class="token punctuation">(</span> status <span class="token operator">===</span> <span class="token number">0</span> <span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>                 <span class="token keyword">this</span><span class="token punctuation">.</span>tableData <span class="token operator">=</span> res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>data<span class="token punctuation">.</span>usersList<span class="token punctuation">;</span>             <span class="token punctuation">}</span>         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token punctuation">}</span><span class="token punctuation">,</span>     computed<span class="token punctuation">:</span> <span class="token punctuation">{<!-- --></span>         <span class="token function">nowTableData</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>             <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>tableData<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>currentPage <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token keyword">this</span><span class="token punctuation">.</span>pageSize<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>currentPage <span class="token operator">*</span> <span class="token keyword">this</span><span class="token punctuation">.</span>pageSize<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>         <span class="token punctuation">}</span>     <span class="token punctuation">}</span><span class="token punctuation">,</span>     methods<span class="token punctuation">:</span> <span class="token punctuation">{<!-- --></span>         <span class="token function">handleToFreeze</span> <span class="token punctuation">(</span>index<span class="token punctuation">,</span> row<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>             <span class="token comment">// index是每行的索引， row是每行的数据</span>             <span class="token comment">// console.log(index, row);</span>             <span class="token keyword">this</span><span class="token punctuation">.</span>axios<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'/api2/admin/updateFreeze'</span><span class="token punctuation">,</span> <span class="token punctuation">{<!-- --></span>                 email<span class="token punctuation">:</span> row<span class="token punctuation">.</span>email<span class="token punctuation">,</span>                 isFreeze<span class="token punctuation">:</span> <span class="token operator">!</span>row<span class="token punctuation">.</span>isFreeze             <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{<!-- --></span>                 <span class="token keyword">var</span> status <span class="token operator">=</span> res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>status<span class="token punctuation">;</span>                 <span class="token keyword">if</span> <span class="token punctuation">(</span> status <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>                     <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$alert</span><span class="token punctuation">(</span><span class="token string">'冻结操作已成功'</span><span class="token punctuation">,</span> <span class="token string">'信息'</span><span class="token punctuation">,</span> <span class="token punctuation">{<!-- --></span>                         confirmButtonText<span class="token punctuation">:</span> <span class="token string">'确定'</span><span class="token punctuation">,</span>                         callback<span class="token punctuation">:</span> action <span class="token operator">=&gt;</span> <span class="token punctuation">{<!-- --></span>                             <span class="token keyword">this</span><span class="token punctuation">.</span>tableData<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">.</span>isFreeze <span class="token operator">=</span> <span class="token operator">!</span>row<span class="token punctuation">.</span>isFreeze<span class="token punctuation">;</span>                         <span class="token punctuation">}</span>                     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                 <span class="token punctuation">}</span>                  <span class="token keyword">else</span> <span class="token punctuation">{<!-- --></span>                     <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$alert</span><span class="token punctuation">(</span><span class="token string">'冻结操作失败'</span><span class="token punctuation">,</span> <span class="token string">'信息'</span><span class="token punctuation">,</span> <span class="token punctuation">{<!-- --></span>                         confirmButtonText<span class="token punctuation">:</span> <span class="token string">'确定'</span>                     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                 <span class="token punctuation">}</span>             <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token punctuation">}</span><span class="token punctuation">,</span>         <span class="token function">handleToDelete</span> <span class="token punctuation">(</span>index<span class="token punctuation">,</span> row<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>             <span class="token keyword">this</span><span class="token punctuation">.</span>axios<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'/api2/admin/deleteUser'</span><span class="token punctuation">,</span> <span class="token punctuation">{<!-- --></span>                 email<span class="token punctuation">:</span> row<span class="token punctuation">.</span>email             <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token operator">=&gt;</span>  <span class="token punctuation">{<!-- --></span>                 <span class="token keyword">var</span> status <span class="token operator">=</span> res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>status<span class="token punctuation">;</span>                 <span class="token keyword">if</span> <span class="token punctuation">(</span> status <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>                     <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$alert</span><span class="token punctuation">(</span><span class="token string">'删除操作已成功'</span><span class="token punctuation">,</span> <span class="token string">'信息'</span><span class="token punctuation">,</span> <span class="token punctuation">{<!-- --></span>                         confirmButtonText<span class="token punctuation">:</span> <span class="token string">'确定'</span><span class="token punctuation">,</span>                         callback<span class="token punctuation">:</span> action <span class="token operator">=&gt;</span> <span class="token punctuation">{<!-- --></span>                             <span class="token keyword">this</span><span class="token punctuation">.</span>tableData<span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                         <span class="token punctuation">}</span>                     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                 <span class="token punctuation">}</span>                 <span class="token keyword">else</span> <span class="token punctuation">{<!-- --></span>                     <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$alert</span><span class="token punctuation">(</span><span class="token string">'删除操作失败'</span><span class="token punctuation">,</span> <span class="token string">'信息'</span><span class="token punctuation">,</span> <span class="token punctuation">{<!-- --></span>                         confirmButtonText<span class="token punctuation">:</span> <span class="token string">'确定'</span>                     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                 <span class="token punctuation">}</span>             <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token punctuation">}</span>     <span class="token punctuation">}</span> <span class="token punctuation">}</span> <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>  <span class="token operator">&lt;</span>style scoped<span class="token operator">&gt;</span> <span class="token punctuation">.</span>page <span class="token punctuation">{<!-- --></span> margin<span class="token operator">-</span>top<span class="token punctuation">:</span> <span class="token number">20</span>px<span class="token punctuation">;</span> <span class="token punctuation">}</span> <span class="token operator">&lt;</span><span class="token operator">/</span>style<span class="token operator">&gt;</span> </code></pre> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-82917.htm">狗粮加盟代理 狗粮加盟代理条件</a></p>
+                                        <p>下一个：<a href="/news/article-83619.htm">动物免疫接种实验原理（动物免疫接种方法实验报告）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-39293.htm" title="宠物医院好评评语100字 宠物医院好评评语100字怎么写">宠物医院好评评语100字 宠物医院好评评语100字怎么写</a></li>
+                        <li class="py-2"><a href="/news/article-36840.htm" title="郑州动物防疫站打疫苗多少钱 郑州动物防疫站打疫苗多少钱一针">郑州动物防疫站打疫苗多少钱 郑州动物防疫站打疫苗多少钱一针</a></li>
+                        <li class="py-2"><a href="/news/article-63723.htm" title="成都领养宠物中心公众号（成都宠物领养平台交流微信群）">成都领养宠物中心公众号（成都宠物领养平台交流微信群）</a></li>
+                        <li class="py-2"><a href="/news/article-36310.htm" title="高并发下redis缓存常见问题">高并发下redis缓存常见问题</a></li>
+                        <li class="py-2"><a href="/news/article-84337.htm" title="动物疫苗的使用方法有哪些图片大全视频（动物疫苗的使用方法有哪些图片大全视频教学）">动物疫苗的使用方法有哪些图片大全视频（动物疫苗的使用方法有哪些图片大全视频教学）</a></li>
+                        <li class="py-2"><a href="/news/article-81515.htm" title="使用Nginx实现多个Tomcat负载均衡">使用Nginx实现多个Tomcat负载均衡</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-5-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新22.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.2M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-56735.htm" title="动物医院在哪个位置好 动物医院在哪个位置好一点">动物医院在哪个位置好 动物医院在哪个位置好一点</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-14-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-11-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新19M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19M/S免费节点订阅链接地址分享</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">91</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">83</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
