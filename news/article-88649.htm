@@ -1,0 +1,281 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-88649.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>ubuntu 14.04 ndk 编译 openssl</title>
+        <meta name="description" content="概述 因工作上需要用到openssl，本文剪短描述ubuntu编译生成openssl，主要的命令参考网上，结合自己的实际使用版本 openssl:1.1.1g ubuntu:14.04 ndk:16b" />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-88649.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="ubuntu 14.04 ndk 编译 openssl" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/fa6bb49a2a78a07773d31ab7153c6840.webp" />
+        <meta property="og:release_date" content="2025-04-05T08:15:58" />
+    <meta property="og:updated_time" content="2025-04-05T08:15:58" />
+        <meta property="og:description" content="概述 因工作上需要用到openssl，本文剪短描述ubuntu编译生成openssl，主要的命令参考网上，结合自己的实际使用版本 openssl:1.1.1g ubuntu:14.04 ndk:16b" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="ubuntu 14.04 ndk 编译 openssl">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                    </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="/">V2rayNG Node</a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                                                        <li><a href="/">首页</a></li>
+                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                    </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>ubuntu 14.04 ndk 编译 openssl</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <p><strong>概述</strong><br /> 因工作上需要用到openssl，本文剪短描述ubuntu编译生成openssl，主要的命令参考网上，结合自己的实际使用<br /><strong>版本</strong><br /> openssl:1.1.1g<br /> ubuntu:14.04<br /> ndk:16b<br /><strong>准备</strong><br /> 下载openssl:http://distfiles.macports.org/openssl/openssl-1.1.1g.tar.gz<br /> openssl源码解压放在目录：/work1/SourceCode/openssl-1.1.1g<br /> 下载ndk:https://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip<br /> ndk放在目录：/home/shenweihong/Android/Ndk/android-ndk-r16b</p> <p><em>注意</em>：<br /> 本人之前用<br /> android-ndk-r21b android-ndk-r18b<br /> 编译均报错，很难解决。<br /> 最后试了android-ndk-r16b才编译成功。<br /> 本人后来编译openssl版本1.0.1j，用android-ndk-r16b编译报错，用android-ndk-r14b才成功。<br /><strong>环境变量</strong><br /> ubuntu命令：<br /> export PATH=/home/shenweihong/Android/Ndk/android-ndk-r16b/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin:$PATH<br /> export ANDROID_NDK_HOME=/home/shenweihong/Android/Ndk/android-ndk-r16b/<br /><strong>配置</strong><br /> ./Configure android-arm -D__ANDROID_API__=24 no-threads no-shared --prefix=/work1/SourceCode/opensslLib<br /> no-shared：表示编译结果为静态库，如果想编译结果动态库，就不要这一参数；<br /> –prefix=/work1/SourceCode/opensslLib：表示最终编译结果保存的路径；</p> <p>如下结果即表示配置成功：<br /><img decoding="async" src="http://img.555519.xyz/uploads/20221113/aab13de47b7a8566a90875a1722c6e9a.jpg" alt="ubuntu 14.04 ndk 编译 openssl"><br /><strong>编译生成</strong><br /> 命令：<br /> make<br /> make install</p> <p><strong>Android.mk文件</strong></p> <p>LOCAL_PATH := $(call my-dir)</p> <p>#APP_ABI := armeabi armeabi-v7a<br /> APP_PLATFORM := android-24</p> <p>include $(CLEAR_VARS)<br /> LOCAL_LDLIBS := -llog<br /> LOCAL_MODULE := ExchangePosJNI<br /> LOCAL_SRC_FILES := ExchangePosJNI.c</p> <p>include $(BUILD_SHARED_LIBRARY)</p> <p>include $(CLEAR_VARS)<br /> LOCAL_MODULE := libcrypto<br /> LOCAL_SRC_FILES := $(LOCAL_PATH)/lib/libcrypto.a<br /> include $(PREBUILT_STATIC_LIBRARY)</p> <p>include $(CLEAR_VARS)<br /> LOCAL_MODULE := libssl<br /> LOCAL_SRC_FILES := $(LOCAL_PATH)/lib/libssl.a<br /> include $(PREBUILT_STATIC_LIBRARY)</p> <p>include $(CLEAR_VARS)<br /> LOCAL_C_INCLUDES := $(LOCAL_PATH)/include $(LOCAL_PATH)/lib<br /> LOCAL_LDLIBS := -lm -lz -llog -fPIE -ldl<br /> LOCAL_CFLAGS += -fPIE -D__ANDROID_API__=24<br /> LOCAL_STATIC_LIBRARIES := libssl libcrypto<br /> LOCAL_MODULE := OpensslClient<br /> LOCAL_SRC_FILES := OpensslClient.c SSLClient.cpp</p> <p>include $(BUILD_SHARED_LIBRARY)</p> <p>在Windows NDK，使用一样的NDK版本，即android-ndk-r16，编译报错：<br /><img decoding="async" src="http://img.555519.xyz/uploads/20221113/c55b5551ef99632b78da7cc081446512.jpg" alt="ubuntu 14.04 ndk 编译 openssl"><br /> 将应用，build.gradle中 minSdkVersion 15改成 minSdkVersion 24才通过，其他地方解释说这个宏定义在NDK不同版本中差异造成的。</p> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-87942.htm">宠物之家翻译（宠物之家翻译成中文）</a></p>
+                                        <p>下一个：<a href="/news/article-88650.htm">动物医院前台工作有哪些内容（动物医院应聘）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-76686.htm" title="动物防疫疫苗管理办法最新修订（动物防疫条例）">动物防疫疫苗管理办法最新修订（动物防疫条例）</a></li>
+                        <li class="py-2"><a href="/news/article-85053.htm" title="Git基础知识在Git中进行忽略文件操作_在线工具">Git基础知识在Git中进行忽略文件操作_在线工具</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-7-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新22.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.3M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-20-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新18.9M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.9M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-73326.htm" title="模型的威力：基于模型，快速梳理源码_在线工具">模型的威力：基于模型，快速梳理源码_在线工具</a></li>
+                        <li class="py-2"><a href="/news/article-66193.htm" title="做猫粮成本（猫粮制作成本）">做猫粮成本（猫粮制作成本）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-2-node-share.htm" title="V2rayNG Node节点订阅每天更新22.4M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.4M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-81515.htm" title="使用Nginx实现多个Tomcat负载均衡">使用Nginx实现多个Tomcat负载均衡</a></li>
+                        <li class="py-2"><a href="/news/article-68734.htm" title="宠物医院治仓鼠吗（宠物医院治仓鼠贵不贵）">宠物医院治仓鼠吗（宠物医院治仓鼠贵不贵）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-6-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新21.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新21.2M/S免费节点订阅链接地址分享</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">21</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">89</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                                                <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,281 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-89398.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>netty系列之:netty中各不同种类的channel详解</title>
+        <meta name="description" content="文章目录  简介 ServerChannel和它的类型   Epoll和Kqueue AbstractServerChannel ServerSocketChannel ServerDomainSoc" />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-89398.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="netty系列之:netty中各不同种类的channel详解" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/ca65b87e212208dbf91f0a11f45134df.webp" />
+        <meta property="og:release_date" content="2025-04-06T10:05:08" />
+    <meta property="og:updated_time" content="2025-04-06T10:05:08" />
+        <meta property="og:description" content="文章目录  简介 ServerChannel和它的类型   Epoll和Kqueue AbstractServerChannel ServerSocketChannel ServerDomainSoc" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="netty系列之:netty中各不同种类的channel详解">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                    </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="/">V2rayNG Node</a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                                                        <li><a href="/">首页</a></li>
+                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                    </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>netty系列之:netty中各不同种类的channel详解</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <div class="toc"> <h3>文章目录</h3> <ul> <li><a href="#_2" rel="nofollow">简介</a></li> <li><a href="#ServerChannel_10" rel="nofollow">ServerChannel和它的类型</a></li> <li> <ul> <li><a href="#EpollKqueue_32" rel="nofollow">Epoll和Kqueue</a></li> <li><a href="#AbstractServerChannel_68" rel="nofollow">AbstractServerChannel</a></li> <li><a href="#ServerSocketChannel_72" rel="nofollow">ServerSocketChannel</a></li> <li><a href="#ServerDomainSocketChannel_87" rel="nofollow">ServerDomainSocketChannel</a></li> <li><a href="#SctpServerChannel_106" rel="nofollow">SctpServerChannel</a></li> </ul> </li> <li><a href="#Channel_112" rel="nofollow">Channel和它的类型</a></li> <li> <ul> <li><a href="#UnixChannel_124" rel="nofollow">UnixChannel</a></li> <li><a href="#SctpChannel_134" rel="nofollow">SctpChannel</a></li> <li><a href="#DatagramChannel_157" rel="nofollow">DatagramChannel</a></li> <li><a href="#DomainDatagramChannel_181" rel="nofollow">DomainDatagramChannel</a></li> <li><a href="#DuplexChannel_185" rel="nofollow">DuplexChannel</a></li> <li><a href="#AbstractChannel_201" rel="nofollow">AbstractChannel</a></li> </ul> </li> <li><a href="#_209" rel="nofollow">总结</a></li> </ul> </div> </h1> <p>channel是连接客户端和服务器端的桥梁，在netty中我们最常用的就是NIO，一般和NioEventLoopGroup配套使用的就是NioServerSocketChannel和NioSocketChannel，如果是UDP协议，那么配套使用的就是NioDatagramChannel，如果是别的协议还有其他不同的Channel类型。</p> <p>这些不同channel类型有什么区别呢？一个直观的感觉就是不同的channel和channel连接使用的协议有关系，不同的channel可能适配了不同的连接协议。</p> <p>事实到底是不是如此呢？在netty的内部实现中到底有多少种channel呢？今天一起来探讨一下。</p> </h1> <p>虽然ServerChannel继承自Channel，但是ServerChannel本身并没有添加任何新的方法：</p> <pre><code>public interface ServerChannel extends Channel {  }</code></pre> <p>所以对ServerChannel和Channel来说都可以看做是Channel，他们只是语义上有区别。</p> <p>但是因为ServerChannel继承自Channel，所以相对的ServerChannel的分类和实现要比Channel要少。所以我们先以ServerChannel为例进行讲解。</p> <p>ServerChannel的实现也有很多，我们以Abstract*开头的实现为例，下面是他们的继承关系：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220602/30e780b3e04849e8c6e7dce703992b77.jpg" alt="netty系列之:netty中各不同种类的channel详解"/></p> <p>从上图我们可以看出，ServerChannel有六个抽象类实现，分别是AbstractEpollServerChannel,AbstractKQueueServerChannel,AbstractServerChannel,ServerSocketChannel,SctpServerChannel和ServerDomainSocketChannel。</p> <p>其中前面三个抽象类同时继承自AbstractChannel。</p> <h2><a id="EpollKqueue_32" rel="nofollow"></a>Epoll和Kqueue</h2> <p>Epoll和Kqueue是两个独特的依赖于特定平台的NIO协议，其中epoll只在linux平台才支持,而kQueue则在FreeBSD、NetBSD、OpenBSD、macOS 等操作系统支持。</p> <p>我们来看下AbstractEpollServerChannel的构造函数：</p> <pre><code>    protected AbstractEpollServerChannel(int fd) {         this(new LinuxSocket(fd), false);     }      AbstractEpollServerChannel(LinuxSocket fd) {         this(fd, isSoErrorZero(fd));     }      AbstractEpollServerChannel(LinuxSocket fd, boolean active) {         super(null, fd, active);     }</code></pre> <p>所有的构造函数都需要一个LinuxSocket的参数，LinuxSocket是一个socket用来提供对于linux native方法的访问支持。</p> <p>同样的，我们再看一下AbstractKQueueServerChannel的构造函数：</p> <pre><code>    AbstractKQueueServerChannel(BsdSocket fd) {         this(fd, isSoErrorZero(fd));     }      AbstractKQueueServerChannel(BsdSocket fd, boolean active) {         super(null, fd, active);     }</code></pre> <p>AbstractKQueueServerChannel的构造函数需要传入一个BsdSocket参数，BsdSocket是一个类用来提供对BSD系统的本地方法的访问。</p> <h2><a id="AbstractServerChannel_68" rel="nofollow"></a>AbstractServerChannel</h2> <p>AbstractServerChannel我们在之前的channel一章中已经讲过了，它的唯一实现就是LocalServerChannel，用于本地的transport。</p> <h2><a id="ServerSocketChannel_72" rel="nofollow"></a>ServerSocketChannel</h2> <p>ServerSocketChannel是一个以Socket连接为基础的ServerChannel，既然是Socket连接，那么ServerSocketChannel中提供了一个InetSocketAddress类型的localAddress和一个remoteAddress, 另外还有一个ServerSocketChannelConfig属性，用来存储ServerSocketChannel相关的配置信息：</p> <pre><code>public interface ServerSocketChannel extends ServerChannel {     @Override     ServerSocketChannelConfig config();     @Override     InetSocketAddress localAddress();     @Override     InetSocketAddress remoteAddress(); }</code></pre> <h2><a id="ServerDomainSocketChannel_87" rel="nofollow"></a>ServerDomainSocketChannel</h2> <p>ServerDomainSocketChannel是使用DomainSocket来进行通讯的ServerChannel。什么是DomainSocket呢？</p> <p>DomainSocket的全称是unix domain socket，它又可以叫做IPC socket,也就是inter-process communication socket，是在unix平台上的同一服务器上的进程通信方式。</p> <p>我们知道，协议是比较复杂的，对于传统的socket通讯来说,需要定制特定的协议，然后进行封包和解包等操作，但是使用DomainSocket，可以直接将进程的数据直接拷贝，从而节约了时间，并提高了程序的效率。</p> <p>DomainSocket的地址是一个文件的路径，实际上是下面的一个结构体：</p> <pre><code>struct sockaddr_un {     sa_family_t     sun_family;     /* AF_UNIX ，2字节*/     char    sun_path[UNIX_PATH_MAX];        /* 路径名 */ };</code></pre> <p>在ServerDomainSocketChannel中的remoteAddress和localAddress的类型都是DomainSocketAddress,DomainSocketAddress有一个socketPath属性，用来存储DomainSocket文件的路径。</p> <h2><a id="SctpServerChannel_106" rel="nofollow"></a>SctpServerChannel</h2> <p>最后一个要讲解的ServerChannel是SctpServerChannel，Sctp的全称是Stream Control Transmission Protocol，他是一种类似于TCP/IP的协议。和SocketServerChannel一样，SctpServerChannel中也有一个config叫做SctpServerChannelConfig，还提供了多个bindAddress方法用来绑定InetAddress.</p> <p>有关Sctp协议的具体内容，本章不深入讨论，感兴趣的朋友可以关注后续的章节。</p> </h1> <p>Channel作为ServerChannel的父类，又有哪些实现呢？</p> <p>先来看下常用channel的实现类：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220602/ba21160ec2caf96cbbcd9be425b38462.jpg" alt="netty系列之:netty中各不同种类的channel详解"/></p> <p>看起来channel的实现类非常多，基本上都是按照channel中使用传输协议的类型来的。</p> <p>我们具体来看一下相应的实现类。</p> <h2><a id="UnixChannel_124" rel="nofollow"></a>UnixChannel</h2> <p>UnixChannel表示的unix平台上的操作，它有一个fd方法，返回一个FileDescriptor:</p> <pre><code>FileDescriptor fd();</code></pre> <p>这也是unix和windows平台的区别之一，unix平台所有的一切都可以用文件来表示。</p> <h2><a id="SctpChannel_134" rel="nofollow"></a>SctpChannel</h2> <p>在上面我讲SctpServerChannel的时候我们提过了，Sctp是一个类似于tcp/ip的协议，SctpChannel中定义了协议中需要使用到的localAddress和remoteAddress:</p> <pre><code>InetSocketAddress localAddress();  InetSocketAddress remoteAddress();</code></pre> <p>同时还定义了一些绑定方法：</p> <pre><code>    ChannelFuture bindAddress(InetAddress var1);      ChannelFuture bindAddress(InetAddress var1, ChannelPromise var2);      ChannelFuture unbindAddress(InetAddress var1);      ChannelFuture unbindAddress(InetAddress var1, ChannelPromise var2);</code></pre> <h2><a id="DatagramChannel_157" rel="nofollow"></a>DatagramChannel</h2> <p>DatagramChannel用来处理UDP协议的连接，因为UDP有广播的功能，所以DatagramChannel中提供了joinGroup的方法，来join一个multicast group:</p> <pre><code>ChannelFuture joinGroup(InetAddress multicastAddress);</code></pre> <p>当然，可以join就可以leave，还有一些leaveGroup的方法：</p> <pre><code>ChannelFuture leaveGroup(InetAddress multicastAddress);</code></pre> <p>还可以block某些地址在给定的networkInterface上的广播：</p> <pre><code>ChannelFuture block(             InetAddress multicastAddress, NetworkInterface networkInterface,             InetAddress sourceToBlock);</code></pre> <p>这些方法都和UDP的特性是息息相关的。</p> <h2><a id="DomainDatagramChannel_181" rel="nofollow"></a>DomainDatagramChannel</h2> <p>DomainDatagramChannel和之前提到的ServerDomainSocketChannel一样，都是使用的IPC内部进程通讯技术，直接进行进程的拷贝，免去了协议解析等步骤，提升了处理速度。</p> <h2><a id="DuplexChannel_185" rel="nofollow"></a>DuplexChannel</h2> <p>DuplexChannel从名字看就是一个双向的channel，duplex Channel有一个特点，就是channel的两边可以独立的关闭，所以有下面的方法：</p> <pre><code>boolean isInputShutdown();  ChannelFuture shutdownInput();  boolean isOutputShutdown();  ChannelFuture shutdownOutput();</code></pre> <p>DuplexChannel的是实现有很多种，比如常见的NIOSocketChannel，KQueueSocketChannel,EpollSocketChannel等。</p> <h2><a id="AbstractChannel_201" rel="nofollow"></a>AbstractChannel</h2> <p>另外一个channel的非常重要的子类就是AbstractChannel，AbstractChannel有三个非常重要的实现，分别是AbstractNioChannel,AbstractKQueueChannel和AbstractEpollChannel。</p> <p>这三个类使用的都是NIO技术，不同的是第一个使用的是select，后面两个使用的是平台独有的KQueue和Epoll技术。</p> <p>其中NIO又可以分为NioByteChannel和NioMessageChannel,KQueue和Epoll又可以分为StreamChannel和DatagramChannel。</p> </h1> <p>以上就是channel在netty中的基本实现和分类。后面我们会详解讲解具体的channel到底是如何实现的。</p> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-89397.htm">JavaScript案例——04tab选项卡功能</a></p>
+                                        <p>下一个：<a href="/news/article-90144.htm">小野猫主动爬你身上说明了什么（小野猫主动爬你身上说明了什么意思）</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-66823.htm" title="动物生物疫苗概念股票有哪些 动物生物疫苗概念股票有哪些公司">动物生物疫苗概念股票有哪些 动物生物疫苗概念股票有哪些公司</a></li>
+                        <li class="py-2"><a href="/news/article-78750.htm" title="南京宠物托运平台哪家安全（南京宠物托运公司哪家比较好）">南京宠物托运平台哪家安全（南京宠物托运公司哪家比较好）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-7-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新22.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.3M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-70023.htm" title="宠物免费领养平台下载安装最新版大全（宠物领养网下载）">宠物免费领养平台下载安装最新版大全（宠物领养网下载）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-9-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新20M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-68734.htm" title="宠物医院治仓鼠吗（宠物医院治仓鼠贵不贵）">宠物医院治仓鼠吗（宠物医院治仓鼠贵不贵）</a></li>
+                        <li class="py-2"><a href="/news/article-71339.htm" title="猫粮生产工艺及设备有哪些厂家（猫粮加工设备及配方）">猫粮生产工艺及设备有哪些厂家（猫粮加工设备及配方）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-2-free-high-speed-nodes.htm" title="V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-73994.htm" title="狗粮颗粒机家用小型型号有哪些（颗粒狗粮制作方法视频）">狗粮颗粒机家用小型型号有哪些（颗粒狗粮制作方法视频）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-25-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新18M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18M/S免费节点订阅链接地址分享</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">21</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">89</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                                                <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
