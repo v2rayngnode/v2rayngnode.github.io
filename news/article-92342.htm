@@ -1,0 +1,281 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-92342.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>vue CLI3.0自己实现一个轮播组件，并设置自定义属性</title>
+        <meta name="description" content="搭建CLI步奏过程不详细介绍了 主要利用Vue.component()注册全局组件,滑动效果使用了translateX 如下图 让后开始详细介绍如何实现自己的轮播组件 一.新建jv-swiper文件夹" />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-92342.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="vue CLI3.0自己实现一个轮播组件，并设置自定义属性" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/b32e8665d28e51b5cb79a4c887d08c79.webp" />
+        <meta property="og:release_date" content="2025-04-10T08:14:49" />
+    <meta property="og:updated_time" content="2025-04-10T08:14:49" />
+        <meta property="og:description" content="搭建CLI步奏过程不详细介绍了 主要利用Vue.component()注册全局组件,滑动效果使用了translateX 如下图 让后开始详细介绍如何实现自己的轮播组件 一.新建jv-swiper文件夹" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="vue CLI3.0自己实现一个轮播组件，并设置自定义属性">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                    </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="/">V2rayNG Node</a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                                                        <li><a href="/">首页</a></li>
+                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                    </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>vue CLI3.0自己实现一个轮播组件，并设置自定义属性</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <p>搭建CLI步奏过程不详细介绍了</p> <p>主要利用Vue.component()注册全局组件,滑动效果使用了translateX<br /> 如下图<br /><img decoding="async" src="http://img.555519.xyz/uploads/20230112/d6c27f3c8c36ba3cd5e96edab838cf47.jpg" alt="vue CLI3.0自己实现一个轮播组件，并设置自定义属性"><br /> 让后开始详细介绍如何实现自己的轮播组件</p> <p>一.新建jv-swiper文件夹<br /> 1.1、然后在jv-swiper文件夹新建index.vue ，该vue其实为swiper的外层控制</p> <pre><code>&lt;template&gt;   &lt;div class="jv-swiper" ref="swileng"&gt;     &lt;slot&gt;&lt;/slot&gt;           &lt;div v-if="indicator==='true'" class="indicator-box"&gt;//此段代码为指示器，轮播的小点点         &lt;div  v-for="(i,index) in jv_siwdom" :key="index" :class="jv_siw_index==index?'indicator_color':''" class="indicator"&gt;    &lt;/div&gt;      &lt;/div&gt;       &lt;/div&gt; &lt;/template&gt;  &lt;script&gt;  /* eslint-disable */ export default {   name: "JvSwiper",   porps: {},   data() {     return {       indicator: true,       jv_siwdom: 0,       jv_siw_index: 0,     };   },   created() {},   mounted() {     let jv_interval = 3000,//滑动间隔       jv_duration = 300,//运动时间       jv_indicator = true;//指示器，轮播的小点点     try {       jv_interval = this.$refs.swileng.attributes.interval.value;//使用过程中设置的属性参数       jv_duration = this.$refs.swileng.attributes.duration.value;       jv_indicator = this.$refs.swileng.attributes.indicator.value;            } catch (error) {           }     this.indicator = jv_indicator;//把用户设置的或者默认的运动直接存储一下     let siwdom = this.$refs.swileng.childNodes,//获取有用户设置了多少张轮播     slef=this,       cont = 0,       box_left = 0;     this.jv_siwdom=siwdom.length - 1;  //给负责渲染层的变量赋值，让它生产多少张轮播          let seti = setInterval(() =&gt; {//执行       SwiRotste();     }, jv_interval);          function SwiRotste() {       cont += 1;        //进来就累加一次       if (cont == siwdom.length - 1) {  //如果等于最后一个         cont = 0;       }       slef.jv_siw_index=cont;        //把当前的值赋值给jv_siw_index,告诉我们当前滑动到哪一张       box_left = 100 * cont;       for (let i = 0, s = siwdom.length - 1; i &lt; s; i++) {  //给每个div添加不同的translateX值及运动时间         siwdom[i].style.transform = `translateX(${-box_left}%)`;         siwdom[i].style.transition = `${jv_duration / 1000}s`;       }     }   } }; &lt;/script&gt;  &lt;style&gt; .jv-swiper {   width: 100%;   height: auto;   background-color: slategrey;   display: -webkit-inline-box;   overflow: hidden;   position: relative; } .indicator-box{   display: flex; position: absolute;   bottom: 12px;   right: 6px;  } .indicator {   width: 6px;   height: 6px;   border-radius: 100%;   background-color: #333;   margin: 0 3px; } .indicator_color{   background-color: #fff; } &lt;/style&gt;    </code></pre> <p>1.2、然后在jv-swiper文件夹新建swiper-item.vue ，该vue其实为swiper的swiper-item</p> <pre><code>&lt;template&gt;   &lt;div class="swiper-item"&gt;     &lt;slot&gt;&lt;/slot&gt;   &lt;/div&gt; &lt;/template&gt;  &lt;script&gt; export default {   name: "swiper-item",   porps: {} }; &lt;/script&gt; &lt;style&gt; .swiper-item {      width: 100%;   height: 100%;     z-index: 9999;   } .swiper-item img {   width: 100%;   height: auto; } &lt;/style&gt;   </code></pre> <p>二、在jv-swiper同级新建jv-index.js用了统一注册组件</p> <pre><code>/* eslint-disable */ import JvSwiper from './jv-swiper' import SwiperItem from './jv-swiper/swiper-item.vue'  const JvIndex={     install:function(Vue){         // Vue.component()是用来注册全局组件的        Vue.component("jv-swiper", JvSwiper);        Vue.component("swiper-item", SwiperItem);     }   } export default JvIndex  </code></pre> <p>三、在mian.js 注册一下</p> <pre><code>import JvIndex from './components/jv-index' Vue.use(JvIndex) </code></pre> <p>四、开始使用啦~</p> <pre><code>&lt;template&gt;   &lt;div class="hello"&gt;     &lt;h1&gt;{<!-- -->{ msg }}&lt;/h1&gt;     //第一个轮播     &lt;jv-swiper interval='5000' duration='400' indicator='true'&gt;//设置自定义属性，这几个（ interval、duration、indicator）属性都需要放子啊标签上哦       &lt;swiper-item  v-for="(item, index) in img" v-bind:key="index"&gt;          &lt;img :src="item" alt=""&gt;         &lt;/swiper-item&gt;     &lt;/jv-swiper&gt;          //第二个轮播     &lt;jv-swiper interval='3000' duration='400' indicator='true'&gt;       &lt;swiper-item  v-for="(item, index) in img" v-bind:key="index"&gt;          &lt;img :src="item" alt=""&gt;         &lt;/swiper-item&gt;     &lt;/jv-swiper&gt;   &lt;/div&gt; &lt;/template&gt;  &lt;script&gt; /* eslint-disable */ export default {   name: "HelloWorld",   props: {     msg: String   },   data() {     return {       img: ['http://m.xuelejia.com/static/images/lunbo2.jpg','http://m.xuelejia.com/static/images/new-banner2.png','http://m.xuelejia.com/static/images/lunbo3.jpg']     };   } }; &lt;/script&gt;  &lt;!-- Add "scoped" attribute to limit CSS to this component only --&gt; &lt;style scoped&gt; h3 {   margin: 40px 0 0; } ul {   list-style-type: none;   padding: 0; } li {   display: inline-block;   margin: 0 10px; } a {   color: #42b983; } &lt;/style&gt;  </code></pre> <p>好了大功告成，下面为效果图<br /><img decoding="async" src="http://img.555519.xyz/uploads/20230112/3c6c6adef7ba234f3b46dd6d7ad7cbbf.jpg" alt="vue CLI3.0自己实现一个轮播组件，并设置自定义属性"></p> <p>总结：</p> <p>主要利用Vue.component()注册全局组件<br /> 使用 <code>this.$refs.swileng.attributes</code> 获取用户设置的参数，不知道各位大佬有没有更好的方式，求介绍<br /> 使用<code>this.$refs.swileng.childNodes</code>获取用多少张轮播，不知道各位大佬有没有更好的方式，求介绍<br /> 滑动效果使用了translateX 使用 slot 实现用户在组件标签内插入html代码 个人感觉自己写的代码还是有点小乱，还需改进提升</p> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-91603.htm">什么宠物猫便宜（什么宠物猫价格便宜）</a></p>
+                                        <p>下一个：<a href="/news/article-92343.htm">Vue项目知识点总结，包含基础，Vue2实践揭秘</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-3-18-free-high-speed-nodes.htm" title="V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-68097.htm" title="开宠物食品加工厂需要什么手续（开个宠物食品厂要投资多少钱）">开宠物食品加工厂需要什么手续（开个宠物食品厂要投资多少钱）</a></li>
+                        <li class="py-2"><a href="/news/article-94132.htm" title="宠物粮食市场前景如何发展 宠物粮食市场前景如何发展起来">宠物粮食市场前景如何发展 宠物粮食市场前景如何发展起来</a></li>
+                        <li class="py-2"><a href="/news/article-84338.htm" title="宠物美容师b级工资怎么算的（宠物美容师b级工资怎么算的啊）">宠物美容师b级工资怎么算的（宠物美容师b级工资怎么算的啊）</a></li>
+                        <li class="py-2"><a href="/news/article-75335.htm" title="国内宠物用品企业排名（国内十大宠物用品公司）">国内宠物用品企业排名（国内十大宠物用品公司）</a></li>
+                        <li class="py-2"><a href="/news/article-93081.htm" title="动物疫苗有什么用途和作用呢 动物疫苗有什么用途和作用呢视频">动物疫苗有什么用途和作用呢 动物疫苗有什么用途和作用呢视频</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-6-node-share-links.htm" title="V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-80824.htm" title="MySQL 优化：explain 执行计划详解与示例分析">MySQL 优化：explain 执行计划详解与示例分析</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-3-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新23M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新23M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-4-node-share-links.htm" title="V2rayNG Node节点订阅每天更新22.8M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.8M/S免费节点订阅链接地址分享</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">35</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">89</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                                                <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

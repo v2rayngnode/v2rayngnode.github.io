@@ -1,0 +1,281 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-92343.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Vue项目知识点总结，包含基础，Vue2实践揭秘</title>
+        <meta name="description" content="$ npm i vue-cli -g 首先，在组件脚本定义中使用data定义用于内部访问的数据模型：     export default {       ...       data () {   " />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-92343.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="Vue项目知识点总结，包含基础，Vue2实践揭秘" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/8e7a4a366fabb6ec85658c3e7678bb1c.webp" />
+        <meta property="og:release_date" content="2025-04-10T08:14:49" />
+    <meta property="og:updated_time" content="2025-04-10T08:14:49" />
+        <meta property="og:description" content="$ npm i vue-cli -g 首先，在组件脚本定义中使用data定义用于内部访问的数据模型：     export default {       ...       data () {   " />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Vue项目知识点总结，包含基础，Vue2实践揭秘">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                    </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="/">V2rayNG Node</a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                                                        <li><a href="/">首页</a></li>
+                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                    </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>Vue项目知识点总结，包含基础，Vue2实践揭秘</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> </h1> <pre>   $ npm i vue-cli -g</pre> <p>首先，在组件脚本定义中使用data定义用于内部访问的数据模型：</p> <pre>    export default {       ...       data () {         return {            title: "vue-todos"         }       }     }</pre> <h2>data可以是一个返回Object对象的函数，也可以是一个对象属性，也就是说，可以写成以下的方式：</h2> <pre>    export default {       ...       data : {         title: "vue-todos"       }     }</pre> <p>在Vue实例内的其他地方可以直接用this引用data内定义的任何属性，比如this.title就是引用了data.title。</p> <h2><strong>v-for:</strong></h2> <p>循环对象(value,key,index) in user</p> <h2>v-on:</h2> <p>可以写事件名也可以写表达式</p> <p>event：</p> <p>不传入参数时，默认事件的第一个参数为事件对象</p> <p>传入参数时，要获得事件对象需要传入$event</p> <h2>v-model修饰符:</h2> <p><strong>1. lazy</strong></p> <p><strong>输入框失去焦点或者按下回车时，v-model绑定的值才会发生变化，即<code>在“change”时而非“input”时更新</code></strong></p> <p><strong>2. number</strong></p> <p><strong><code>自动将用户的输入值转为数值类型</code>。</strong></p> <p><strong>3. trim</strong></p> <p><strong><code>自动过滤用户输入的首尾空白字符</code>。</strong></p> <h3>mouted 和 created的区别</h3> <ul> <li>mouted是页面已经渲染完成</li> <li>created 是页面未渲染完成，但是vue实例 已经初始化完成</li> </ul> <h2>&nbsp;refs</h2> <p><a name="t40" rel="nofollow"></a><br /><a id="refdom_261" rel="nofollow"></a><br /> ref属性，用于获取dom元素</p> <h2>$nextTick vue组件更新之后获取最新DOM</h2> <p>使用<code>$nextTick</code>能立即拿到结果</p> <h2><strong>样式绑定：</strong></h2> <p>这里推荐一个简单的记忆方法来学习Vue的样式绑定，无论绑定的是样式类还是样式属性，:class和:style表达式内一定是一个JSON对象。<span style="color:#fe2c24;">凡是样式绑定必然是绑定到判断对象上的</span></p> <p><a id="page12" rel="nofollow"></a><br /> ●　:class的JSON对象的值一定是布尔型的，true表示加上样式，false表示移除样式类。</p> <p>●　:style的JSON对象则像是一个样式配置项，key声明属性名，value则是样式属性的具体值。</p> <pre> &lt;li v-for="(todo,index) in todos"        v-bind:class="{'checked': todo.done}"&gt;</pre> <p>三元表达式方法：&nbsp;<span style="color:#fe2c24;"> :class="{to.done?'checked':''}"</span></p> <h2> <strong>过滤器</strong>：</h2> <p>一个很出名的时间格式化专用的包——moment.js，先安装moment.js：</p> <pre>$ npm i moment -S     import moment from 'moment'                       import 'moment/locale/zh-cn'                       moment.locale('zh-cn')  </pre> <pre> export default {        // 省略...        filters: {           date(val) {             return moment(val).calendar()           }        }     }</pre> <p>最后在模板上应用这个过滤器：</p> <pre>    &lt;time&gt;{<!-- -->{ todo.created | date }}&lt;/time&gt;</pre> <p><span style="color:#fe2c24;">在所有的过滤器中是没有this引用的，过滤器内的this是一个undefined的值，所以不要在过滤器内尝试引用组件实例内的变量或方法，否则会引发空值引用的异常。</span></p> </h1> <p>咳咳</p> </h1> <p>安装</p> <pre>    $ npm i vue-router -D</pre> <p>vue-router实例是一个Vue的插件，我们需要在Vue的全局引用中通过Vue.use()&nbsp;将它接入到Vue实例中。在我们的工程中，main.js是程序入口文件，所有的全局性配置都会<a id="page54" rel="nofollow"></a><br /> &nbsp;在这个文件中进行。</p> <p>打开main.js文件并加入以下的引用：</p> <pre>    import Vue from 'vue'     import VueRouter from 'vue-router'     Vue.use(VueRouter)</pre> <p>Vue.js是没有页面这个概念的，<span style="color:#fe2c24;">Vue.js的容器就只有组件</span>。但我们用vue-router配合组件又会重新形成各种的“页”，那么我们可以这样来约定和理解：</p> <p><span style="color:#fe2c24;">（1）页面是一个抽象的逻辑概念，用于划分功能场景。</span></p> <p><span style="color:#fe2c24;">（2）组件是页面在Vue的具体实现方式。</span></p> <p>一定要谨记以上这两点，因为在后面的内容中还会围绕这个约定对我们的项目进行结构性的优化。</p> <p>我们创建VueRouter实例时用了mode:history的参数，这个值的意思是使用history模式，这种模式充分利用了history.pushState API来完成URL跳转而无须重新加载页面。</p> <p>如果不使用history模式，当访问home的时候地址就会变为：</p> <pre>    http://localhost/#home</pre> <p>反之为：</p> <pre>    <a id="page58" rel="nofollow"></a>  http://localhost/home</pre> <p>这就是history模式与hash模式的区别</p> <p>●　Hash：使用URL hash值来作为路由。支持所有浏览器，包括不支持HTML5 History API的浏览器。</p> <p>●　History：依赖HTML5 History API和服务器配置。查看HTML5 History模式。</p> <p>vue-router提供了两个指令标签（directive）组件来处理这个导航与自动渲染逻辑：</p> <p>●　&lt;router-view&gt;——渲染路径匹配到的视图组件，它还可以内嵌自己的&lt;router-view&gt;，根据嵌套路径渲染嵌套组件。</p> <p>●　&lt;router-link&gt;——支持用户在具有路由功能的应用中（点击）导航。</p> <h2> <span style="color:#fe2c24;">命名路由方式</span>：</h2> <pre>  &lt;router-link :to="{ name : 'Home' }"&gt;</pre> <p>有一个细节需要留意，使用命名路由引用时采用的是：to而不是to，因为这个时候向&lt;router-link&gt;传入的是一个对象{name:'Home'}而不是字符串。</p> <h2> <span style="color:#fe2c24;">动态路由</span>;</h2> <pre> routes: [{         name:'BookDetails',         path:'/books/:id'         component: BookDetails</pre> <p>在&lt;router-link&gt;中我们就可以加入一个params的属性来指定具体的参数值：</p> <pre>    &lt;router-link :to="{name:'BookDetails', params: { id: 1 }}"&gt;         &lt;!-- ... --&gt;     &lt;/router-link&gt;</pre> <p>可以通过$router.params这个属性获取指定的参数值，例如：</p> <pre>    export default {         created () {            const bookID = this.$router.params.id         }     }</pre> <p>对路由参数的变化做出响应的话，就需要在watch对象内添加对$route对象变化的跟踪函数：</p> <pre>    export default {       template: '...',       watch: {         '$route' (to, from) {           // 对路由变化作出响应         }       }     }</pre> <h2> <span style="color:#fe2c24;">嵌套路由</span>：children</h2> <pre> routes: [           {               name:'Main',               path:'/',               component:Main,             <strong>  </strong><span style="color:#fe2c24;"><strong>children</strong>:[                  {name:'Home',</span><span style="color:#1c7892;"> <strong>path: 'home'</strong></span><span style="color:#fe2c24;">, component: Home},                  {name:'Categories',</span><strong><span style="color:#1c7892;">path: 'categories'</span></strong><span style="color:#fe2c24;">, component: Category},                  {name:'ShoppingCart',</span><span style="color:#1c7892;"><strong>path: 'shopping-cart'</strong></span><span style="color:#fe2c24;">, component: ShoppingCart},</span></pre> <p><span style="color:#fe2c24;"><strong>注意</strong></span>：&nbsp;子路由中的path就不需要重新声明主路由上的path了，在生成路由时，主路由的path会被自动添加到子路由之前。另外，<span style="color:#fe2c24;"><strong>以“/”开头的嵌套路径会被当作根路径，所以不要在子路由上加上“/”</strong></span>。</p> <p>想要链接使用“精确匹配模式”，则使用exact属性</p> <pre>  &lt;!-- 这个链接只会在地址为／的时候被激活 --&gt;       &lt;router-link :to="{name:'Home'}" exact&gt;</pre> <h2 id="hh2-21">History的控制：</h2> <p>当我们在使用HTML5的History模式的时候，每次路由的改变都会被“推”（push）到导航历史中保留，</p> <p>首先Vue实例内有一个$router对象，这个对象会提供三个方法，&lt;router-link&gt;则是用两种属性来对应这三个方法的调用：</p> <table> <tbody> <tr> <td>router的方法</td> <td>属　性</td> <td>说　明</td> </tr> <tr> <td>push()</td> <td>—</td> <td>默认调用此方法</td> </tr> <tr> <td>append()</td> <td>append</td> <td>将目标URL追加到当前URL下</td> </tr> <tr> <td>replace()</td> <td>replace</td> <td>以目标URL替换现有的URL</td> </tr> </tbody> </table> <p>设置replace属性的话，当点击时，会调用router.replace()而不是router.push()，于是导航后不会留下History记录。</p> <pre>    &lt;router-link :to="{ name: 'Home' }" replace&gt;&lt;/router-link&gt;</pre> </h1> <p>区块的划分</p> <p>我们做前端开发都是从上而下地进行设计与布局，如果按功能或者内容分类来对整个页面进行划分的话，你会很自然地将一个页面的内容分为一个或多个功能区</p> <p>用HTML的注释标记作为页面上的“区域占位”，先给页面搭一个最基本的结构，把组件放在主组件上，样式布局</p> <p><span style="color:#fe2c24;">避免低耦合</span>应该使用Vue.js提供的更精确的指明方式在元素中添加ref属性，然后在代码内通过this.$refs.引用名来引用。</p> <p>例子：</p> <p>一个父组件包含一个子组件，这个子组件界面各个部位都需要相同的数据显示框，那这个显示框可以作为一个公共的组件componets，子组件各个部位数据定义在自己script里，通过props传值到公共组件内显示。</p> <p>子组件代码：</p> <pre><code>&lt;div class="section"&gt;         &lt;book-list :books="latestUpdated"                   heading="最新更新"&gt;         &lt;/book-list&gt;     &lt;/div&gt;     &lt;div class="section"&gt;         &lt;book-list :books="recommended"                   heading="编辑推荐"&gt;         &lt;/book-list&gt;     &lt;/div&gt; // 按照工程结构约定，组件放置在components目录     import BookList from "./components/BookList.vue"      export default {         data (){             announcement:'今日上架的图书全部8折',             slides:[                    { id:1, img_url:'./fixtures/sliders/t2.svg' },                    { id:2, img_url:'./fixtures/sliders/t2.svg' }                   ],             latestUpdated: [...],// 这两个数组内容太多，为了便于阅读此处略去具体定义             recommended : [...]         },         components: {            BookList         },          ...     }</code></pre> <p>BooKList作为显示数据的公共组件。代码如下：</p> <pre><code>  &lt;template&gt;         &lt;div class="book-list"&gt;             &lt;div class="header"&gt;                 &lt;div class="heading"&gt;{<!-- -->{ heading }}&lt;/div&gt;                 &lt;div class="more"&gt;更多...&lt;/div&gt;               &lt;/div&gt;             &lt;div class="book-items"&gt;                 &lt;div class="book"                     v-for="book in books"&gt;                    &lt;div class="cover"&gt;                       &lt;img :src="book.img_url"/&gt;                    &lt;/div&gt;                    &lt;div class="title"&gt;{<!-- -->{ book.title }}&lt;/div&gt;                    &lt;div class="authors"&gt;{<!-- -->{ book.authors | join }}&lt;/div&gt;                 &lt;/div&gt;             &lt;/div&gt;         &lt;/div&gt;     &lt;/template&gt;  export default {         props: [           'heading', // 标题           'books' // 图书对象数组         ],  过滤器作用：将author作者数组转换成字符串类型         filters: {            join(args){               return args.join(',')            }         }     }</code></pre> <p><span style="color:#fe2c24;"><strong>要向组件输入数据就不能使用data来作为数据的容器了，因为data是一个内部对象，此时就要换成props。公共组件最好不要有data，因为他的数据展示来源于要用它的组件，所以prop传值比较好！</strong></span></p> <p>其实组件间有关系就肯定涉及到组件通讯。<span style="color:#fe2c24;"><strong>父子传值（可以看我之前发的博客有介绍）</strong></span></p> <p>data里数据重构，网络请求，一般data里留空</p> <h2> <span style="color:#fe2c24;"><strong>插槽</strong></span>&lt;slot&gt;<span style="color:#fe2c24;"><strong>：</strong></span><br /> </h2> <p>公共组件已经布局好，需要新增一些自己这个界面需要的东西新功能，比如插入代码实现，就用到了插槽&lt;slot&gt;</p> <pre>&lt;template&gt;        &lt;div class="dialog"&gt;           &lt;div&gt;              &lt;!-- 头部及标题 --&gt;              命名插槽 &lt;slot name="header"&gt;&lt;/slot&gt;           &lt;/div&gt;           &lt;div&gt;              &lt;!-- 内容区域 --&gt; &nbsp;           默认插槽，<span style="color:#fe2c24;">一个组件只能拥有一个默认插槽，其他的插槽则需要采用name属性进行命名，在使用的时候也需要对插槽进行声明。</span>              &lt;slot&gt;&lt;/slot&gt;           &lt;/div&gt;        &lt;/div&gt;     &lt;/template&gt;</pre> <p>别的组件用这个组件时，只需要在这个组件标签内使用template标签包裹 v-slot=‘name’值，即可一一对应。插入部分可写代码，再运用父子传值。</p> <p>&lt;Slotname&gt;</p> <p>&lt;template&nbsp; v-slot : header&gt;</p> <p>nihao</p> <p>&lt;/template&gt;</p> <p>&lt;/Slotname&gt;</p> <h2>组件页面开发步骤：</h2> <p>（1）依葫芦画瓢&nbsp;——拿到界面设计图后无须思考太多，先用框架圈出功能区块，然后直接编写视图的HTML。</p> <p>（2）代码去重&nbsp;——将视图模板中不断重复的逻辑封装为组件，减少页面的重复逻辑。</p> <p>（3）抽取数据结构&nbsp;——将页面中的文字用数据对象与数组取代，并制定数据结构的说明文档。</p> <p>（4）采集与制作样本数据&nbsp;——参照数据结构说明文档采集更多的真实样本，切忌胡乱地敲入一些字符，在数据不明确的情况下可能会遮盖一些本应很明显的使用需求。</p> <p>（5）分析设计组件接口&nbsp;——简化组件的使用接口，让组件变得更好用。</p> <p>（6）组件内部的细化与重构&nbsp;——优化组件的内部实现，使其变得更合理。</p> </h1> <h2 id="hh2-32">Vue组件的继承——mixin</h2> <p>将不同组件拥有相同功能一样的代码弄出来成立一个js文件，再到不同的组件内导入这个js，再使用</p> <pre> mixins: [BaseListMixin],</pre> <p>例子：</p> <p>这两个组件在交互处理的逻辑上有很大一部分是相同的，或者说它们的控制部分应该是从一个组件中继承下来的。这个时候我们就可以用Vue的mixins实现这种功能性的混合。首先将两个控件中完全相同的部分提取出来，做成一个BaseListMixin.js的组件：</p> <p>然后将uk-list和uk-dropdown-list中相同的代码删除，用mixins引入BaseMixinList类，这样在BaseMixinList中定义的属性（props）、方法（methods）、计算属性等所有的Vue组件内允许定义的字段都会被混合到新的组件中，其效果就如类继承。</p> <pre>        import BaseListMixin from './BaseListMixin'       export default {         mixins: [BaseListMixin],</pre> <p><span style="color:#1a439c;"><strong>混合比继承好的地方就是一个Vue组件类可以与多个不同的组件进行混合（mixins是一个数组，可以同时声明多个混合类），复合出新的组件类</strong></span></p> <h2>数据请求：</h2> <p>1.安装axios&nbsp;npm install axios -S<br /> 2.全局注册，在main.js中 引入&nbsp;import axios from 'axios'&nbsp;， 注册Vue.prototype.$http = axios</p> <p>axios封装：</p> <pre><code>import axios from 'axios' import config from '@/config'  const baseUrl = process.env.NODE_ENV === 'development' ? config.baseUrl.dev : config.baseUrl.pro //console.log(process.env.NODE_ENV) class HttpRequest{     constructor(baseUrl){         this.baseUrl = baseUrl         this.queue = {}     }     getInsideConfig(){         const config = {             baseURL:this.baseUrl,             header:{                 //             }         }         return config     }     interceptors(instance,url){         instance.interceptors.request.use((config)=&gt;{             //处理config             console.log('拦截和处理请求')             config.data = {                 msg:"helloworld"             }             console.log(config)                          return config         })         instance.interceptors.response.use((res)=&gt;{             //处理响应             console.log("处理响应")             //console.log(res)             return res.data         },(error)=&gt;{             //请求出问题，处理问题             console.log(error)             return {error:"网络出错了"}         })     }     request(options){         const instance = axios.create()//创造实例对象         options = Object.assign(this.getInsideConfig(),options)         this.interceptors(instance,options.url)         return instance(options)     } }   const axiosObj = new HttpRequest(baseUrl) export default axiosObj</code></pre> <p>data.js里面的代码&nbsp;</p> <p>import&nbsp;axios&nbsp;from&nbsp;'@/api/axios'</p> <p>export&nbsp;const&nbsp;getTableData&nbsp;=&nbsp;()&nbsp;=&gt;&nbsp;{<!-- --></p> <p>&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;axios.request({<!-- --></p> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;url:&nbsp;"tabledata",</p> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;method:&nbsp;'get'</p> <p>&nbsp;&nbsp;&nbsp;&nbsp;})</p> <p>}</p> <h2>模拟数据：</h2> <p>在main.js里面判断，请求去api文件夹下的mock.js</p> <p>if&nbsp;(process.env.NODE_ENV&nbsp;==&nbsp;'development')&nbsp;require('@/api/mock')</p> <p>Mock.js代码</p> <p>import&nbsp;Mock&nbsp;from&nbsp;'mockjs';</p> <p>//配置请求延时</p> <p>Mock.setup({<!-- --></p> <p>&nbsp;&nbsp;&nbsp;&nbsp;timeout:&nbsp;1000</p> <p>})</p> <p>&nbsp;Mock.mock(‘url’，{<!-- --><br /> &nbsp; "date":"@date",//随机日期<br /> &nbsp; "float":"@float",//随机浮点数<br /> &nbsp; "name":"xxxx",//固定值<br /> &nbsp; "quoteStrin1": "@name",//引用其他属性<br /> &nbsp; "user": {<!-- --><br /> &nbsp; &nbsp; "name": "demo"<br /> &nbsp; },//固定值<br /> &nbsp; "quoteString": "@user/name",//引用其他属性<br /> &nbsp;})<br /> &nbsp;</p> <h2>调试：</h2> <p>Vue-DevTools对于初学者来说是一个很不错的选择，可以很好地辅助理解Vue的运行原理。</p> </h1> <p>视图的常规操作有：</p> <p>●　数据分页——对于数据量很大的数据表我们会将其分成很多个数据页显示，在移动端会表现为以滑动加载的方式渐入分页；</p> <p>●　条件查询——包括快速查询或者多个条件组合性的查询，用于过滤和筛选目标数据；</p> <p>●　排序——对各个列进行正向或逆向的数据排序；</p> <p>●　多行选定——当我们需要对一多行数据进行同一个操作时就需要视图能支持多行选定功能，例如批量删除；</p> <p>●　添加／编辑／显示单行数据的入口——这是数据视图的一个很重要的功能，即使是一个只读视图我们也应该提供一个能查看数据的详情表单。</p> <p>其实可以在这章进行elementui框架的学习，有时间补充。</p> </h1> <pre> $ npm i vuex -S</pre> <p>在全局Vue实例中引入store后，在每个Vue组件实例内，可以用<span style="color:#1a439c;"><strong>this.$store</strong></span>来引用这个store对象了。</p> <p>●　state——Vuex store实例的根状态对象，用于定义共享的状态变量，就像Vue实例中的data。</p> <p>●　getters——读取器，外部程序通过它获取变量的具体值，或者在取值前做一些计算（可以认为是store的计算属性）。</p> <p>●　actions——动作，向store发出调用通知，执行本地或者远端的某一个操作（可以理解为store的methods）。</p> <p>●　mutations——修改器，它只用于修改state中定义的状态变量。</p> <p>●　modules——模块，向store注入其他子模块，可以将其他模块以命名空间的方式引用。</p> <p>●　strict——用于设置Vuex的运行模式，true为调试模式，false为生产模式。</p> <p>●　plugin——用于向Vuex加入运行期的插件。</p> <h2>getters：</h2> <p>用Vuex提供的帮助方法<span style="color:#fe2c24;"><strong>mapGetters，</strong></span></p> <p>mapGetters本质上就是动态方法生成器，作用就是生成上面那些将<span style="color:#1a439c;"><strong>store.getter方法</strong></span>映射为Vue实例的computed。</p> <p>例子：store.js代码</p> <pre>export default {         state: {             announcements:[],             promotions:[],             recommended:[]         },         getters: {             announcements: state =&gt; state.announcements,             promotions: state =&gt; state.promotions,             recommended: state =&gt; state.recommended,             totalPromotions: state =&gt; state.promotions.length,             totalRecommended: state =&gt; state.recommended.length         }     }</pre> <p>vue界面展示vuex数据</p> <pre> import {mapGetters} from 'vuex'      export default {        computed: {            ...mapGetters([                       'announcements',                       'promotions',                       'recommended',                       'promotionCount',                       'recommendedCount'                       ])         }     }</pre> <h2>action方法：</h2> <p>●　commit——等同于store.commit，用于提交一个mutation。</p> <p>●　dispatch——等同于store.dispatch，用于调用其他action。</p> <p>在组件界面可以通过</p> <pre>  this.$store.dispatch('getStarted')</pre> <p>访问到vuex中的action内的方法</p> <pre> actions: {        getStarted (context) {             Vue.http.get('/api/get-start', (res)=&gt;{                context.commit('startedDataReceived',res.body)             })        }       }</pre> <p>同样地，Vuex也提供了将Actions映射为methods的帮助方法<span style="color:#1a439c;"><strong>mapActions</strong></span>，这样我们就不用直接调用dispatch，而是可以对象化地进行操作了：</p> <pre> methods: {         <span style="color:#fe2c24;"><strong>...mapActions</strong></span>(['getStarted'])       },         created () {             this.getStarted()         }</pre> <h2>规则和模块化：</h2> <p>Vue官方推荐了以下的文件结构的组织方式及使用原则：</p> <p>（1）应用级的状态集中在store中。</p> <p>（2）修改状态的唯一方式就是通过提交mutation来实现的，它是同步的事务。</p> <p><a id="page271" rel="nofollow"></a><br /> （3）异步逻辑应该封装在action中，并且可以组合action。</p> <p>只要遵循这些规则，可以任意设计项目结构。如果store文件非常大，直接开始分割action、mutation和getter到多个文件。</p> <p>对于复杂的应用，我们可能需要使用模块化。</p> <p>个人总结：<strong><span style="color:#1a439c;">在一个小型模块项目中，所有的网络请求均需要进行封装成各个模块对应的js，在vuex中action中进行异步请求可以直接使用这些模块化的请求的函数，同时vuex也需要模块化。</span></strong></p> <h2>vue能力自测：</h2> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://juejin.cn/post/6844903918753808398"  title="掘金" rel="nofollow">掘金</a></p> <p>本文总结根据《vue2实践揭秘》这本书所做的笔记，只作为相互学习的用途。</p> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-92342.htm">vue CLI3.0自己实现一个轮播组件，并设置自定义属性</a></p>
+                                        <p>下一个：<a href="/news/article-93080.htm">如何在vue3项目中方便的引入Element plus并且进行配置注册并且方便使用</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-70672.htm" title="人打兽用疫苗会怎样 人打兽用疫苗会怎样呢">人打兽用疫苗会怎样 人打兽用疫苗会怎样呢</a></li>
+                        <li class="py-2"><a href="/news/article-93081.htm" title="动物疫苗有什么用途和作用呢 动物疫苗有什么用途和作用呢视频">动物疫苗有什么用途和作用呢 动物疫苗有什么用途和作用呢视频</a></li>
+                        <li class="py-2"><a href="/news/article-73993.htm" title="宠物粮生产流程图 宠物粮生产流程图片">宠物粮生产流程图 宠物粮生产流程图片</a></li>
+                        <li class="py-2"><a href="/news/article-65580.htm" title="让猫挠了轻微出血有事吗（让猫挠了轻微出血有事吗猫打了狂犬疫苗）">让猫挠了轻微出血有事吗（让猫挠了轻微出血有事吗猫打了狂犬疫苗）</a></li>
+                        <li class="py-2"><a href="/news/article-82916.htm" title="动物疫苗市场的现状和趋势（2021动物疫苗行业前景）">动物疫苗市场的现状和趋势（2021动物疫苗行业前景）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-24-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新22.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.3M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-23-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新22.5M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.5M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-17-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-9-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新20.9M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.9M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-92342.htm" title="vue CLI3.0自己实现一个轮播组件，并设置自定义属性">vue CLI3.0自己实现一个轮播组件，并设置自定义属性</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">35</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">89</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                                                <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
