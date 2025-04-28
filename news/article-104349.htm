@@ -1,0 +1,284 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-104349.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>SpringMVC 最详细笔记必备知识点</title>
+        <meta name="description" content="SpringMVC 1、什么是SpringMVC  是一种轻量级的，基于MVC的web应用层框架，对Servlet封装 MVC：  M：Model，模型层，指javaBean，作用是==处理数据== " />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-104349.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="SpringMVC 最详细笔记必备知识点" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/6f05aa5962303e016910f91e179ff0da.webp" />
+        <meta property="og:release_date" content="2025-04-26T07:38:17" />
+    <meta property="og:updated_time" content="2025-04-26T07:38:17" />
+        <meta property="og:description" content="SpringMVC 1、什么是SpringMVC  是一种轻量级的，基于MVC的web应用层框架，对Servlet封装 MVC：  M：Model，模型层，指javaBean，作用是==处理数据== " />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="SpringMVC 最详细笔记必备知识点">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <link rel="stylesheet" href="/assets/website/css/G.css" />
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                    </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="/">V2rayNG Node</a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                                                        <li><a href="/">首页</a></li>
+                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                    </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>SpringMVC 最详细笔记必备知识点</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                <div class="xcblog-blog-detail xcblog-blog-detail-defined">
+                      				  				  				<div id="content_views" class="markdown_views prism-atom-one-light"> <h2 id="springmvc">SpringMVC</h2> <h3 id="1、什么是springmvc">1、什么是SpringMVC</h3> <p> 是一种轻量级的，基于MVC的web应用层框架，对Servlet封装</p> <p><strong>MVC：</strong></p> <p> M：Model，模型层，指javaBean，作用是==处理数据==</p> <p> javaBean：</p> <p> 实体类，业务处理，即Service，Dao</p> <p> V：View，视图层，指工程中的html或jsp等页面，作用是与用户进行交互，==展示数据==</p> <p> C：Controller，控制层，指工程中的servlet，作用是==接收请求==和==响应浏览器==</p> <h3 id="2、springmvc流程">2、springmvc流程</h3> <h5 id="相关组件：">相关组件：</h5> <ol> <li> <p>前端控制器（DispatcherServlet）：接收请求，响应结果, 降低了组件之间的耦合性</p> <pre><code>2. 处理器映射器（HandlerMapping）：根据URL去查找处理器</code></pre> </li> <li> <p>处理器适配器（HandlerAdapter）：按照特定规则（HandlerAdapter要求的规则）去执行Handler</p> <pre><code>4. 处理器（Handler）：即各个Controller（需要程序员去写代码处理逻辑的）</code></pre> <ol start="5"> <li>视图解析器（ViewResovler）：进行视图解析，对返回的字符串，进行处理，可以解析成对应的页面</li> </ol> </li> </ol> <h5 id="处理流程详解">处理流程详解</h5> <p> 1.用户发起请求到前端控制器（DispatcherServlet）</p> <p> 2、前端控制器请求处理器映射器（HandlerMapping）去查找处理器（Handle）：通过xml配置或者注解进行查找</p> <p> 3、找到Handle以后，处理器映射器（HandlerMapping）向前端控制器返回执行链（HandlerExecutionChain）（包括生成处理</p> <p> 器对象及处理器拦截器等）</p> <p> 4、前端控制器（DispatcherServlet）调用处理器适配器（HandlerAdapter）去执行处理器（==Handler，即Controller, 即Servlet层==）</p> <p> 5、处理器适配器（HandlerAdapter）去执行Handler中的方法</p> <p> 6、Handler执行完后，给处理器适配器返回ModelAndView</p> <p> 7、处理器适配器向前端控制器返回ModelAndView</p> <p> 8、前端控制器请求视图解析器（ViewResolver）去进行视图解析，解析成view</p> <p> 9、视图解析器（ViewResolver）向前端控制器返回View</p> <p> 10、前端控制器对视图进行渲染</p> <p> 11、前端控制器向用户响应结果</p> <p><img alt="springmvc执行流程" style="zoom: 67%;"/></p> <h3 id="3、springmvc：具体实现流程">3、SpringMVC：具体实现流程</h3> <p><strong>1、导入jar包</strong></p> <ol> <li>commons-logging-1.1.1.jar</li> <li>spring-aop-5.2.16.RELEASE.jar</li> <li>spring-beans-5.2.16.RELEASE.jar</li> <li>spring-aspects-5.2.16.RELEASE.jar</li> <li>spring-context-5.2.16.RELEASE.jar</li> <li>spring-core-5.2.16.RELEASE.jar</li> <li>spring-expression-5.2.16.RELEASE.jar</li> <li>spring-web-5.2.16.RELEASE.jar</li> <li>spring-webmvc-5.2.16.RELEASE.jar</li> </ol> <p><strong>2、发起了一个请求</strong></p> <pre><code class="language-html">  &lt;a href="test"&gt;请求&lt;/a&gt;</code></pre> <p><strong>3、在web.xml中配置了核心控制器（前端控制器）</strong></p> <pre><code class="language-xml">      &lt;servlet&gt;          &lt;!--注册DispatcherServlet--&gt;           &lt;servlet-name&gt;dispatcherServlet&lt;/servlet-name&gt;           &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;            &lt;!-- 指定核心配置文件的位置  --&gt;           &lt;init-param&gt;             &lt;!--name值为固定内容--&gt;               &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;             &lt;!--在src下配置的xml--&gt;               &lt;param-value&gt;classpath:springmvc.xml&lt;/param-value&gt;           &lt;/init-param&gt;            &lt;!-- 启动tomcat就立即创建DispatcherServlet实例。数越小执行越早--&gt;           &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;        &lt;/servlet&gt;        &lt;servlet-mapping&gt;           &lt;servlet-name&gt;dispatcherServlet&lt;/servlet-name&gt;           &lt;!-- url-pattern:两种写法  1） *.do、 *.action、 *.mvc  2)斜杠 / --&gt;           &lt;url-pattern&gt;/&lt;/url-pattern&gt;       &lt;/servlet-mapping&gt;</code></pre> <p><strong>4、创建springmvc.xml核心配置文件</strong></p> <p><strong>①：头部</strong></p> <pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt; &lt;beans xmlns="http://www.springframework.org/schema/beans"     xmlns:mvc="http://www.springframework.org/schema/mvc"     xmlns:context="http://www.springframework.org/schema/context"     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"     xsi:schemaLocation="         http://www.springframework.org/schema/beans         https://www.springframework.org/schema/beans/spring-beans.xsd         http://www.springframework.org/schema/context         https://www.springframework.org/schema/context/spring-context.xsd         http://www.springframework.org/schema/mvc         https://www.springframework.org/schema/mvc/spring-mvc.xsd"&gt;      &lt;!--各种配置--&gt;  &lt;/beans&gt;</code></pre> <p><strong>②：配置扫描</strong></p> <pre><code class="language-xml">      &lt;!--开启mvc注解扫描 --&gt;       &lt;mvc:annotation-driven/&gt;       &lt;!--扫描controller包中所有的类，为创建controller对象 --&gt;       &lt;context:component-scan base-package="com.bdqn.controller"&gt;&lt;/context:component-scan&gt;</code></pre> <p><strong>③：配置视图解析器</strong></p> <pre><code class="language-xml">      &lt;bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"&gt;           &lt;!--前缀--&gt;           &lt;!--jsp为放在WEB-INF下的文件：用于专门存放页面--&gt;         &lt;property name="prefix" value="/WEB-INF/jsp/"&gt;&lt;/property&gt;            &lt;!--后缀--&gt;         &lt;property name="suffix" value=".jsp"&gt;&lt;/property&gt;       &lt;/bean&gt;</code></pre> <p><strong>5、创建Controller类</strong></p> <pre><code class="language-java">        @Controller //创建Controller对象并放入到springmvc容器中         public class UserController{                         @RequestMapping("/test") //配置请求映射路径              public String test(){                                 return "success";//返回的页面             }         }</code></pre> <h3 id="4、requestmapping注解">4、@RequestMapping()注解</h3> <p>@RequestMapping()注解</p> <p> 1、位置</p> <pre><code>      1、在类上：表示模块路径    2、在方法上：表示具体路径 （处理器方法、映射器方法）</code></pre> <p> 2、属性</p> <p> value="/路径":映射路径，斜杠可以省略，但不建议</p> <p> method:请求方式</p> <p> 值：RequestMethod.GET 处理get请求</p> <p> RequestMethod.POST 处理post请求</p> <p> ==注==：若没有method，则支持所有请求</p> <h3 id="5、springmvc入参">5、springmvc入参</h3> <h4 id="1、单个参数：要求方法参数名必须和请求参数名保持一致">1、单个参数：要求方法参数名必须和请求参数名保持一致</h4> <pre><code>         &lt;a href="user/del?id=1"&gt;删除&lt;/a&gt;          public String del(Integer id){  }</code></pre> <h4 id="2、多个参数：">2、多个参数：</h4> <p><strong>1、方法参数名和请求参数名==一致==的情况：</strong></p> <pre><code>         &lt;a href="user/del?id=1&amp;name=zs"&gt;删除&lt;/a&gt;                  public String del(Integer id,String name){}</code></pre> <p><strong>2、方法参数名和请求参数名==不一致==的情况，需要使用==@RequestParam==注解</strong></p> <pre><code>public String showPage(@RequestParam(value="number",required=false,defaultValue="1")Integer curPage    ){<!-- --></code></pre> <p><strong>@RequestParam注解</strong>：将请求参数绑定到方法参数上</p> <p> value：接收的参数名</p> <p> required：是否必须包含该参数，该参数内容是否可以为空， 默认为true（必须要传参数）；false则相反</p> <p> defaultValue：默认值，如果没有传参，则有默认值</p> <p><strong>3、以对象入参：请求参数必须和对象==实体类中的属性名一致==</strong></p> <pre><code>        public String add(User user) {}</code></pre> <h3 id="6、springmvc出参">6、springmvc出参</h3> <h4 id="1、modelandview类：存储数据视图"><strong>1、ModelAndView类：存储数据+视图</strong></h4> <pre><code class="language-java">    public ModelAndView findAll(){            ModelAndView mv = new ModelAndView();            mv.addObject("user", user); //存储数据            mv.setViewName("student/list"); //存储视图            return mv;        }</code></pre> <h4 id="2、model类：存储数据"><strong>2、Model类：存储数据</strong></h4> <pre><code class="language-java">        public String findAll(Model model){            model.addAttribute("user", user); //存储数据            return "student/list"; //返回视图        }</code></pre> <h4 id="3、使用servlet原生接口">3、使用servlet原生接口</h4> <p><strong>1、request:</strong></p> <pre><code class="language-java">    public String 方法名(HttpServletRequest request){}</code></pre> <p><strong>2、session:</strong></p> <pre><code class="language-java">    public String 方法名(HttpSession session){}</code></pre> <p><strong>3、response:</strong></p> <pre><code class="language-java">    public void del(HttpServletResponse response) throws IOException{                response.setContentType("text/html;charset=utf-8"); //处理响应中文                //删除成功后，重新跳入到controller下的findAll方法中进行查询                response.getWriter().print("&lt;script&gt;alert('删除成功！');location.href='findAll';&lt;/script&gt;");            }</code></pre> <h4 id="4、使用map接口">4、使用Map接口</h4> <pre><code class="language-java">        public String findAll(Map&lt;String,Object&gt; map){            map.put("key",value);        }</code></pre> <h4 id="5、重定向：springmvc默认转发跳转">5、重定向：==springmvc默认转发跳转==</h4> <p><strong>关键字：</strong>==redirect:==</p> <pre><code class="language-java">        public String 方法名(){            return "redirect:/stu/findAll";        }</code></pre> <h3 id="7、处理请求中文乱码问题">7、处理请求中文乱码问题</h3> <h4 id="一：post请求乱码问题">一：post请求乱码问题</h4> <p><strong>在web.xml中配置</strong></p> <pre><code class="language-xml"> &lt;filter&gt;      &lt;filter-name&gt;characterEncodingFilter&lt;/filter-name&gt;      &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;           &lt;init-param&gt;  &lt;!--设置项目中的字符编码--&gt;          &lt;param-name&gt;encoding&lt;/param-name&gt;            &lt;param-value&gt;UTF-8&lt;/param-value&gt;      &lt;/init-param&gt;      &lt;/filter&gt;  &lt;filter-mapping&gt;            &lt;filter-name&gt;characterEncodingFilter&lt;/filter-name&gt;       &lt;!-- /*:表示所有的请求都先通过过滤器处理--&gt;      &lt;url-pattern&gt;/*&lt;/url-pattern&gt;        &lt;/filter-mapping&gt;</code></pre> <h4 id="二：get请求乱码问题">二：get请求乱码问题</h4> <p><strong>①：方法一</strong></p> <p>修改tomcat配置文件添加编码与工程编码一致，如下：</p> <pre><code class="language-xml">&lt;Connector URIEncoding="utf-8" connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/&gt;</code></pre> <p><strong>②：方法二</strong></p> <pre><code class="language-java">String userName = new String(request.getParamter("userName").getBytes("ISO8859-1"),"utf-8")</code></pre> <h3 id="8、springmvc如何处理静态资源">8、springmvc如何处理静态资源</h3> <p><strong>如js、css、image、html等</strong></p> <p>原因：web.xml中配置了DispatcherServlet的url-pattern为“/”，导致所有的静态资源都交给了DispatcherServlet处理，而</p> <p>DispatcherServlet不能处理静态资源的访问。所以导致静态资源的访问都是404。</p> <p><strong>1、第一种处理方式：</strong></p> <p> ==需要依赖tomcat==</p> <p>在springmvc.xml中配置: mvc:default-servlet-handler/</p> <p><strong>2、第二种处理方式：</strong> ==推荐==</p> <p>在springmvc.xml中配置:</p> <pre><code class="language-xml"> &lt;mvc:resources location="/static/" mapping="/static/**"/&gt;&lt;!--mvc:resoutces加入后框架会创建ResourceHttpRequestHandler对象，让该对象处理静态资源的访问问题，而不依赖tomcat服务器mapping：访问静态资源的url地址，使用通配符 **location：静态资源在项目中的目录位置--&gt;</code></pre> <p><strong>实现步骤：</strong></p> <p> 1）在webapp下创建static文件夹，把images、js、css等都放入到该文件中</p> <p> 2）在springmvc中配置：</p> <p> &lt;mvc:resources location="/static/" mapping="/static/**"/&gt;</p> <p> 3）页面使用：</p> <pre><code class="language-jsp">            &lt;script type="text/javascript" src="static/js/jquery-1.12.4.js"&gt;&lt;/script&gt; 相对路径            &lt;img src="&lt;%=basePath%&gt;/static/images/read.jpg" alt="SpringMVC 最详细笔记必备知识点"/&gt;  绝对路径            &lt;img src="${pageContext.request.contextPath}/static/images/user/dongtu.gif" alt="SpringMVC 最详细笔记必备知识点"/&gt; 绝对路径</code></pre> <h3 id="9、获取绝对路径">9、获取绝对路径</h3> <p>方法一：</p> <pre><code class="language-jsp"> &lt;%String path = request.getContextPath();String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";%&gt;</code></pre> <p>方法二：</p> <pre><code class="language-jsp">${pageContext.request.contextPath}</code></pre> <h3 id="10、springmvc：ajax请求">10、SpringMVC：ajax请求</h3> <h4 id="一：基于fastjson依赖">一：基于fastjson依赖</h4> <p><strong>引入包</strong>：fastjson-1.2.6.jar</p> <p><strong>1、使用out输出流对象处理 + fastjson依赖</strong></p> <pre><code class="language-java">    public void 方法名(HttpServletResponse response) throws IOException{        response.setContentType("text/html;charset=utf-8");        response.getWriter().print(返回的数据); （若返回类型为json，需要把对象转成json类型）    }</code></pre> <p><strong>2、使用@ResponseBody注解 + fastjson依赖</strong></p> <pre><code class="language-java">    @RequestMapping(value="/路径",produces="text/html;charset=utf-8")    @ResponseBody //通过response响应给用户,不再走视图解析器了，而是直接将数据写入到输出流中    public String 方法名(){        return 返回的数据; （若返回类型为json，仍需要把对象转成json类型）    }</code></pre> <h4 id="二：基于springmvc默认的jackson依赖">二：基于SpringMVC默认的jackson依赖</h4> <p><strong>1、引入包</strong>：jackson-core-2.9.8.jar</p> <p>jackson-databind-2.9.8.jar</p> <p>jackson-annotations-2.9.8.jar</p> <p><strong>2、controller处理：</strong></p> <p><strong>1、处理返回text类型</strong></p> <pre><code class="language-java">            @RequestMapping("/ajax")            @ResponseBody//文件上传注解            public String 方法名(){                            return str;             }</code></pre> <p><strong>2、处理返回json类型</strong></p> <pre><code class="language-java">           public List&lt;类型&gt; 方法名(){                    return list;             }            public 类型 方法名(){                            return 对象;             }            public Map&lt;类型,类型&gt; 方法名(){                            return map;             }</code></pre> <p><strong>3、处理返回html类型</strong></p> <pre><code class="language-java">        public String 方法名(){                String str = "带有html标签的数据";                            return str;             }</code></pre> <h3 id="11、文件上传">11、文件上传</h3> <h4 id="1、单文件上传">1、单文件上传</h4> <h5 id="1、表单：">1、表单：</h5> <p> ①、表单提交格式必须是post提交</p> <p> ②、表单增加属性：enctype="multipart/form-data"</p> <p> ③、文本框增加name属性</p> <p> ④、提供文件域：<input type="file" name="文件名"/></p> <pre><code class="language-jsp">&lt;form action="&lt;%=basePath%&gt;standardController/addON" method="post" enctype="multipart/form-data"&gt; &lt;/form&gt;&lt;input type="file" name="photo"/&gt;</code></pre> <h5 id="2、jar包：">2、jar包：</h5> <p> ①：支持文件上传：commons-fileupload-1.4.jar</p> <p> ②：io流：commons-io-2.7.jar</p> <h5 id="3、用js控制文件上传类型">3、用js控制文件上传类型</h5> <pre><code class="language-javascript">    $("[name=photo]").change(function(){        var val = $(this).val();        //获取当前文件的后缀        //substring:提取字符串中,介于两个指定下标之间的字符,设置一个值，即从那开始        //lastIndexOf():指定的字符串值最后出现的位置,从后往前查找        var zhui = val.substring(val.lastIndexOf("."));        if(zhui!=".jpg" &amp;&amp; zhui!=".gif" &amp;&amp; zhui!=".png" &amp;&amp; zhui!=".bmp"){              alert("请选择正确的图片格式");              $(this).val("");//清空选中文件        }    });</code></pre> <h5 id="4、在springmvcxml中配置文件解析器对象">4、在springmvc.xml中配置文件解析器对象</h5> <pre><code class="language-xml">&lt;bean id="multipartResolver"       class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/&gt;</code></pre> <p> 注意：</p> <p> 1）CommonsMultipartResolver:判断请求中是否包含文件，如果包含，则将请求的文件进行解析成MultipartFile，并传递给</p> <p>controller</p> <p> 2）要求id必须是multipartResolver</p> <h5 id="5、文件上传controller处理方法：">5、文件上传Controller处理方法：</h5> <pre><code class="language-java">  @RequestMapping("/fileOn")     public void fileOn(user u,MultipartFile photo,HttpSession session,HttpServletResponse response) throws         IllegalStateException, IOException{         if(!photo.isEmpty()){//判断是否为空             //创建文件             String path=session.getServletContext().getRealPath("/static/updateFile/");             //获取当前文件的存储路径             System.out.println(path);             File file=new File(path);             //判断当前文件夹是否存在             if(!file.exists()){                 //不存在创建                 file.mkdirs();             }             //文件名处理             //获取文件名             String filePD=FilenameUtils.getExtension(photo.getOriginalFilename());             //为文件取随机名；防止覆盖             String fileName=UUID.randomUUID().toString().replace("-", "").toUpperCase()+"."+filePD;             //将文件名放到上方创建的updateFile中             file=new File(path,fileName);             //文件上传             photo.transferTo(file);             //将文件存入实体类对应列             u.setFileName(fileName);         }         int row=us.insertON(u);         if(row!=0){             response.getWriter().print("&lt;script&gt;alert('插入成功');location.href='findAll'&lt;/script&gt;");         }else{             response.getWriter().print("&lt;script&gt;alert('插入失败');history.back()&lt;/script&gt;");         }</code></pre> <h4 id="2、多文件上传">2、多文件上传</h4> <h5 id="1、要求页面上所有文件域的name的名必须相同">1、要求页面上所有文件域的name的名必须相同</h5> <pre><code class="language-jsp">照片1：&lt;input type="file" name="photos"&gt;&lt;br/&gt;照片2：&lt;input type="file" name="photos"&gt;&lt;br/&gt;照片3：&lt;input type="file" name="photos"&gt;&lt;br/&gt;</code></pre> <h5 id="2、controller中使用-multipartfile-接收">2、controller中使用 MultipartFile[] 接收</h5> <p>在循环外面经行文件创建</p> <pre><code class="language-java">public void fileOn(user u,MultipartFile[] photos,HttpSession session,HttpServletResponse response){     //创建文件         String path=session.getServletContext().getRealPath("/static/updateFile/");         System.out.println(path);         File file=new File(path);         //判断当前文件夹是否存在         if(!file.exists()){             //不存在创建             file.mkdirs();         }         for (int i = 0; i &lt; photos.length; i++) {             MultipartFile photo=photos[i];             if(!photo.isEmpty()){//判断是否为空                    //文件名处理                 //获取文件名                 String filePD=FilenameUtils.getExtension(photo.getOriginalFilename());                 //为文件取随机名；防止覆盖                 String fileName=UUID.randomUUID().toString().replace("-", "").toUpperCase()+"."+filePD;                 //将文件名放到上方创建的updateFile中                 file=new File(path,fileName);                 //文件上传                 photo.transferTo(file);                if(i==0){                    u.setFileName1(fileName);                }else if(i==1){                    u.setFileName2(fileName);                }else{                    u.setFileName3(fileName);                }             }        }                 int row=us.insertON(u);         if(row!=0){             response.getWriter().print("&lt;script&gt;alert('插入成功');location.href='查询全部方法'&lt;/script&gt;");         }else{             response.getWriter().print("&lt;script&gt;alert('插入失败');history.back()&lt;/script&gt;");         }}</code></pre> <h3 id="12、文件下载">12、文件下载</h3> <h4 id="1、方式一：使用html标签：">1、方式一：使用html标签：</h4> <p>下载图片之外的文件等：</p> <pre><code class="language-jsp">    &lt;a href="static/download/a.docx"&gt;下载doc&lt;/a&gt;</code></pre> <p>下载图片：</p> <pre><code class="language-jsp">    &lt;a href="static/download/read.jpg" download="read.jpg"&gt;          &lt;img src="static/download/read.jpg" alt="SpringMVC 最详细笔记必备知识点" width="50" height="50"/&gt;    &lt;/a&gt;</code></pre> <h4 id="2、方式二：使用流实现：">2、方式二：使用流实现：</h4> <p>页面：</p> <pre><code class="language-jsp">&lt;a href="user/download?fileName=文件名"&gt;用文件流下载doc&lt;/a&gt;</code></pre> <p>controller:</p> <pre><code class="language-java">public void download(String fileName,HttpSession session,HttpServletResponse response) throws FileNotFoundException, IOException{    //文件路径为tomcate中的图片存储位置，自定义，依据文件上传创建的文件            String path = session.getServletContext().getRealPath("/static/updateFile/")+fileName;//获取文件路径            File f = new File(path);            if(f.exists()){ //如果文件存在，则下载                //设置响应头，以附件形式进行下载（激活下载框，文件名会自动填充到下载框中）                response.addHeader("Content-Disposition", "attachment;fileName="+fileName);                //以流的形式对外输出，输出服务器上指定的File                IOUtils.copy(new FileInputStream(path), response.getOutputStream());            }        }</code></pre> <h3 id="13、spring支持rest风格的url">13、spring支持Rest风格的url</h3> <p>1、页面：</p> <pre><code class="language-jsp">        &lt;a href="login/1/张三"&gt;请求&lt;/a&gt;</code></pre> <p>2、controller接参：</p> <pre><code class="language-java">     //在此处接收时定义参数名           @RequestMapping("login/{id}/{name}")     // @PathVariable注解：可以将 URL 中占位符参数绑定到控制器处理方法的入参中。                  public String login(@PathVariable int id,@PathVariable String name){ //参数名id必须和{id}中的完全一致            System.out.println(id+"\t"+name);            return "success";        }        //如果参数的名字不一致，需要指定@PathVariable("name")中的关键字和{name}完全一致。        @RequestMapping("login/{id}/{name}")        public String login(@PathVariable(value="id") int id,@PathVariable(value="name") String userName){        }</code></pre> <p>3、Rest风格处理文件名上传问题：</p> <pre><code class="language-java">     @RequestMapping("/download/{fileName:.+}")</code></pre> <h3 id="14、springmvc中其他注解">14、springmvc中其他注解</h3> <p>Spring4.3中引进了@GetMapping、@PostMapping，来帮助简化常用的HTTP方法的映射，并更好地表达被注解方法的语义。</p> <p>①：@GetMapping是一个组合注解，是@RequestMapping(method = RequestMethod.GET)的缩写。该注解将get请求映射到特定的处理方法上。</p> <p>②：@PostMapping是一个组合注解，是@RequestMapping(method = RequestMethod.POST)的缩写。该注解将post请求映射到特定的处理方法上。</p> </div> 			                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-103546.htm">猫身上的跳蚤怎么去除最快方法（床上4个迹象说明跳蚤）</a></p>
+                                        <p>下一个：<a href="/news/article-104350.htm">多线程与高并发原理篇：3_java内存模型</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-72652.htm" title="猫三联加狂犬一共几针啊图片（猫三联加狂犬一共几针啊图片）">猫三联加狂犬一共几针啊图片（猫三联加狂犬一共几针啊图片）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-25-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新18M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-2-free-high-speed-nodes.htm" title="V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-14-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-102723.htm" title="实现一个通讯录，可以用来存储1000个人的信息，每个人的信息包括：姓名，年龄，性别，电话，住址">实现一个通讯录，可以用来存储1000个人的信息，每个人的信息包括：姓名，年龄，性别，电话，住址</a></li>
+                        <li class="py-2"><a href="/news/article-88649.htm" title="ubuntu 14.04 ndk 编译 openssl">ubuntu 14.04 ndk 编译 openssl</a></li>
+                        <li class="py-2"><a href="/news/article-78749.htm" title="动物疫苗检测的方法有哪些（动物疫苗抗体检测）">动物疫苗检测的方法有哪些（动物疫苗抗体检测）</a></li>
+                        <li class="py-2"><a href="/news/article-89397.htm" title="JavaScript案例——04tab选项卡功能">JavaScript案例——04tab选项卡功能</a></li>
+                        <li class="py-2"><a href="/news/article-76686.htm" title="动物防疫疫苗管理办法最新修订（动物防疫条例）">动物防疫疫苗管理办法最新修订（动物防疫条例）</a></li>
+                        <li class="py-2"><a href="/news/article-79438.htm" title="上海宠物领养平台南平地址在哪儿（上海宠物猫领养）">上海宠物领养平台南平地址在哪儿（上海宠物猫领养）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">78</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">89</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                                                <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

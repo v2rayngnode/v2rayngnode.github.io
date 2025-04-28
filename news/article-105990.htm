@@ -1,0 +1,284 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-105990.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Redis+Caffeine两级缓存，让访问速度纵享丝滑</title>
+        <meta name="description" content="在高性能的服务架构设计中，缓存是一个不可或缺的环节。在实际的项目中，我们通常会将一些热点数据存储到Redis或MemCache这类缓存中间件中，只有当缓存的访问没有命中时再查询数据库。在提升访问速度的" />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-105990.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="Redis+Caffeine两级缓存，让访问速度纵享丝滑" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/e1fd7e15fd9d3fbf4c1a5c06e418105b.webp" />
+        <meta property="og:release_date" content="2025-04-28T09:38:14" />
+    <meta property="og:updated_time" content="2025-04-28T09:38:14" />
+        <meta property="og:description" content="在高性能的服务架构设计中，缓存是一个不可或缺的环节。在实际的项目中，我们通常会将一些热点数据存储到Redis或MemCache这类缓存中间件中，只有当缓存的访问没有命中时再查询数据库。在提升访问速度的" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Redis+Caffeine两级缓存，让访问速度纵享丝滑">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <link rel="stylesheet" href="/assets/website/css/G.css" />
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                    </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="/">V2rayNG Node</a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                                                        <li><a href="/">首页</a></li>
+                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                    </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>Redis+Caffeine两级缓存，让访问速度纵享丝滑</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                <div class="xcblog-blog-detail xcblog-blog-detail-defined">
+                      				  				  				<blockquote> <p></p> </blockquote> <p>在高性能的服务架构设计中，缓存是一个不可或缺的环节。在实际的项目中，我们通常会将一些热点数据存储到<code>Redis</code>或<code>MemCache</code>这类缓存中间件中，只有当缓存的访问没有命中时再查询数据库。在提升访问速度的同时，也能降低数据库的压力。</p> <p>随着不断的发展，这一架构也产生了改进，在一些场景下可能单纯使用<code>Redis</code>类的远程缓存已经不够了，还需要进一步配合本地缓存使用，例如<code>Guava cache</code>或<code>Caffeine</code>，从而再次提升程序的响应速度与服务性能。于是，就产生了使用本地缓存作为一级缓存，再加上远程缓存作为二级缓存的<strong>两级缓存</strong>架构。</p> <p>在先不考虑并发等复杂问题的情况下，两级缓存的访问流程可以用下面这张图来表示：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/599f867e2f50efd596f2f6ec584e6ca8.jpg" alt="Redis+Caffeine两级缓存，让访问速度纵享丝滑"></p> <h2 id="优点与问题">优点与问题</h2> <p>那么，使用两级缓存相比单纯使用远程缓存，具有什么优势呢？</p> <ul> <li>本地缓存基于本地环境的内存，访问速度非常快，对于一些变更频率低、实时性要求低的数据，可以放在本地缓存中，提升访问速度</li> <li>使用本地缓存能够减少和<code>Redis</code>类的远程缓存间的数据交互，减少网络I/O开销，降低这一过程中在网络通信上的耗时</li> </ul> <p>但是在设计中，还是要考虑一些问题的，例如数据一致性问题。首先，两级缓存与数据库的数据要保持一致，一旦数据发生了修改，在修改数据库的同时，本地缓存、远程缓存应该同步更新。</p> <p>另外，如果是分布式环境下，一级缓存之间也会存在一致性问题，当一个节点下的本地缓存修改后，需要通知其他节点也刷新本地缓存中的数据，否则会出现读取到过期数据的情况，这一问题可以通过类似于Redis中的发布/订阅功能解决。</p> <p>此外，缓存的过期时间、过期策略以及多线程访问的问题也都需要考虑进去，不过我们今天暂时先不考虑这些问题，先看一下如何简单高效的在代码中实现两级缓存的管理。</p> <h2 id="准备工作">准备工作</h2> <p>在简单梳理了一下要面对的问题后，下面开始两级缓存的代码实战，我们整合号称最强本地缓存的<code>Caffeine</code>作为一级缓存、性能之王的<code>Redis</code>作为二级缓存。首先建一个springboot项目，引入缓存要用到的相关的依赖：</p> <pre><code class="language-xml">&lt;dependency&gt;     &lt;groupId&gt;com.github.ben-manes.caffeine&lt;/groupId&gt;     &lt;artifactId&gt;caffeine&lt;/artifactId&gt;     &lt;version&gt;2.9.2&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt;     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;     &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt; &lt;/dependency&gt; &lt;dependency&gt;     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;     &lt;artifactId&gt;spring-boot-starter-cache&lt;/artifactId&gt; &lt;/dependency&gt; &lt;dependency&gt;     &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;     &lt;artifactId&gt;commons-pool2&lt;/artifactId&gt;     &lt;version&gt;2.8.1&lt;/version&gt; &lt;/dependency&gt;</code></pre> <p>在<code>application.yml</code>中配置<code>Redis</code>的连接信息：</p> <pre><code class="language-yml">spring:   redis:     host: 127.0.0.1     port: 6379     database: 0     timeout: 10000ms     lettuce:       pool:         max-active: 8         max-wait: -1ms         max-idle: 8         min-idle: 0</code></pre> <p>在下面的例子中，我们将使用<code>RedisTemplate</code>来对<code>redis</code>进行读写操作，<code>RedisTemplate</code>使用前需要配置一下<code>ConnectionFactory</code>和序列化方式，这一过程比较简单就不贴出代码了，有需要本文全部示例代码的可以在<strong>文末获取</strong>。</p> <p>下面我们在单机环境下，将按照对业务侵入性的不同程度，分三个版本来实现两级缓存的使用。</p> <h2 id="v10版本">V1.0版本</h2> <p>我们可以通过手动操作<code>Caffeine</code>中的<code>Cache</code>对象来缓存数据，它是一个类似<code>Map</code>的数据结构，以<code>key</code>作为索引，<code>value</code>存储数据。在使用<code>Cache</code>前，需要先配置一下相关参数：</p> <pre><code class="language-java">@Configuration public class CaffeineConfig {     @Bean     public Cache&lt;String,Object&gt; caffeineCache(){         return Caffeine.newBuilder()                 .initialCapacity(128)//初始大小                 .maximumSize(1024)//最大数量                 .expireAfterWrite(60, TimeUnit.SECONDS)//过期时间                 .build();     } }</code></pre> <p>简单解释一下<code>Cache</code>相关的几个参数的意义：</p> <ul> <li><code>initialCapacity</code>：初始缓存空大小</li> <li><code>maximumSize</code>：缓存的最大数量，设置这个值可以避免出现内存溢出</li> <li><code>expireAfterWrite</code>：指定缓存的过期时间，是最后一次写操作后的一个时间，这里</li> </ul> <p>此外，缓存的过期策略也可以通过<code>expireAfterAccess</code>或<code>refreshAfterWrite</code>指定。</p> <p>在创建完成<code>Cache</code>后，我们就可以在业务代码中注入并使用它了。在没有使用任何缓存前，一个只有简单的<code>Service</code>层代码是下面这样的，只有crud操作：</p> <pre><code class="language-java">@Service @AllArgsConstructor public class OrderServiceImpl implements OrderService {     private final OrderMapper orderMapper;      @Override     public Order getOrderById(Long id) {		         Order order = orderMapper.selectOne(new LambdaQueryWrapper&lt;Order&gt;()               .eq(Order::getId, id));				         return order;     }          @Override     public void updateOrder(Order order) {               orderMapper.updateById(order);     }          @Override     public void deleteOrder(Long id) {         orderMapper.deleteById(id);     } }</code></pre> <p>接下来，对上面的<code>OrderService</code>进行改造，在执行正常业务外再加上操作两级缓存的代码，先看改造后的查询操作：</p> <pre><code class="language-java">public Order getOrderById(Long id) {     String key = CacheConstant.ORDER + id;     Order order = (Order) cache.get(key,             k -&gt; {                 //先查询 Redis                 Object obj = redisTemplate.opsForValue().get(k);                 if (Objects.nonNull(obj)) {                     log.info("get data from redis");                     return obj;                 }                  // Redis没有则查询 DB                 log.info("get data from database");                 Order myOrder = orderMapper.selectOne(new LambdaQueryWrapper&lt;Order&gt;()                         .eq(Order::getId, id));                 redisTemplate.opsForValue().set(k, myOrder, 120, TimeUnit.SECONDS);                 return myOrder;             });     return order; }</code></pre> <p>在<code>Cache</code>的<code>get</code>方法中，会先从缓存中进行查找，如果找到缓存的值那么直接返回。如果没有找到则执行后面的方法，并把结果加入到缓存中。</p> <p>因此上面的逻辑就是先查找<code>Caffeine</code>中的缓存，没有的话查找<code>Redis</code>，<code>Redis</code>再不命中则查询数据库，写入<code>Redis</code>缓存的操作需要手动写入，而<code>Caffeine</code>的写入由<code>get</code>方法自己完成。</p> <p>在上面的例子中，设置<code>Caffeine</code>的过期时间为60秒，而<code>Redis</code>的过期时间为120秒，下面进行测试，首先看第一次接口调用时，进行了数据库的查询：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/159183dd2153930f3b3c39e4bb7f622f.jpg" alt="Redis+Caffeine两级缓存，让访问速度纵享丝滑"></p> <p>而在之后60秒内访问接口时，都没有打印打任何sql或自定义的日志内容，说明接口没有查询<code>Redis</code>或数据库，直接从<code>Caffeine</code>中读取了缓存。</p> <p>等到距离第一次调用接口进行缓存的60秒后，再次调用接口：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/f0b2fe337735345d13d477628a7149e2.jpg" alt="Redis+Caffeine两级缓存，让访问速度纵享丝滑"></p> <p>可以看到这时从<code>Redis</code>中读取了数据，因为这时<code>Caffeine</code>中的缓存已经过期了，但是<code>Redis</code>中的缓存没有过期仍然可用。</p> <p>下面再来看一下修改操作，代码在原先的基础上添加了手动修改<code>Redis</code>和<code>Caffeine</code>缓存的逻辑：</p> <pre><code class="language-java">public void updateOrder(Order order) {     log.info("update order data");     String key=CacheConstant.ORDER + order.getId();     orderMapper.updateById(order);     //修改 Redis     redisTemplate.opsForValue().set(key,order,120, TimeUnit.SECONDS);     // 修改本地缓存     cache.put(key,order); }</code></pre> <p>看一下下面图中接口的调用、以及缓存的刷新过程。可以看到在更新数据后，同步刷新了缓存中的内容，再之后的访问接口时不查询数据库，也可以拿到正确的结果：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/c948c49b9c24b2affc195138811e8900.jpg" alt="Redis+Caffeine两级缓存，让访问速度纵享丝滑"></p> <p>最后再来看一下删除操作，在删除数据的同时，手动移除<code>Reids</code>和<code>Caffeine</code>中的缓存：</p> <pre><code class="language-java">public void deleteOrder(Long id) {     log.info("delete order");     orderMapper.deleteById(id);     String key= CacheConstant.ORDER + id;     redisTemplate.delete(key);     cache.invalidate(key); }</code></pre> <p>我们在删除某个缓存后，再次调用之前的查询接口时，又会出现重新查询数据库的情况：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/28d764088b45309ec3f031f8f82fcb15.jpg" alt="Redis+Caffeine两级缓存，让访问速度纵享丝滑"></p> <p>简单的演示到此为止，可以看到上面这种使用缓存的方式，虽然看起来没什么大问题，但是对代码的入侵性比较强。在业务处理的过程中要由我们频繁的操作两级缓存，会给开发人员带来很大负担。那么，有什么方法能够简化这一过程呢？我们看看下一个版本。</p> <h2 id="v20版本">V2.0版本</h2> <p>在<code>spring</code>项目中，提供了<code>CacheManager</code>接口和一些注解，允许让我们通过注解的方式来操作缓存。先来看一下常用几个注解说明：</p> <ul> <li><code>@Cacheable</code>：根据键从缓存中取值，如果缓存存在，那么获取缓存成功之后，直接返回这个缓存的结果。如果缓存不存在，那么执行方法，并将结果放入缓存中。</li> <li><code>@CachePut</code>：不管之前的键对应的缓存是否存在，都执行方法，并将结果强制放入缓存</li> <li><code>@CacheEvict</code>：执行完方法后，会移除掉缓存中的数据。</li> </ul> <p>如果要使用上面这几个注解管理缓存的话，我们就不需要配置V1版本中的那个类型为<code>Cache</code>的<code>Bean</code>了，而是需要配置<code>spring</code>中的<code>CacheManager</code>的相关参数，具体参数的配置和之前一样：</p> <pre><code class="language-java">@Configuration public class CacheManagerConfig {     @Bean     public CacheManager cacheManager(){         CaffeineCacheManager cacheManager=new CaffeineCacheManager();         cacheManager.setCaffeine(Caffeine.newBuilder()                 .initialCapacity(128)                 .maximumSize(1024)                 .expireAfterWrite(60, TimeUnit.SECONDS));         return cacheManager;     } }</code></pre> <p>然后在启动类上再添加上<code>@EnableCaching</code>注解，就可以在项目中基于注解来使用<code>Caffeine</code>的缓存支持了。下面，再次对<code>Service</code>层代码进行改造。</p> <p>首先，还是改造查询方法，在方法上添加<code>@Cacheable</code>注解：</p> <pre><code class="language-java">@Cacheable(value = "order",key = "#id") //@Cacheable(cacheNames = "order",key = "#p0") public Order getOrderById(Long id) {     String key= CacheConstant.ORDER + id;     //先查询 Redis     Object obj = redisTemplate.opsForValue().get(key);     if (Objects.nonNull(obj)){         log.info("get data from redis");         return (Order) obj;     }     // Redis没有则查询 DB     log.info("get data from database");     Order myOrder = orderMapper.selectOne(new LambdaQueryWrapper&lt;Order&gt;()             .eq(Order::getId, id));     redisTemplate.opsForValue().set(key,myOrder,120, TimeUnit.SECONDS);     return myOrder; }</code></pre> <p><code>@Cacheable</code>注解的属性多达9个，好在我们日常使用时只需要配置两个常用的就可以了。其中<code>value</code>和<code>cacheNames</code>互为别名关系，表示当前方法的结果会被缓存在哪个<code>Cache</code>上，应用中通过<code>cacheName</code>来对<code>Cache</code>进行隔离，每个<code>cacheName</code>对应一个<code>Cache</code>实现。<code>value</code>和<code>cacheNames</code>可以是一个数组，绑定多个<code>Cache</code>。</p> <p>而另一个重要属性<code>key</code>，用来指定缓存方法的返回结果时对应的<code>key</code>，这个属性支持使用<code>SpringEL</code>表达式。通常情况下，我们可以使用下面几种方式作为<code>key</code>：</p> <pre><code class="language-shell">#参数名 #参数对象.属性名 #p参数对应下标</code></pre> <p>在上面的代码中，我们看到添加了<code>@Cacheable</code>注解后，在代码中只需要保留原有的业务处理逻辑和操作<code>Redis</code>部分的代码即可，<code>Caffeine</code>部分的缓存就交给spring处理了。</p> <p>下面，我们再来改造一下更新方法，同样，使用<code>@CachePut</code>注解后移除掉手动更新<code>Cache</code>的操作：</p> <pre><code class="language-java">@CachePut(cacheNames = "order",key = "#order.id") public Order updateOrder(Order order) {     log.info("update order data");     orderMapper.updateById(order);     //修改 Redis     redisTemplate.opsForValue().set(CacheConstant.ORDER + order.getId(),             order, 120, TimeUnit.SECONDS);     return order; }</code></pre> <p>注意，这里和V1版本的代码有一点区别，在之前的更新操作方法中，是没有返回值的<code>void</code>类型，但是这里需要修改返回值的类型，否则会缓存一个空对象到缓存中对应的<code>key</code>上。当下次执行查询操作时，会直接返回空对象给调用方，而不会执行方法中查询数据库或<code>Redis</code>的操作。</p> <p>最后，删除方法的改造就很简单了，使用<code>@CacheEvict</code>注解，方法中只需要删除<code>Redis</code>中的缓存即可：</p> <pre><code class="language-java">@CacheEvict(cacheNames = "order",key = "#id") public void deleteOrder(Long id) {     log.info("delete order");     orderMapper.deleteById(id);     redisTemplate.delete(CacheConstant.ORDER + id); }</code></pre> <p>可以看到，借助<code>spring</code>中的<code>CacheManager</code>和<code>Cache</code>相关的注解，对V1版本的代码经过改进后，可以把全手动操作两级缓存的强入侵代码方式，改进为本地缓存交给<code>spring</code>管理，<code>Redis</code>缓存手动修改的半入侵方式。那么，还能进一步改造，使之成为对业务代码完全无入侵的方式吗？</p> <h2 id="v30版本">V3.0版本</h2> <p>模仿<code>spring</code>通过注解管理缓存的方式，我们也可以选择自定义注解，然后在切面中处理缓存，从而将对业务代码的入侵降到最低。</p> <p>首先定义一个注解，用于添加在需要操作缓存的方法上：</p> <pre><code class="language-java">@Target(ElementType.METHOD) @Retention(RetentionPolicy.RUNTIME) @Documented public @interface DoubleCache {     String cacheName();     String key();	//支持springEl表达式     long l2TimeOut() default 120;     CacheType type() default CacheType.FULL; }</code></pre> <p>我们使用<code>cacheName + key</code>作为缓存的真正<code>key</code>（仅存在一个<code>Cache</code>中，不做<code>CacheName</code>隔离），<code>l2TimeOut</code>为可以设置的二级缓存<code>Redis</code>的过期时间，<code>type</code>是一个枚举类型的变量，表示操作缓存的类型，枚举类型定义如下：</p> <pre><code class="language-java">public enum CacheType {     FULL,   //存取     PUT,    //只存     DELETE  //删除 }</code></pre> <p>因为要使<code>key</code>支持<code>springEl</code>表达式，所以需要写一个方法，使用表达式解析器解析参数：</p> <pre><code class="language-java">public static String parse(String elString, TreeMap&lt;String,Object&gt; map){     elString=String.format("#{%s}",elString);     //创建表达式解析器     ExpressionParser parser = new SpelExpressionParser();     //通过evaluationContext.setVariable可以在上下文中设定变量。     EvaluationContext context = new StandardEvaluationContext();     map.entrySet().forEach(entry-&gt;         context.setVariable(entry.getKey(),entry.getValue())     );      //解析表达式     Expression expression = parser.parseExpression(elString, new TemplateParserContext());     //使用Expression.getValue()获取表达式的值，这里传入了Evaluation上下文     String value = expression.getValue(context, String.class);     return value; }</code></pre> <p>参数中的<code>elString</code>对应的就是注解中<code>key</code>的值，<code>map</code>是将原方法的参数封装后的结果。简单进行一下测试：</p> <pre><code class="language-java">public void test() {     String elString="#order.money";     String elString2="#user";     String elString3="#p0";         TreeMap&lt;String,Object&gt; map=new TreeMap&lt;&gt;();     Order order = new Order();     order.setId(111L);     order.setMoney(123D);     map.put("order",order);     map.put("user","Hydra");      String val = parse(elString, map);     String val2 = parse(elString2, map);     String val3 = parse(elString3, map);      System.out.println(val);     System.out.println(val2);     System.out.println(val3); }</code></pre> <p>执行结果如下，可以看到支持按照参数名称、参数对象的属性名称读取，但是不支持按照参数下标读取，暂时留个小坑以后再处理。</p> <pre><code class="language-properties">123.0 Hydra null</code></pre> <p>至于<code>Cache</code>相关参数的配置，我们沿用V1版本中的配置即可。准备工作做完了，下面我们定义切面，在切面中操作<code>Cache</code>来读写<code>Caffeine</code>的缓存，操作<code>RedisTemplate</code>读写<code>Redis</code>缓存。</p> <pre><code class="language-java">@Slf4j @Component @Aspect  @AllArgsConstructor public class CacheAspect {     private final Cache cache;     private final RedisTemplate redisTemplate;      @Pointcut("@annotation(com.cn.dc.annotation.DoubleCache)")     public void cacheAspect() {     }      @Around("cacheAspect()")     public Object doAround(ProceedingJoinPoint point) throws Throwable {         MethodSignature signature = (MethodSignature) point.getSignature();         Method method = signature.getMethod();          //拼接解析springEl表达式的map         String[] paramNames = signature.getParameterNames();         Object[] args = point.getArgs();         TreeMap&lt;String, Object&gt; treeMap = new TreeMap&lt;&gt;();         for (int i = 0; i &lt; paramNames.length; i++) {             treeMap.put(paramNames[i],args[i]);         }          DoubleCache annotation = method.getAnnotation(DoubleCache.class);         String elResult = ElParser.parse(annotation.key(), treeMap);         String realKey = annotation.cacheName() + CacheConstant.COLON + elResult;          //强制更新         if (annotation.type()== CacheType.PUT){             Object object = point.proceed();             redisTemplate.opsForValue().set(realKey, object,annotation.l2TimeOut(), TimeUnit.SECONDS);             cache.put(realKey, object);             return object;         }         //删除         else if (annotation.type()== CacheType.DELETE){             redisTemplate.delete(realKey);             cache.invalidate(realKey);             return point.proceed();         }          //读写，查询Caffeine         Object caffeineCache = cache.getIfPresent(realKey);         if (Objects.nonNull(caffeineCache)) {             log.info("get data from caffeine");             return caffeineCache;         }          //查询Redis         Object redisCache = redisTemplate.opsForValue().get(realKey);         if (Objects.nonNull(redisCache)) {             log.info("get data from redis");             cache.put(realKey, redisCache);             return redisCache;         }          log.info("get data from database");         Object object = point.proceed();         if (Objects.nonNull(object)){             //写入Redis             redisTemplate.opsForValue().set(realKey, object,annotation.l2TimeOut(), TimeUnit.SECONDS);             //写入Caffeine             cache.put(realKey, object);                 }         return object;     } }</code></pre> <p>切面中主要做了下面几件工作：</p> <ul> <li>通过方法的参数，解析注解中<code>key</code>的<code>springEl</code>表达式，组装真正缓存的<code>key</code></li> <li>根据操作缓存的类型，分别处理存取、只存、删除缓存操作</li> <li>删除和强制更新缓存的操作，都需要执行原方法，并进行相应的缓存删除或更新操作</li> <li>存取操作前，先检查缓存中是否有数据，如果有则直接返回，没有则执行原方法，并将结果存入缓存</li> </ul> <p>修改<code>Service</code>层代码，代码中只保留原有业务代码，再添加上我们自定义的注解就可以了：</p> <pre><code class="language-java">@DoubleCache(cacheName = "order", key = "#id",         type = CacheType.FULL) public Order getOrderById(Long id) {     Order myOrder = orderMapper.selectOne(new LambdaQueryWrapper&lt;Order&gt;()             .eq(Order::getId, id));     return myOrder; }  @DoubleCache(cacheName = "order",key = "#order.id",         type = CacheType.PUT) public Order updateOrder(Order order) {     orderMapper.updateById(order);     return order; }  @DoubleCache(cacheName = "order",key = "#id",         type = CacheType.DELETE) public void deleteOrder(Long id) {     orderMapper.deleteById(id); }</code></pre> <p>到这里，基于切面操作缓存的改造就完成了，<code>Service</code>的代码也瞬间清爽了很多，让我们可以继续专注于业务逻辑处理，而不用费心去操作两级缓存了。</p> <h2 id="总结">总结</h2> <p>本文按照对业务入侵的递减程度，依次介绍了三种管理两级缓存的方法。至于在项目中是否需要使用二级缓存，需要考虑自身业务情况，如果Redis这种远程缓存已经能够满足你的业务需求，那么就没有必要再使用本地缓存了。毕竟实际使用起来远没有那么简单，本文中只是介绍了最基础的使用，实际中的并发问题、事务的回滚问题都需要考虑，还需要思考什么数据适合放在一级缓存、什么数据适合放在二级缓存等等的其他问题。</p> 			                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-105169.htm">Neo4j数据和Cypher查询语法笔记 &#8211; Milton _在线工具</a></p>
+                                        <p>下一个：<a href="/news/article-105993.htm">宠物领养市场规模 宠物领养市场规模分析</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-3-30-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-67447.htm" title="FreeRTOS进阶之队列示例完全解析_操作系统">FreeRTOS进阶之队列示例完全解析_操作系统</a></li>
+                        <li class="py-2"><a href="/news/article-86485.htm" title="Vue中的插槽">Vue中的插槽</a></li>
+                        <li class="py-2"><a href="/news/article-100555.htm" title="北京宠爱国际动物医疗机构有限公司电影（北京宠爱动物医院消费高吗）">北京宠爱国际动物医疗机构有限公司电影（北京宠爱动物医院消费高吗）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-29-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新18.5M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.5M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-83619.htm" title="动物免疫接种实验原理（动物免疫接种方法实验报告）">动物免疫接种实验原理（动物免疫接种方法实验报告）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-2-free-high-speed-nodes.htm" title="V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-6-node-share-links.htm" title="V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-14-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-98301.htm" title="动物疫苗研究员工资（动物疫苗研究员工资待遇）">动物疫苗研究员工资（动物疫苗研究员工资待遇）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">78</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">89</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                                                <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>

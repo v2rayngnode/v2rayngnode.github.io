@@ -3149,3 +3149,7 @@ span.email-notes{color: #42414f;
 header .logo .navbar-brand h1, header .logo .navbar-brand span {font-size: 3rem;font-weight: bold; color: #fff;}
 .xcblog-blog-list .item {margin-bottom: 1.5rem;}
 .xcblog-blog-list .item h3 {font-size: 2rem;}
+
+.xcblog-blog-detail.xcblog-blog-detail-defined p {font-size: 1.5rem;line-height: 2.2rem;}
+.xcblog-blog-detail.xcblog-blog-detail-defined h2 {font-size: 2.5rem;}
+.xcblog-blog-detail.xcblog-blog-detail-defined h3 {font-size: 2.0rem;}

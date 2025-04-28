@@ -1,0 +1,284 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://v2rayngnode.github.io/news/article-105169.htm" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Neo4j数据和Cypher查询语法笔记 &#8211; Milton _在线工具</title>
+        <meta name="description" content="Cypher的数据结构: 属性类型, 复合类型和结构类型 属性类型 属性类型  Integer Float String:'Hello',"World" Boolean:true,false,TRUE" />
+        <link rel="icon" href="/assets/website/img/v2rayngnode/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="V2rayNG Node免费机场订阅节点官网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://v2rayngnode.github.io/news/article-105169.htm" />
+    <meta property="og:site_name" content="V2rayNG Node免费机场订阅节点官网" />
+    <meta property="og:title" content="Neo4j数据和Cypher查询语法笔记 &#8211; Milton _在线工具" />
+    <meta property="og:image" content="https://v2rayngnode.github.io/uploads/20241110-1/63f5c4854e773ff57ed624716f0b93fd.webp" />
+        <meta property="og:release_date" content="2025-04-27T08:24:07" />
+    <meta property="og:updated_time" content="2025-04-27T08:24:07" />
+        <meta property="og:description" content="Cypher的数据结构: 属性类型, 复合类型和结构类型 属性类型 属性类型  Integer Float String:'Hello',"World" Boolean:true,false,TRUE" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Neo4j数据和Cypher查询语法笔记 &#8211; Milton _在线工具">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/bootstrap.min.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/owl.transitions.css">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/meanmenu.min.css">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/icon.css">
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/flaticon.css">
+    <!-- magnific css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/magnific.min.css">
+    <!-- venobox css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/venobox.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/assets/website/css/v2rayngnode/responsive.css">
+    <link rel="stylesheet" href="/assets/website/css/G.css" />
+    <!-- modernizr css -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YN5VWR5N94"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YN5VWR5N94');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <div id="preloader"></div>
+    <header class="header-two">
+        <!-- header-area start -->
+        <div id="sticker" class="header-area header-area-3 hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-center">
+                            <div class="row">
+                                <!-- logo start -->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="logo">
+                                        <!-- Brand -->
+                                        <a class="navbar-brand page-scroll sticky-logo" href="/">
+                                                                                <span>V2rayNG Node</span>
+                                                                                </a>
+                                    </div>
+                                </div>
+                                <!-- logo end -->
+                                <div class="col-md-9 col-sm-9">
+                                    <!-- mainmenu start -->
+                                    <nav class="navbar navbar-default">
+                                        <div class="collapse navbar-collapse" id="navbar-example">
+                                            <div class="main-menu">
+                                                <ul class="nav navbar-nav navbar-right">
+                                                                                                        <li><a href="/">首页</a></li>
+                                                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                                                    </ul>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <!-- mainmenu end -->
+                                </div>
+                                <!-- End column -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-area end -->
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <div class="logo">
+                                <a href="/">V2rayNG Node</a>
+                            </div>
+                            <nav id="dropdown">
+                                <ul>
+                                                                        <li><a href="/">首页</a></li>
+                                                                        <li><a href="/free-nodes/">免费节点</a></li>
+                                                                        <li><a href="/paid-subscribe/">推荐机场</a></li>
+                                                                        <li><a href="/client.htm">客户端</a></li>
+                                                                        <li><a href="/news/">新闻资讯</a></li>
+                                                                    </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+    <!-- header end -->
+    <!-- Start breadcumb Area -->
+    <div class="page-area">
+        <div class="breadcumb-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcrumb">
+                        <div class="bread-inner">
+                            <div class="section-headline white-headline">
+                                <h1>Neo4j数据和Cypher查询语法笔记 &#8211; Milton _在线工具</h1>
+                            </div>
+                            <ul class="breadcrumb-bg">
+                                <li class="home-bread"><a href="/">首页</a></li>
+                                <li class="home-bread"><a href="/news/">新闻资讯</a></li>
+                                <li>正文</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcumb Area -->
+    <!-- about-area start -->
+    <div class="about-area bg-gray area-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                                    <input type="hidden" id="share-website-info" data-name="V2ray X节点订阅官网" data-url="https://v2rayx.github.io">
+                <div class="xcblog-blog-detail xcblog-blog-detail-defined">
+                      				  				  				</h1> <p>Cypher的数据结构: 属性类型, 复合类型和结构类型</p> <h2 id="属性类型">属性类型</h2> <p>属性类型</p> <ul> <li>Integer</li> <li>Float</li> <li>String:<code>'Hello'</code>,<code>"World"</code></li> <li>Boolean:<code>true</code>,<code>false</code>,<code>TRUE</code>,<code>FALSE</code></li> </ul> <h2 id="结构类型">结构类型</h2> <p>结构类型</p> <ul> <li>node: 表示一个节点, 由 id, label 和 map 构成 <ul> <li>id: 长整数, 全局唯一, node 与 relation 的 id 是共用的一个序列, 都是图当中的元素id</li> <li>label: 节点标签, 每个节点可以有多个标签</li> <li>map: 节点的属性集合</li> </ul> </li> <li>relation: 表示一条边, 由 id, type, map和两端的两个 node的 id 构成 <ul> <li>id: 长整数, 图中元素的唯一id</li> <li>type: 边类型, 只有一个值, 和节点的label作用等价</li> <li>map: 边的属性集合</li> </ul> </li> <li>path: 表示路径, 是节点和边的序列. Path模式:<code>(a)--&gt;()&lt;--(b)</code>, 可以有向也可以无向</li> </ul> <h2 id="复合类型">复合类型</h2> <h3 id="list">List</h3> <p>注意在 cypher SQL 中, list 和标准 SQL 的区别, 不是用括号<code>()</code>, 而是用方括号<code>[]</code>. 有序的值的集合,<code>['a', 'b']</code>,<code>[1, 2, 3]</code>,<code>['a', 2, n.property, $param]</code>,<code>[ ]</code></p> <ul> <li>由标量类型构成的List, 例如<code>['a', 'b']</code>,<code>[1, 2, 3]</code></li> <li>由函数range函数生成的List对象, 例如<code>range(0, 10)</code>表示从start到end的有序数字, Range函数包含两端</li> <li>列表(List comprehension):<code>[x IN range(0,10) WHERE x % 2 = 0 | x^3]</code></li> </ul> <h3 id="map类型">Map类型</h3> <p>无序Key/Value对的集合, n是节点, prop是节点的属性键, 引用属性的值的格式:<code>n.prop</code></p> <ul> <li>列表的常量表示:<code>{ key: 'Value', listKey: [{ inner: 'Map1' }, { inner: 'Map2' }]}</code></li> <li>Map投影, 用于从节点, 关系和其他Map对象中投影特定元素或变量的值, Map投影的格式是<code>map_variable {map_element, [, …n]}</code><br /> map_variable: 用于引用Map对象, map_element 有四种格式是</p> <ul> <li>属性选择器: 格式是<code>.key</code>, 用于引用Map对象中的属性</li> <li>嵌入属性（Literal entry）, 是一个Key/Value对, 例如,<code>key: &lt;expression&gt;</code>表示嵌入到Map变量中的元素</li> <li>变量选择器: 把一个变量的名称作为Key, 变量的值作为Key的值, 构建一个Key/Value对, 作为Map变量中的元素</li> <li>属性全选符号:<code>.*</code></li> </ul> </li> </ul> <p>Map投影的示例, actor是Map变量, nrOfMovies是变量, 从Map变量中获取name属性, 并添加额外的属性nrOfMovies:</p> <pre><code class="language-sql">MATCH (actor:Person)-[:ACTED_IN]-&gt;(movie:Movie) WITH actor, count(movie) AS nrOfMovies RETURN actor { .name, nrOfMovies }</code></pre> <p></p> </h1> <h2 id="创建一个node">创建一个Node</h2> <pre><code class="language-sql">create(     dis:Disease{         oid: "xxx1",         code: "111",         name: "2hh"     } )</code></pre> <p>create也可以和return搭配, 直接返回结果, create也可以同时创建多个关系</p> <pre><code class="language-sql">create (m),(s)</code></pre> <h2 id="创建一个relation">创建一个Relation</h2> <p>比如已经有了两个节点, 我们想关联上关系</p> <pre><code class="language-sql">match(     a: Disease ), (     b: Disease ) where a.code="111" and b.code="d1" create (a)-[r:type]-&gt;(b) return *</code></pre> <p>给这个线设置一些属性</p> <pre><code class="language-sql">match(     a: Disease{         code: '111'      } ), (     b: Disease{         code: 'd1'     } ) create(a)-[r:relation{name : a.name + '--' + b.name}]-&gt;(b) return type(r), r.name</code></pre> <h2 id="同时创建节点和关系">同时创建节点和关系</h2> <p>假设不存在节点, 直接创建节点+关系了</p> <pre><code class="language-sql">create p=(reba:Person{name: 'reba'})-[:WORK_AT]-&gt;(nazha:Person{name:'nazha'})&lt;-[:WORK_AT]-(jt:Person{name: 'jt'}) return p</code></pre> <p></p> </h1> <h2 id="清空数据库">清空数据库</h2> <p>对于节点比较少的可以使用</p> <pre><code class="language-sql">match (n) detach delete n</code></pre> <p>对于节点比较多的:</p> <ol> <li>停掉服务</li> <li>删除 graph.db 目录</li> <li>重启服务</li> </ol> <h2 id="delete-删除节点">delete 删除节点</h2> <p>只能删除不带连接的节点</p> <pre><code class="language-sql">match(p:Person{name:'jt'}) delete p -- or match(p:Person{id:124}) delete p</code></pre> <h2 id="删除节点连带着全部关系">删除节点连带着全部关系</h2> <p>用 detach 删除</p> <pre><code class="language-sql">match(p:Person{name: 'jt'}) detach delete p</code></pre> <h2 id="只删除关系">只删除关系</h2> <pre><code class="language-sql">match(p:Person{name: "reba"})-[r:WORK_AT]-&gt;() delete r</code></pre> <h2 id="删除属性">删除属性</h2> <p>remove 删除节点和关系中的属性字段</p> <pre><code class="language-sql">-- 节点(或关系)的属性 {   "name": "诊断",   "code": "d1",   "oid": "xxx1" } -- 删除属性 match(d:Disease{name:"诊断"}) remove d.code -- return 的 d.code 会变成 null return d.name, d.oid, d.code</code></pre> <p></p> </h1> <h2 id="修改添加一个属性">修改/添加一个属性</h2> <pre><code class="language-sql">match(n {name: 'Andy'}) set n.surname = 'Taylor' return n.name, n.surname</code></pre> <p>注意: 如果本身没有surname 这个属性, 会自动增加</p> <p>还有一个高级写法, 用到了case when</p> <pre><code class="language-sql">match(n{name: 'Andy'}) set(     case     when n.age = 36     then n End ).wordIn = 'Malmo' return n.name, n.wordIn</code></pre> <h2 id="case语法">CASE语法</h2> <pre><code class="language-sql">CASE WHEN predicate THEN result   [WHEN ...]   [ELSE default] END</code></pre> <h2 id="修改添加多个属性">修改/添加多个属性</h2> <p>使用等号赋值</p> <pre><code class="language-sql">match(n{name: 'Peter'}) set n.a1= '1' , n.a2 = '3' return n</code></pre> <p>使用map赋值, 注意: 这样会清除所有原属性</p> <pre><code class="language-sql">MATCH (p { name: 'Peter' }) SET p = { name: 'Peter Smith', position: 'Entrepreneur' } RETURN p.name, p.age, p.position</code></pre> <p>如果要保留原属性, 把<code>=</code>变成<code>+=</code></p> <pre><code class="language-sql">match (p{name: 'Peter'}) SET p += { age: 38, hungry: TRUE , position: 'Entrepreneur' } RETURN p.name, p.age, p.hungry, p.position</code></pre> <h2 id="删除一个属性">删除一个属性</h2> <p>将这个属性置为null, 就是删除一个属性, 如下</p> <pre><code class="language-sql">MATCH (n { name: 'Andy' }) SET n.name = NULL RETURN n.name, n.age</code></pre> <h2 id="删除所有的属性">删除所有的属性</h2> <p>使用一个空的map和等号, 这样即可删除节点所有属性</p> <pre><code class="language-sql">MATCH (p { name: 'Peter' }) SET p = { } RETURN p.name, p.age</code></pre> <h2 id="完全复制一个节点或者关系">完全复制一个节点或者关系</h2> <p>SET可用于将所有属性从一个节点或关系复制到另一个节点. 目标节点或关系的原属性会被清空.</p> <pre><code class="language-sql">MATCH (at { name: 'Andy' }),(pn { name: 'Peter' }) set at = pn return at.name, at.age, at.hungry, pn.name, pn.age</code></pre> <h2 id="修改标签label">修改标签（label）</h2> <h3 id="修改一个">修改一个</h3> <pre><code class="language-sql">MATCH (n { name: 'Stefan' }) SET n:German RETURN n.name, labels(n) AS labels</code></pre> <h3 id="修改多个">修改多个</h3> <pre><code class="language-sql">match(n{name: 'Peter'}) set n:Swedish:Bossman return n.name, labels(n) as labels</code></pre> <p></p> </h1> <h2 id="根据标签查询节点">根据标签查询节点</h2> <pre><code class="language-sql">-- 标签为LABEL1的节点列表 match(d:LABEL1) return d -- 标签同时为LABEL1和LABEL2的节点列表 match(d:LABEL1:LABEL2) return d</code></pre> <h2 id="根据类型查询边">根据类型查询边</h2> <pre><code class="language-sql">-- 类型为 RELATION1 的边列表 match(n)-[r:RELATION1]-(o) return r</code></pre> <h2 id="带属性条件的查询">带属性条件的查询</h2> <pre><code class="language-sql">-- 标签为LABEL1, 且 oid = '123' 的节点列表 match(d:LABEL1{oid: "123"}) return d</code></pre> <h2 id="return-关键词">Return 关键词</h2> <p>return 的作用是在match匹配上了以后, 选择哪些返回, 如果能确定返回的属性, 尽量不要全部返回</p> <h3 id="return的语法">Return的语法</h3> <p>需要什么就返回什么, *表示返回所有的. 比如</p> <pre><code class="language-sql">MATCH p =(a { name: 'A' })-[r]-&gt;(b) RETURN *</code></pre> <p>返回的结果就是满足上面p, a r, b关系的所有的可能结果</p> <h3 id="在return中通过as改名">在return中通过as改名</h3> <pre><code class="language-sql">MATCH (a { name: 'A' }) RETURN a.age AS SomethingTotallyDifferent</code></pre> <p>对于没有属性的会返回一个null, 比如</p> <pre><code>MATCH (n) RETURN n.age</code></pre> <p>如果返回的两个结果, 一个由age这个属性, 一个没有, 那么有的正常返回, 没有的返回null.</p> <p>还可以在返回中包含运算, 并且返回的是多个元素也支持</p> <pre><code class="language-sql">MATCH (a { name: 'A' }) RETURN a.age &gt; 30, "I'm a literal",(a)--&gt;()</code></pre> <p>DISTINCT</p> <pre><code class="language-sql">MATCH (a { name: 'A' })--&gt;(b) RETURN DISTINCT b</code></pre> <h2 id="optional-match">OPTIONAL MATCH</h2> <p>这个和match差不多, 区别在于当没有查到东西的时候, 会返回一个null</p> <p>比如下面的结果有值</p> <pre><code class="language-sql">match(p:Person{     name: 'reba' }) optional match (p) --&gt;(x) return x</code></pre> <p>但是如果把方向换一下, 结果会变成两个null</p> <pre><code class="language-sql">match(p:Person{     name: 'reba' }) optional match (p) &lt;--(x) return x</code></pre> <p>如果把optional去掉, 结果是 no records</p> <h2 id="where">WHERE</h2> <p>使用WHERE指定复杂的查询条件</p> <pre><code class="language-sql">MATCH (n) WHERE n.name = 'Peter' XOR (n.age &lt; 30 AND n.name = 'Timothy') OR NOT (n.name = 'Timothy' OR n.name = 'Peter') RETURN n.name, n.age</code></pre> <p>在WHERE中对id进行过滤, 返回标签为 LABEL1, 元素ID为 1, 2, 3 的元素</p> <pre><code class="language-sql">MATCH (n:LABEL1) WHERE id(n) IN [1,2,3] RETURN n</code></pre> <p>在WHERE中对label进行过滤</p> <pre><code class="language-sql">MATCH (n) WHERE n:Swedish RETURN n.name, n.age</code></pre> <p>不固定属性的过滤</p> <pre><code class="language-sql">with 'AGE' as propname match (n) where n[toLower(propname)] &lt; 30 return n.name, n.age</code></pre> <p>属性存在性校验</p> <pre><code class="language-sql">MATCH (n) WHERE exists(n.belt) RETURN n.name, n.belt</code></pre> <p>以xx字符串开头</p> <pre><code class="language-sql">MATCH (n) WHERE n.name STARTS WITH 'Pet' RETURN n.name, n.age</code></pre> <p>以xx字符串结尾</p> <pre><code class="language-sql">MATCH (n) WHERE n.name ENDS WITH 'ter' RETURN n.name, n.age</code></pre> <p>字符串包含</p> <pre><code class="language-sql">MATCH (n) WHERE n.name CONTAINS 'ete' RETURN n.name, n.age</code></pre> <p>NOT 的使用</p> <pre><code class="language-sql">MATCH (n) WHERE NOT n.name ENDS WITH 'y' RETURN n.name, n.age</code></pre> <p>正则表达式的使用</p> <pre><code class="language-sql">MATCH (n) WHERE n.name =~ 'Tim.*' RETURN n.name, n.age</code></pre> <p>不区分大小写</p> <pre><code class="language-sql">MATCH (n) WHERE n.name =~ '(?i)AND.*' RETURN n.name, n.age</code></pre> <p>根据null过滤</p> <pre><code class="language-sql">MATCH (person) WHERE person.name = 'Peter' AND person.belt IS NULL RETURN person.name, person.age, person.belt</code></pre> <h2 id="order-by">ORDER BY</h2> <p>首先记住, 不能根据关系或者节点进行排序, 只能根据属性</p> <pre><code class="language-sql">MATCH (n) RETURN n.name, n.age ORDER BY n.age, n.name</code></pre> <p>一般order by都是放在return后面</p> <h2 id="skip">SKIP</h2> <p>从头开始跳过几个数据, 一般在Order by 的后面, 如果没有order by 就放在return后面</p> <pre><code class="language-sql">MATCH (n) RETURN n.name ORDER BY n.name SKIP toInteger(3*rand()) + 1</code></pre> <h2 id="limit">LIMIT</h2> <p>limit 一般是在最后了, 控制展示的个数</p> <pre><code class="language-sql">MATCH (n) RETURN n.name ORDER BY n.name LIMIT toInteger(3 * rand())+ 1</code></pre> <p></p> </h1> <p>这个关键字基本上是把create和match合并到一起</p> <h2 id="基础用法">基础用法</h2> <pre><code class="language-sql">merge (robert:Critic{name: '111'}) return robert, labels(robert)</code></pre> <p>如果不存在这个节点, 会直接创建, 执行后再执行一遍, 作用只是相当于match了.</p> <p>当然也可以从已经存在的节点中获取值, 比如</p> <pre><code class="language-sql">MATCH (person:Person) MERGE (city:City { name: person.bornIn }) RETURN person.name, person.bornIn, city</code></pre> <p>从已经存在的节点中, 获取一些属性值, 然后进行复制. 当然, 这个操作可以是批量的</p> <h2 id="on-create">on create</h2> <p>这个实际上是一个限定条件, 表达的是当创建的时候, 才执行, 不创建就不执行, 比如:</p> <pre><code class="language-sql">merge (c:Critic{name:'1112'}) on create set c.create = timestamp() return c.name, c.create</code></pre> <p>这个语句中, 如果数据库中已经存在了一个1112那么就不会set值, 同样, 如果不存在, 那么就会执行set后面的部分.</p> <h2 id="on-match">on match</h2> <p>这个命令和上述表达差不多, 不同的是它是匹配上了就进行set</p> <pre><code class="language-sql">MERGE (person:Person) ON MATCH SET person.found = TRUE RETURN person.name, person.found</code></pre> <p>当然也可以同时设置多个属性值:</p> <pre><code class="language-sql">MERGE (person:Person) ON MATCH SET person.found = TRUE , person.lastAccessed = timestamp() RETURN person.name, person.found, person.lastAccessed</code></pre> <h2 id="on-create-和on-match-合并">on create 和on match 合并</h2> <pre><code class="language-sql">MERGE (keanu:Person { name: 'Keanu Reeves' }) ON CREATE SET keanu.created = timestamp() ON MATCH SET keanu.lastSeen = timestamp() RETURN keanu.name, keanu.created, keanu.lastSeen</code></pre> <p>现在数据库中是没有这个节点的, 也就是说会进行创建</p> <h2 id="merge-relationships">Merge relationships</h2> <p>MERGE 同样也能被用来match或者create关系.</p> <p>比如已经存在两个节点, 想给他们MERGE一下关系</p> <pre><code class="language-sql">MATCH (charlie:Person { name: 'Charlie Sheen' }),(wallStreet:Movie { title: 'Wall Street' }) MERGE (charlie)-[r:ACTED_IN]-&gt;(wallStreet) RETURN charlie.name, type(r), wallStreet.title</code></pre> <p>一下子处理多个关系, 比如:</p> <pre><code class="language-sql">MATCH (oliver:Person { name: 'Oliver Stone' }),(reiner:Person { name: 'Rob Reiner' }) MERGE (oliver)-[:DIRECTED]-&gt;(movie:Movie)&lt;-[:ACTED_IN]-(reiner) RETURN movie</code></pre> <p>创建一个无向的连接:</p> <pre><code class="language-sql">MATCH (charlie:Person { name: 'Charlie Sheen' }),(oliver:Person { name: 'Oliver Stone' }) MERGE (charlie)-[r:KNOWS]-(oliver) RETURN r</code></pre> <h2 id="批量操作">批量操作</h2> <p>有一些批量操作的写法, 能够帮助我们快速创建大量节点和关系, 比如:</p> <pre><code class="language-sql">MATCH (person:Person) MERGE (city:City { name: person.bornIn }) MERGE (person)-[r:BORN_IN]-&gt;(city) RETURN person.name, person.bornIn, city</code></pre> <p>将所有Person中出生地和实际的城市直接挂钩</p> <p>上面这句话, 我们还可以改写下:</p> <pre><code class="language-sql">MATCH (person:Person) MERGE (person)-[r:BORN_IN]-&gt;(city:City { name: person.bornIn }) RETURN person.name, person.bornIn, city</code></pre> </h1> <p>With关键字是连接多个查询的结果, 即将上一个查询的结果用作下一个查询的开始</p> <h2 id="对聚合函数结果进行筛选">对聚合函数结果进行筛选</h2> <p>我们用这样一段话, 来查询David连接过去的节点, 它向外连接关系大于1的那个节点</p> <pre><code class="language-sql">match(David{name: 'David'}) --(otherPerson)--&gt;() with otherPerson, count(*) as cnt where cnt &gt; 1 return otherPerson.name</code></pre> <pre><code class="language-sql">match(Anders{name: 'Anders'}) --(otherPerson)--&gt;() with otherPerson, count(*) as cnt where cnt &gt; 1 return otherPerson.name</code></pre> <h2 id="在使用collect之前对结果进行排序">在使用collect之前对结果进行排序</h2> <pre><code class="language-sql">match(n) with n where n.name = 'David' or n.name = 'Bossman' return collect(n.name)</code></pre> <h2 id="限制搜索路径分支">限制搜索路径分支</h2> <pre><code class="language-sql">MATCH (n { name: 'Anders' })--(m) WITH m ORDER BY m.name DESC LIMIT 1 MATCH (m)--(o) RETURN o.name</code></pre> </h1> <h2 id="unwinding-a-list">unwinding a list</h2> <p>我们先看这样一句话, 初步了解下unwind 的用法:</p> <pre><code class="language-sql">unwind [1, 2, 3, NULL] as x return x, 'val' as y</code></pre> <h2 id="creating-a-distinct-list">creating a distinct list</h2> <pre><code class="language-sql">with [1, 1, 2, 2] as coll unwind coll as x with distinct x return collect(x) as setOfVals</code></pre> <h2 id="using-unwind-with-any-expression-returning-a-list">Using UNWIND with any expression returning a list</h2> <p>其实是在合并列表</p> <pre><code class="language-sql">with [1, 2] as a, [3, 4] as b unwind (a + b) as x return x</code></pre> <h2 id="using-unwind-with-a-list-of-lists">Using UNWIND with a list of lists</h2> <pre><code class="language-sql">with [[1, 2], [3, 4], 5] as nested unwind nested as x unwind x as y return x, y</code></pre> <h2 id="using-unwind-with-an-empty-list">Using UNWIND with an empty list</h2> <p>这是一个用法, 只要unwind的是一个[], 那么不管一起返回的是什么, 都会返回一个0rows.</p> <pre><code class="language-sql">unwind [] as empty return empty, 'literal_that_is_not_returned'</code></pre> <h2 id="using-unwind-with-an-expression-that-is-not-a-list">Using UNWIND with an expression that is not a list</h2> <p>unwind可以被用来检测是不是一个list</p> <pre><code class="language-sql">unwind null as x return x, 'some_itearl'</code></pre> <p>如果直接unwind一个数字, 会报错:</p> <pre><code class="language-sql">unwind 5 as x return x, '11'</code></pre> </h1> <p>批量的进行修改属性</p> <pre><code class="language-sql">match p=(begin)-[*]-&gt;(END) where begin.name = 'A' And END.name = 'D' foreach(n in nodes(p)| set n.marked = TRUE)</code></pre> </h1> <p>使用CALL可以调用一些函数, 比如来个最简单的调用一个库函数</p> <pre><code class="language-sql">CALL `db`.`labels`</code></pre> <p>这样子可以把所有类名全部列出来</p> </h1> <p>union 就是把两个结果合并起来.</p> <pre><code class="language-sql">MATCH (n:Actor) RETURN n.name AS name UNION ALL  MATCH (n:Movie) RETURN n.title AS name</code></pre> <p>如果不用union all 直接用union, 会对结果排除重复</p> <pre><code class="language-sql">MATCH (n:Actor) RETURN n.name AS name UNION MATCH (n:Movie) RETURN n.title AS name</code></pre> </h1> <ul> <li>https://jawhiow.github.io/2019/04/25/neo4j cypher/</li> <li>https://www.cnblogs.com/ljhdo/p/10911426.html</li> </ul> 			                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-105167.htm">通过源码了解Java的自动装箱拆箱</a></p>
+                                        <p>下一个：<a href="/news/article-105990.htm">Redis+Caffeine两级缓存，让访问速度纵享丝滑</a></p>
+                                    </div>
+                                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-85054.htm" title="宠物粮食品牌前十名排名图片大全（宠物粮食品牌前十名排名图片大全及价格）">宠物粮食品牌前十名排名图片大全（宠物粮食品牌前十名排名图片大全及价格）</a></li>
+                        <li class="py-2"><a href="/news/article-99764.htm" title="宠物店驱虫一次90元贵吗（一般宠物店驱虫药卖多少钱一颗?）">宠物店驱虫一次90元贵吗（一般宠物店驱虫药卖多少钱一颗?）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-8-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新22M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-6-node-share-links.htm" title="V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-98979.htm" title="自从养了猫运气就一直不好（养猫最忌讳的一个生肖）">自从养了猫运气就一直不好（养猫最忌讳的一个生肖）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-30-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/news/article-105993.htm" title="宠物领养市场规模 宠物领养市场规模分析">宠物领养市场规模 宠物领养市场规模分析</a></li>
+                        <li class="py-2"><a href="/news/article-70023.htm" title="宠物免费领养平台下载安装最新版大全（宠物领养网下载）">宠物免费领养平台下载安装最新版大全（宠物领养网下载）</a></li>
+                        <li class="py-2"><a href="/news/article-101908.htm" title="天津宠物领养吧 天津宠物领养吧百度贴吧">天津宠物领养吧 天津宠物领养吧百度贴吧</a></li>
+                        <li class="py-2"><a href="/news/article-94132.htm" title="宠物粮食市场前景如何发展 宠物粮食市场前景如何发展起来">宠物粮食市场前景如何发展 宠物粮食市场前景如何发展起来</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">78</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">89</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about-area end -->
+        <!-- Start Footer bottom Area -->
+    <footer class="footer-3">
+        <div class="footer-area-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright">
+                                                <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                            <p>
+                                <a href="/">V2rayNG Node免费机场订阅节点官网</a> 版权所有 Powered by WordPress
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="/assets/website/js/frontend/v2rayngnode/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/bootstrap.min.js"></script>
+    <!-- owl.carousel js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/owl.carousel.min.js"></script>
+    <!-- Counter js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.counterup.min.js"></script>
+    <!-- waypoint js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/waypoints.js"></script>
+    <!-- stellar js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.stellar.min.js"></script>
+    <!-- Chart JS -->
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.bundle.min.js"></script>
+    <script src="/assets/website/js/frontend/v2rayngnode/Chart.js"></script>
+    <!-- magnific js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/magnific.min.js"></script>
+    <!-- venobox js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/venobox.min.js"></script>
+    <!-- meanmenu js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/jquery.meanmenu.js"></script>
+    <!-- Form validator js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/form-validator.min.js"></script>
+    <!-- plugins js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/plugins.js"></script>
+    <!-- main js -->
+    <script src="/assets/website/js/frontend/v2rayngnode/main.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
