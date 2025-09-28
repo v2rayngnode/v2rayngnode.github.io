@@ -1,4 +1,4 @@
-# V2rayNG Node节点订阅每天更新22.2M/S免费节点订阅链接地址分享  更新时间 2025-09-24 09:59:15
+# V2rayNG Node节点订阅每天更新21.3M/S免费节点订阅链接地址分享  更新时间 2025-09-28 08:03:56
 所有免费clash节点都爬取自网络，请勿用于非法用途 。节点地址：<a href="https://v2rayngnode.github.io" target="_blank">点击跳转</a>
 
 ## clash使用教程：
@@ -7,27 +7,27 @@
 
 ## 订阅链接：
 
-### Clash订阅链接
+### 免费Clash节点订阅链接
 
-- https://v2rayngnode.github.io/uploads/2025/09/0-20250924.yaml
-- https://v2rayngnode.github.io/uploads/2025/09/1-20250924.yaml
-- https://v2rayngnode.github.io/uploads/2025/09/2-20250924.yaml
-- https://v2rayngnode.github.io/uploads/2025/09/3-20250924.yaml
-- https://v2rayngnode.github.io/uploads/2025/09/4-20250924.yaml
+- https://v2rayngnode.github.io/uploads/2025/09/0-20250928.yaml
+- https://v2rayngnode.github.io/uploads/2025/09/1-20250928.yaml
+- https://v2rayngnode.github.io/uploads/2025/09/2-20250928.yaml
+- https://v2rayngnode.github.io/uploads/2025/09/3-20250928.yaml
+- https://v2rayngnode.github.io/uploads/2025/09/4-20250928.yaml
 
-### V2ray订阅链接
+### 免费V2ray节点订阅链接
 
-- https://v2rayngnode.github.io/uploads/2025/09/0-20250924.txt
-- https://v2rayngnode.github.io/uploads/2025/09/1-20250924.txt
-- https://v2rayngnode.github.io/uploads/2025/09/2-20250924.txt
-- https://v2rayngnode.github.io/uploads/2025/09/3-20250924.txt
-- https://v2rayngnode.github.io/uploads/2025/09/4-20250924.txt
+- https://v2rayngnode.github.io/uploads/2025/09/0-20250928.txt
+- https://v2rayngnode.github.io/uploads/2025/09/1-20250928.txt
+- https://v2rayngnode.github.io/uploads/2025/09/2-20250928.txt
+- https://v2rayngnode.github.io/uploads/2025/09/3-20250928.txt
+- https://v2rayngnode.github.io/uploads/2025/09/4-20250928.txt
 
-### Sing-box订阅链接
+### 免费Sing-box节点订阅链接
 
-- https://v2rayngnode.github.io/uploads/2025/09/20250924.json
+- https://v2rayngnode.github.io/uploads/2025/09/20250928.json
 
-## 更多clash节点订阅 ：
+## 更多Clash节点订阅 ：
 
 
 ### 高速机场推荐1【<a href="https://www.nfsq.us/#/register?code=UTg5SIHV" target="_blank">农夫山泉</a>】
