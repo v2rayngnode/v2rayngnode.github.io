@@ -350,9 +350,14 @@ Clash兼容大多数安卓设备，支持多种配置格式，灵活适配不同
     </div>
 <h4>FAQ</h4>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>VMess 使用 TLS+WebSocket 的好处是什么？</h5></div>
+    <div class="panel-heading"><h5>Sing-box 的 DNS 模块如何工作？</h5></div>
     <div class="panel-body">
-        TLS+WebSocket 可伪装成正常 HTTPS 流量，增强抗封锁能力和隐蔽性。结合域名伪装和策略组使用，可在高封锁网络环境下保持安全、稳定和高速的网络访问体验。<hr />    </div>
+        Sing-box 内置 DNS 模块，支持 fake-ip 模式和纯直连模式。它可根据规则选择不同的上游 DNS 服务，从而实现国内外域名智能分流，减少访问延迟。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>WinXray 的多出口节点如何优化访问速度？</h5></div>
+    <div class="panel-body">
+        通过为不同流量类型设置不同出口节点，WinXray 可以自动选择延迟最低的节点处理请求。结合策略组，可提高网页访问、视频播放和游戏等应用的速度与稳定性。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Potatso Lite 支持订阅链接导入吗？</h5></div>
@@ -360,9 +365,9 @@ Clash兼容大多数安卓设备，支持多种配置格式，灵活适配不同
         Potatso Lite 不支持自动订阅功能，用户需手动添加节点。如果想批量导入订阅，可使用其他客户端生成节点二维码，再手动扫描添加。适合轻量使用者。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>VLess + Reality 的优势主要体现在哪些方面？</h5></div>
+    <div class="panel-heading"><h5>Mihomo 节点分组如何保证低延迟？</h5></div>
     <div class="panel-body">
-        Reality 采用非传统 TLS 流量伪装方式，通过模拟目标网站证书与握手特征来隐藏代理特征，相较于普通 VLess + TLS 更难被识别。它还具备更高的性能与更少的明文特征，适合高安全需求环境。<hr />    </div>
+        将节点按延迟、地区或用途分组，并启用策略组，系统会根据节点延迟和健康状态自动选择最佳节点。保证网页浏览、视频播放和游戏流量的低延迟和稳定连接。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>V2Ray QUIC 模式适合高丢包网络吗？</h5></div>
@@ -375,14 +380,9 @@ Clash兼容大多数安卓设备，支持多种配置格式，灵活适配不同
         VMess 支持动态端口（port hopping）功能，能在一定范围内自动变更通信端口。此机制可有效防止防火墙基于端口的封锁策略，提高节点长期稳定性。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Mihomo 节点分组如何保证低延迟？</h5></div>
+    <div class="panel-heading"><h5>VLess + Reality 的优势主要体现在哪些方面？</h5></div>
     <div class="panel-body">
-        将节点按延迟、地区或用途分组，并启用策略组，系统会根据节点延迟和健康状态自动选择最佳节点。保证网页浏览、视频播放和游戏流量的低延迟和稳定连接。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Surfboard 支持按应用分流流量吗？</h5></div>
-    <div class="panel-body">
-        支持。Surfboard 可通过策略组和规则文件将不同应用的流量分配到指定节点，保证游戏、视频和浏览器流量走最优节点，提高访问速度和网络稳定性。<hr />    </div>
+        Reality 采用非传统 TLS 流量伪装方式，通过模拟目标网站证书与握手特征来隐藏代理特征，相较于普通 VLess + TLS 更难被识别。它还具备更高的性能与更少的明文特征，适合高安全需求环境。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Nekobox 如何在 Android 上导入配置？</h5></div>
@@ -390,14 +390,14 @@ Clash兼容大多数安卓设备，支持多种配置格式，灵活适配不同
         打开 Nekobox，点击“导入配置”按钮，选择订阅链接或本地 JSON 文件。程序会解析后自动生成节点列表，用户可一键连接或测速筛选最优节点。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Sing-box 的 DNS 模块如何工作？</h5></div>
+    <div class="panel-heading"><h5>VMess 使用 TLS+WebSocket 的好处是什么？</h5></div>
     <div class="panel-body">
-        Sing-box 内置 DNS 模块，支持 fake-ip 模式和纯直连模式。它可根据规则选择不同的上游 DNS 服务，从而实现国内外域名智能分流，减少访问延迟。<hr />    </div>
+        TLS+WebSocket 可伪装成正常 HTTPS 流量，增强抗封锁能力和隐蔽性。结合域名伪装和策略组使用，可在高封锁网络环境下保持安全、稳定和高速的网络访问体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>WinXray 的多出口节点如何优化访问速度？</h5></div>
+    <div class="panel-heading"><h5>Surfboard 支持按应用分流流量吗？</h5></div>
     <div class="panel-body">
-        通过为不同流量类型设置不同出口节点，WinXray 可以自动选择延迟最低的节点处理请求。结合策略组，可提高网页访问、视频播放和游戏等应用的速度与稳定性。    </div>
+        支持。Surfboard 可通过策略组和规则文件将不同应用的流量分配到指定节点，保证游戏、视频和浏览器流量走最优节点，提高访问速度和网络稳定性。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -426,16 +426,16 @@ Clash兼容大多数安卓设备，支持多种配置格式，灵活适配不同
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-10-18-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新20.5M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.5M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-2-node-share-links.htm" title="V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-18-free-shadowrocket-node.htm" title="V2rayNG Node节点订阅每天更新20.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.2M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-28-clash-node.htm" title="V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-11-23-node-share-links.htm" title="V2rayNG Node节点订阅每天更新21.6M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新21.6M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-10-10-free-v2ray.htm" title="V2rayNG Node节点订阅每天更新21.9M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新21.9M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-10-14-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新18.4M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.4M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-10-3-clash-node.htm" title="V2rayNG Node节点订阅每天更新21.4M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新21.4M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-10-5-clash-v2ray-ss-ssr.htm" title="V2rayNG Node节点订阅每天更新18.8M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.8M/S免费节点订阅链接地址分享</a></li>
                         <li class="py-2"><a href="/free-nodes/2025-11-9-node-share.htm" title="V2rayNG Node节点订阅每天更新22.5M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.5M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-10-13-free-ssr-node.htm" title="V2rayNG Node节点订阅每天更新22.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.2M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-10-17-free-high-speed-nodes.htm" title="V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-11-11-free-ssr-node.htm" title="V2rayNG Node节点订阅每天更新22.4M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.4M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-10-6-node-share-links.htm" title="V2rayNG Node节点订阅每天更新19.6M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.6M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-11-4-free-clash.htm" title="V2rayNG Node节点订阅每天更新18.8M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.8M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-10-26-free-high-speed-nodes.htm" title="V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-10-8-clash-node.htm" title="V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-11-20-shadowrocket-node.htm" title="V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-10-25-free-v2ray-subscribe.htm" title="V2rayNG Node节点订阅每天更新20.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.3M/S免费节点订阅链接地址分享</a></li>
                     </ul>
     </div>
 </div>
@@ -447,7 +447,7 @@ Clash兼容大多数安卓设备，支持多种配置格式，灵活适配不同
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">19</span> <a href="/date/2025-11/" title="2025-11 归档">2025-11</a></h4>
+                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2025-11/" title="2025-11 归档">2025-11</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">26</span> <a href="/date/2025-10/" title="2025-10 归档">2025-10</a></h4>
