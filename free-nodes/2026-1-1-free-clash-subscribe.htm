@@ -207,14 +207,44 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     </div>
 <h4>FAQ</h4>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Netch 支持游戏加速吗？</h5></div>
+    <div class="panel-heading"><h5>Trojan 的伪装域名配置需要注意什么？</h5></div>
     <div class="panel-body">
-        Netch 专为游戏加速设计，支持 UDP 转发和 TAP 驱动，可有效降低延迟。用户可以为特定游戏添加路由规则，实现分流加速，从而提升国际游戏体验。<hr />    </div>
+        伪装域名必须真实可访问并有有效证书，否则客户端无法建立连接。正确配置可隐藏真实流量特征，降低被封锁风险，保证节点长期稳定可用。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>WinXray 可以自定义规则吗？</h5></div>
+    <div class="panel-body">
+        可以。WinXray 支持编辑路由规则文件，用户可设置域名白名单或黑名单，实现分流策略。例如国内流量直连、国外流量走代理，从而提高网络访问效率。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>PassWall2 支持哪些内核？</h5></div>
     <div class="panel-body">
         PassWall2 支持多种代理内核，如 Xray、V2Ray、Sing-box、Trojan-go、Hysteria2 等。用户可在插件管理中切换所需内核，以获得不同协议与性能的支持。部分内核需手动下载并启用。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Netch 支持游戏加速吗？</h5></div>
+    <div class="panel-body">
+        Netch 专为游戏加速设计，支持 UDP 转发和 TAP 驱动，可有效降低延迟。用户可以为特定游戏添加路由规则，实现分流加速，从而提升国际游戏体验。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>VMess AEAD 加密为何适合高封锁环境？</h5></div>
+    <div class="panel-body">
+        AEAD 加密可防止数据篡改和流量特征泄露，降低被检测风险。在高封锁网络中，保证节点可用性和连接稳定性，同时提升数据传输安全性，确保长期安全访问。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>VLESS + XTLS 模式在高并发下有什么优势？</h5></div>
+    <div class="panel-body">
+        XTLS 模式减少握手次数和加密冗余，提高 CPU 利用率和吞吐量。在高并发场景下能保持连接稳定，适合游戏、流媒体和频繁请求的网络环境，提升整体性能。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Nekoray 支持节点订阅批量更新吗？</h5></div>
+    <div class="panel-body">
+        支持。用户可通过订阅 URL 批量更新节点，程序会自动下载并替换旧节点。定期更新保证节点列表始终可用，减少手动维护，提高使用效率和便利性。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Clash 的规则模式有哪些？</h5></div>
+    <div class="panel-body">
+        Clash 提供三种主要模式：Global（全局代理）、Rule（规则代理）和Direct（直连）。全局模式会让所有流量通过代理；规则模式根据规则文件自动分流；直连模式则完全不经过代理。用户可根据需求灵活切换。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Nekoray 的节点导入是否支持批量 URL？</h5></div>
@@ -224,37 +254,7 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
 <div class="panel panel-default">
     <div class="panel-heading"><h5>QuantumultX 如何实现按端口和协议分流？</h5></div>
     <div class="panel-body">
-        QuantumultX 支持按 TCP、UDP、端口及应用协议分流流量，结合策略组选择最优节点。可为游戏、视频和广告屏蔽提供最佳网络体验，提高访问速度和稳定性。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>VLESS + XTLS 模式在高并发下有什么优势？</h5></div>
-    <div class="panel-body">
-        XTLS 模式减少握手次数和加密冗余，提高 CPU 利用率和吞吐量。在高并发场景下能保持连接稳定，适合游戏、流媒体和频繁请求的网络环境，提升整体性能。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>VMess AEAD 加密为何适合高封锁环境？</h5></div>
-    <div class="panel-body">
-        AEAD 加密可防止数据篡改和流量特征泄露，降低被检测风险。在高封锁网络中，保证节点可用性和连接稳定性，同时提升数据传输安全性，确保长期安全访问。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Clash 的规则模式有哪些？</h5></div>
-    <div class="panel-body">
-        Clash 提供三种主要模式：Global（全局代理）、Rule（规则代理）和Direct（直连）。全局模式会让所有流量通过代理；规则模式根据规则文件自动分流；直连模式则完全不经过代理。用户可根据需求灵活切换。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>WinXray 可以自定义规则吗？</h5></div>
-    <div class="panel-body">
-        可以。WinXray 支持编辑路由规则文件，用户可设置域名白名单或黑名单，实现分流策略。例如国内流量直连、国外流量走代理，从而提高网络访问效率。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Nekoray 支持节点订阅批量更新吗？</h5></div>
-    <div class="panel-body">
-        支持。用户可通过订阅 URL 批量更新节点，程序会自动下载并替换旧节点。定期更新保证节点列表始终可用，减少手动维护，提高使用效率和便利性。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Trojan 的伪装域名配置需要注意什么？</h5></div>
-    <div class="panel-body">
-        伪装域名必须真实可访问并有有效证书，否则客户端无法建立连接。正确配置可隐藏真实流量特征，降低被封锁风险，保证节点长期稳定可用。    </div>
+        QuantumultX 支持按 TCP、UDP、端口及应用协议分流流量，结合策略组选择最优节点。可为游戏、视频和广告屏蔽提供最佳网络体验，提高访问速度和稳定性。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -283,16 +283,16 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/2025-11-21-node-share.htm" title="V2rayNG Node节点订阅每天更新20.9M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.9M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-1-7-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新22.9M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.9M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-12-9-clash-v2ray-ss-ssr.htm" title="V2rayNG Node节点订阅每天更新18.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.3M/S免费节点订阅链接地址分享</a></li>
                         <li class="py-2"><a href="/free-nodes/2025-12-24-node-share-links.htm" title="V2rayNG Node节点订阅每天更新22.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.3M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-12-3-clash-node-daily-updates.htm" title="V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-11-23-node-share-links.htm" title="V2rayNG Node节点订阅每天更新21.6M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新21.6M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-11-30-free-clash-subscribe.htm" title="V2rayNG Node节点订阅每天更新18.4M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.4M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-12-27-clash-v2ray-ss-ssr.htm" title="V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-12-14-clash-v2ray-ss-ssr.htm" title="V2rayNG Node节点订阅每天更新18M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-11-8-node-share.htm" title="V2rayNG Node节点订阅每天更新18.6M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.6M/S免费节点订阅链接地址分享</a></li>
                         <li class="py-2"><a href="/free-nodes/2025-12-18-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新18.6M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.6M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-11-6-free-ssr-node.htm" title="V2rayNG Node节点订阅每天更新18.4M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.4M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-12-15-node-share.htm" title="V2rayNG Node节点订阅每天更新19M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-12-13-free-shadowrocket-node.htm" title="V2rayNG Node节点订阅每天更新18M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-12-19-clash-v2ray-ss-ssr.htm" title="V2rayNG Node节点订阅每天更新23M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新23M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-12-23-clash-node.htm" title="V2rayNG Node节点订阅每天更新21.9M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新21.9M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-12-11-node-share-links.htm" title="V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-12-26-clash-v2ray-ss-ssr.htm" title="V2rayNG Node节点订阅每天更新19.9M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.9M/S免费节点订阅链接地址分享</a></li>
                     </ul>
     </div>
 </div>
@@ -304,13 +304,10 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">3</span> <a href="/date/2026-01/" title="2026-01 归档">2026-01</a></h4>
+                <h4><span class="badge" style="float: right;">10</span> <a href="/date/2026-01/" title="2026-01 归档">2026-01</a></h4>
             </li>
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">27</span> <a href="/date/2025-12/" title="2025-12 归档">2025-12</a></h4>
-            </li>
-                        <li class="py-2">
-                <h4><span class="badge" style="float: right;">23</span> <a href="/date/2025-11/" title="2025-11 归档">2025-11</a></h4>
+                <h4><span class="badge" style="float: right;">19</span> <a href="/date/2025-12/" title="2025-12 归档">2025-12</a></h4>
             </li>
                     </ul>
     </div>
