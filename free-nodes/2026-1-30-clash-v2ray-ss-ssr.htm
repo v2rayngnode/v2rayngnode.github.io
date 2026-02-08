@@ -365,24 +365,14 @@ ufw allow 10086/tcp
     </div>
 <h4>FAQ</h4>
 <div class="panel panel-default">
+    <div class="panel-heading"><h5>V2Ray 的路由规则可设置哪些匹配条件？</h5></div>
+    <div class="panel-body">
+        路由规则支持按域名、IP 地址、端口、协议类型或用户标签进行匹配。结合策略组，可实现国内直连、国外代理或特定节点定向分流，满足不同网络需求。<hr />    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading"><h5>PassWall2 如何实现自动节点切换？</h5></div>
     <div class="panel-body">
         通过延迟测速和策略组配置，PassWall2 可自动切换到延迟最低的节点。这样用户无需手动操作，即可在访问网页、视频或游戏时保持高速和稳定连接，优化网络体验。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Sing-box 如何按端口分流不同类型流量？</h5></div>
-    <div class="panel-body">
-        Sing-box 支持根据端口匹配流量，将不同应用流量分配到指定节点。结合策略组可实现精准分流，提高访问速度和网络稳定性，优化整体网络体验和管理效率。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Hysteria2 多路复用在短连接中优势是什么？</h5></div>
-    <div class="panel-body">
-        多路复用允许多个短连接共享同一通道，减少握手延迟和资源消耗。适合高频短连接场景，如游戏和即时通讯，提升吞吐量和连接稳定性，优化网络体验。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Potatso Lite 手动节点选择有什么好处？</h5></div>
-    <div class="panel-body">
-        手动选择节点可以让用户根据网络延迟和需求选择最优节点。适合节点不稳定或特定访问需求，灵活调整流量走向，提高访问速度和网络体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>WinXray 的 PAC 模式适合哪些场景？</h5></div>
@@ -390,9 +380,19 @@ ufw allow 10086/tcp
         PAC 模式通过规则动态决定流量是否走代理。适合访问国内外混合网站环境，无需手动切换节点，自动分流提高网络访问效率和连接稳定性。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>V2Ray 的路由规则可设置哪些匹配条件？</h5></div>
+    <div class="panel-heading"><h5>Sing-box 如何按端口分流不同类型流量？</h5></div>
     <div class="panel-body">
-        路由规则支持按域名、IP 地址、端口、协议类型或用户标签进行匹配。结合策略组，可实现国内直连、国外代理或特定节点定向分流，满足不同网络需求。<hr />    </div>
+        Sing-box 支持根据端口匹配流量，将不同应用流量分配到指定节点。结合策略组可实现精准分流，提高访问速度和网络稳定性，优化整体网络体验和管理效率。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>如何配置 Sing-box 使用 DoH 加密 DNS？</h5></div>
+    <div class="panel-body">
+        在 dns 模块中添加类型为 doh 的上游，如 `https://1.1.1.1/dns-query`，并指定 bootstrap 地址。启用加密 DNS 可防止 DNS 泄露并加快国际解析速度，提高整体隐私保护。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Potatso Lite 手动节点选择有什么好处？</h5></div>
+    <div class="panel-body">
+        手动选择节点可以让用户根据网络延迟和需求选择最优节点。适合节点不稳定或特定访问需求，灵活调整流量走向，提高访问速度和网络体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>如何在 Nginx 上为 Vmess/WS 配置反向代理与 TLS？</h5></div>
@@ -400,9 +400,9 @@ ufw allow 10086/tcp
         在 Nginx 中配置 HTTPS 站点并将特定路径（如 /ray）反向代理到 V2Ray 的 WebSocket 端口，确保 proxy_set_header 设置正确（Host、X-Real-IP 等）。同时使用 certbot 获取并自动续期 TLS 证书以维护安全。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>如何防止 Clash 被系统防火墙阻断？</h5></div>
+    <div class="panel-heading"><h5>Hysteria2 多路复用在短连接中优势是什么？</h5></div>
     <div class="panel-body">
-        请在防火墙设置中允许 Clash 的执行文件通过网络访问，并开放其监听端口。若使用 Windows Defender，可在防火墙高级规则中手动添加入站和出站规则，确保代理通信正常。<hr />    </div>
+        多路复用允许多个短连接共享同一通道，减少握手延迟和资源消耗。适合高频短连接场景，如游戏和即时通讯，提升吞吐量和连接稳定性，优化网络体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>如何优化 Clash 的 DNS 设置？</h5></div>
@@ -410,9 +410,9 @@ ufw allow 10086/tcp
         在 Clash 中使用自定义 DNS 可以加快域名解析速度。建议使用 doh（DNS over HTTPS）或 dot（DNS over TLS）配置方式，既能提升速度，也能保护隐私防止 DNS 泄露。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>如何配置 Sing-box 使用 DoH 加密 DNS？</h5></div>
+    <div class="panel-heading"><h5>如何防止 Clash 被系统防火墙阻断？</h5></div>
     <div class="panel-body">
-        在 dns 模块中添加类型为 doh 的上游，如 `https://1.1.1.1/dns-query`，并指定 bootstrap 地址。启用加密 DNS 可防止 DNS 泄露并加快国际解析速度，提高整体隐私保护。    </div>
+        请在防火墙设置中允许 Clash 的执行文件通过网络访问，并开放其监听端口。若使用 Windows Defender，可在防火墙高级规则中手动添加入站和出站规则，确保代理通信正常。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -441,16 +441,16 @@ ufw allow 10086/tcp
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/2025-12-24-node-share-links.htm" title="V2rayNG Node节点订阅每天更新22.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.3M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-1-16-node-share-links.htm" title="V2rayNG Node节点订阅每天更新22.5M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.5M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-1-23-free-ssr-subscribe.htm" title="V2rayNG Node节点订阅每天更新22.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.3M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-1-20-node-share.htm" title="V2rayNG Node节点订阅每天更新20.9M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.9M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-1-30-clash-v2ray-ss-ssr.htm" title="V2rayNG Node节点订阅每天更新18.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.2M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-12-15-node-share.htm" title="V2rayNG Node节点订阅每天更新19M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-1-28-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-1-19-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新18.6M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.6M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-1-25-free-ssr-subscribe.htm" title="V2rayNG Node节点订阅每天更新19.8M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.8M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-2-7-free-ssr-subscribe.htm" title="V2rayNG Node节点订阅每天更新20.1M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.1M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-1-9-free-clash.htm" title="V2rayNG Node节点订阅每天更新19.1M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.1M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-1-27-free-node-subscribe-links.htm" title="V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-1-21-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新18.6M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.6M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-2-1-free-high-speed-nodes.htm" title="V2rayNG Node节点订阅每天更新21.1M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新21.1M/S免费节点订阅链接地址分享</a></li>
                         <li class="py-2"><a href="/free-nodes/2026-1-15-free-clash-subscribe.htm" title="V2rayNG Node节点订阅每天更新20M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-1-18-free-ssr-node.htm" title="V2rayNG Node节点订阅每天更新19.7M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.7M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-12-31-clash-windows.htm" title="V2rayNG Node节点订阅每天更新22.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.2M/S免费节点订阅链接地址分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-1-4-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新20.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.3M/S免费节点订阅链接地址分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-1-7-free-subscribe-node.htm" title="V2rayNG Node节点订阅每天更新22.9M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.9M/S免费节点订阅链接地址分享</a></li>
                     </ul>
     </div>
 </div>
@@ -462,13 +462,10 @@ ufw allow 10086/tcp
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">1</span> <a href="/date/2026-02/" title="2026-02 归档">2026-02</a></h4>
+                <h4><span class="badge" style="float: right;">8</span> <a href="/date/2026-02/" title="2026-02 归档">2026-02</a></h4>
             </li>
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2026-01/" title="2026-01 归档">2026-01</a></h4>
-            </li>
-                        <li class="py-2">
-                <h4><span class="badge" style="float: right;">19</span> <a href="/date/2025-12/" title="2025-12 归档">2025-12</a></h4>
+                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2026-01/" title="2026-01 归档">2026-01</a></h4>
             </li>
                     </ul>
     </div>
