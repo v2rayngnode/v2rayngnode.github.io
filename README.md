@@ -1,4 +1,4 @@
-# V2rayNG Node节点订阅每天更新18.9M/S免费节点订阅链接地址分享  更新时间 2026-06-04 09:45:05
+# V2rayNG Node节点订阅每天更新19.5M/S免费节点订阅链接地址分享  更新时间 2026-06-06 09:13:36
 所有免费clash节点都爬取自网络，请勿用于非法用途 。节点地址：<a href="https://v2rayngnode.github.io" target="_blank">点击跳转</a>
 
 ## clash使用教程：
@@ -9,23 +9,23 @@
 
 ### 免费Clash节点订阅链接
 
-- https://v2rayngnode.github.io/uploads/2026/06/0-20260604.yaml
-- https://v2rayngnode.github.io/uploads/2026/06/1-20260604.yaml
-- https://v2rayngnode.github.io/uploads/2026/06/2-20260604.yaml
-- https://v2rayngnode.github.io/uploads/2026/06/3-20260604.yaml
-- https://v2rayngnode.github.io/uploads/2026/06/4-20260604.yaml
+- https://v2rayngnode.github.io/uploads/2026/06/0-20260606.yaml
+- https://v2rayngnode.github.io/uploads/2026/06/1-20260606.yaml
+- https://v2rayngnode.github.io/uploads/2026/06/2-20260606.yaml
+- https://v2rayngnode.github.io/uploads/2026/06/3-20260606.yaml
+- https://v2rayngnode.github.io/uploads/2026/06/4-20260606.yaml
 
 ### 免费V2ray节点订阅链接
 
-- https://v2rayngnode.github.io/uploads/2026/06/0-20260604.txt
-- https://v2rayngnode.github.io/uploads/2026/06/1-20260604.txt
-- https://v2rayngnode.github.io/uploads/2026/06/2-20260604.txt
-- https://v2rayngnode.github.io/uploads/2026/06/3-20260604.txt
-- https://v2rayngnode.github.io/uploads/2026/06/4-20260604.txt
+- https://v2rayngnode.github.io/uploads/2026/06/0-20260606.txt
+- https://v2rayngnode.github.io/uploads/2026/06/1-20260606.txt
+- https://v2rayngnode.github.io/uploads/2026/06/2-20260606.txt
+- https://v2rayngnode.github.io/uploads/2026/06/3-20260606.txt
+- https://v2rayngnode.github.io/uploads/2026/06/4-20260606.txt
 
 ### 免费Sing-box节点订阅链接
 
-- https://v2rayngnode.github.io/uploads/2026/06/20260604.json
+- https://v2rayngnode.github.io/uploads/2026/06/20260606.json
 
 ## 更多Clash节点订阅 ：
 
