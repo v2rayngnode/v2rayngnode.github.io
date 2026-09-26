@@ -347,14 +347,9 @@ A：推荐加入Clash中文交流群、访问GitHub Issue区，或在Telegram中
     </div>
 <h4>FAQ</h4>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>当 V2Ray 报错 inbound 没有监听，可能是哪些配置问题？</h5></div>
+    <div class="panel-heading"><h5>SSR 节点延迟高、丢包严重，常见排查步骤有哪些？</h5></div>
     <div class="panel-body">
-        检查 inbound 配置是否包含正确的 port、protocol 与 listen 字段；确认没有端口冲突或权限问题（非 root 绑定 1024 以下端口会失败）；查看日志中具体错误信息并根据提示修复配置。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Quantumult X 的“分流规则”如何管理？</h5></div>
-    <div class="panel-body">
-        Quantumult X 使用策略组管理分流规则。用户可将规则文件导入应用，通过“policy group”定义不同流量走向，实现国内直连、国外代理、广告拦截等功能的自动分配。<hr />    </div>
+        先用 ping 和 traceroute 检查到服务器的延迟与路由跳数；再通过测速工具测带宽并尝试更换不同出站端口或混淆方式；若仍然不稳，考虑更换节点或联系客服查看服务端链路质量。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>PassWall2 的延迟测速功能如何提高网络体验？</h5></div>
@@ -362,24 +357,19 @@ A：推荐加入Clash中文交流群、访问GitHub Issue区，或在Telegram中
         PassWall2 可以定期测速节点延迟，并结合策略组自动选择最优节点。这样在访问网站或视频时，可以始终使用延迟最低的线路，提高网络稳定性和速度。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>VMess AEAD 加密在高封锁地区的优势？</h5></div>
-    <div class="panel-body">
-        AEAD 加密可防止数据篡改和流量特征泄露，降低被 DPI 检测风险。在高封锁地区使用，可保证节点长期稳定可用，同时提升数据传输安全性和访问可靠性。<hr />    </div>
-</div>
-<div class="panel panel-default">
     <div class="panel-heading"><h5>Clash 如何手动设置某应用直连？</h5></div>
     <div class="panel-body">
         在 Clash 的规则文件中添加 PROCESS-NAME 规则，如 `PROCESS-NAME,chrome.exe,DIRECT`。保存并重启后，该应用的流量将绕过代理直连。适用于游戏或内网程序等特殊场景。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>如何配置 Sing-box 使用 DoH 加密 DNS？</h5></div>
+    <div class="panel-heading"><h5>当 V2Ray 报错 inbound 没有监听，可能是哪些配置问题？</h5></div>
     <div class="panel-body">
-        在 dns 模块中添加类型为 doh 的上游，如 `https://1.1.1.1/dns-query`，并指定 bootstrap 地址。启用加密 DNS 可防止 DNS 泄露并加快国际解析速度，提高整体隐私保护。<hr />    </div>
+        检查 inbound 配置是否包含正确的 port、protocol 与 listen 字段；确认没有端口冲突或权限问题（非 root 绑定 1024 以下端口会失败）；查看日志中具体错误信息并根据提示修复配置。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>V2Ray 的 WebSocket 传输与 TCP 有何区别？</h5></div>
+    <div class="panel-heading"><h5>VMess AEAD 加密在高封锁地区的优势？</h5></div>
     <div class="panel-body">
-        WebSocket 通过 HTTP 封装 TCP 流量，适合伪装成正常网页请求，增加隐蔽性。相比原生 TCP，可更好地绕过封锁和 DPI 检测，但略增加协议开销。<hr />    </div>
+        AEAD 加密可防止数据篡改和流量特征泄露，降低被 DPI 检测风险。在高封锁地区使用，可保证节点长期稳定可用，同时提升数据传输安全性和访问可靠性。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Hysteria2 多路复用对短连接性能有何提升？</h5></div>
@@ -387,14 +377,24 @@ A：推荐加入Clash中文交流群、访问GitHub Issue区，或在Telegram中
         多路复用允许多个短连接共享同一通道，减少握手延迟和资源消耗。适合高频短连接场景，如游戏和即时通讯，可提高吞吐量和连接稳定性，优化整体网络体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>如何导入 Clash 订阅链接？</h5></div>
+    <div class="panel-heading"><h5>如何配置 Sing-box 使用 DoH 加密 DNS？</h5></div>
     <div class="panel-body">
-        打开 Clash 客户端，进入 Profiles（配置文件）页面，粘贴提供的订阅链接并点击下载。Clash 会自动更新节点列表，用户可在 Profiles 中选择对应配置启用，从而快速切换不同代理线路。<hr />    </div>
+        在 dns 模块中添加类型为 doh 的上游，如 `https://1.1.1.1/dns-query`，并指定 bootstrap 地址。启用加密 DNS 可防止 DNS 泄露并加快国际解析速度，提高整体隐私保护。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>SSR 节点延迟高、丢包严重，常见排查步骤有哪些？</h5></div>
+    <div class="panel-heading"><h5>Quantumult X 的“分流规则”如何管理？</h5></div>
     <div class="panel-body">
-        先用 ping 和 traceroute 检查到服务器的延迟与路由跳数；再通过测速工具测带宽并尝试更换不同出站端口或混淆方式；若仍然不稳，考虑更换节点或联系客服查看服务端链路质量。    </div>
+        Quantumult X 使用策略组管理分流规则。用户可将规则文件导入应用，通过“policy group”定义不同流量走向，实现国内直连、国外代理、广告拦截等功能的自动分配。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>V2Ray 的 WebSocket 传输与 TCP 有何区别？</h5></div>
+    <div class="panel-body">
+        WebSocket 通过 HTTP 封装 TCP 流量，适合伪装成正常网页请求，增加隐蔽性。相比原生 TCP，可更好地绕过封锁和 DPI 检测，但略增加协议开销。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>如何导入 Clash 订阅链接？</h5></div>
+    <div class="panel-body">
+        打开 Clash 客户端，进入 Profiles（配置文件）页面，粘贴提供的订阅链接并点击下载。Clash 会自动更新节点列表，用户可在 Profiles 中选择对应配置启用，从而快速切换不同代理线路。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -442,16 +442,16 @@ A：推荐加入Clash中文交流群、访问GitHub Issue区，或在Telegram中
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/node-share-links-2026-8-19.htm" title="V2rayNG Node节点订阅每天更新19.4M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.4M/S免费节点订阅链接地址分享</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-8-20-free-clash.htm" title="V2rayNG Node节点订阅每天更新20.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.3M/S免费节点订阅链接地址分享</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-subscribe-node-2026-8-27.htm" title="V2rayNG Node节点订阅每天更新22.6M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.6M/S免费节点订阅链接地址分享</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-v2ray-subscribe-2026-8-31.htm" title="V2rayNG Node节点订阅每天更新20.4M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.4M/S免费节点订阅链接地址分享</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-high-speed-nodes-2026-9-15.htm" title="V2rayNG Node节点订阅每天更新21.7M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新21.7M/S免费节点订阅链接地址分享</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-subscribe-node-2026-9-3.htm" title="V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接地址分享</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-9-8-node-share.htm" title="V2rayNG Node节点订阅每天更新19.9M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.9M/S免费节点订阅链接地址分享</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-subscribe-node-2026-8-29.htm" title="V2rayNG Node节点订阅每天更新22.5M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.5M/S免费节点订阅链接地址分享</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-8-6-clash-v2ray-ss-ssr.htm" title="V2rayNG Node节点订阅每天更新22.6M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.6M/S免费节点订阅链接地址分享</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-9-24-node-share.htm" title="V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.7M/S免费节点订阅链接地址分享</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/free-v2ray-subscribe-2026-8-11.htm" title="V2rayNG Node节点订阅每天更新18.5M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.5M/S免费节点订阅链接地址分享</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/free-clash-subscribe-2026-9-11.htm" title="V2rayNG Node节点订阅每天更新20.1M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.1M/S免费节点订阅链接地址分享</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/shadowrocket-node-2026-8-25.htm" title="V2rayNG Node节点订阅每天更新22.7M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.7M/S免费节点订阅链接地址分享</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/free-clash-subscribe-2026-9-9.htm" title="V2rayNG Node节点订阅每天更新21.9M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新21.9M/S免费节点订阅链接地址分享</a><hr /></li>
                         <li class="py-2"><a href="/free-nodes/2026-8-18-free-clash.htm" title="V2rayNG Node节点订阅每天更新22.9M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.9M/S免费节点订阅链接地址分享</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/free-high-speed-nodes-2026-9-15.htm" title="V2rayNG Node节点订阅每天更新21.7M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新21.7M/S免费节点订阅链接地址分享</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/clash-windows-2026-9-13.htm" title="V2rayNG Node节点订阅每天更新18M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18M/S免费节点订阅链接地址分享</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-30-clash-node.htm" title="V2rayNG Node节点订阅每天更新19.6M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.6M/S免费节点订阅链接地址分享</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-9-8-node-share.htm" title="V2rayNG Node节点订阅每天更新19.9M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.9M/S免费节点订阅链接地址分享</a><hr /></li>
                     </ul>
     </div>
 </div>
@@ -463,7 +463,7 @@ A：推荐加入Clash中文交流群、访问GitHub Issue区，或在Telegram中
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">19</span> <a href="/date/2026-09/" title="2026-09 归档">2026-09</a></h4>
+                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2026-09/" title="2026-09 归档">2026-09</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">26</span> <a href="/date/2026-08/" title="2026-08 归档">2026-08</a></h4>
