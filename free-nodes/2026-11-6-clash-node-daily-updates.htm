@@ -315,29 +315,9 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     </div>
 <h4>FAQ</h4>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>WinXray 如何通过节点测速自动切换最优线路？</h5></div>
+    <div class="panel-heading"><h5>如何在 Windows 上用 Wireshark 分析代理流量以排查问题？</h5></div>
     <div class="panel-body">
-        WinXray 会定期检测节点延迟和丢包率，并结合策略组自动选择最佳节点。保证网页浏览、视频播放和游戏流量走低延迟节点，提高访问速度和网络稳定性。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>如何在 macOS 上运行 ClashX？</h5></div>
-    <div class="panel-body">
-        ClashX 是 macOS 平台专用客户端，用户可在 GitHub 下载 DMG 安装包。安装后导入订阅即可使用，支持系统代理集成、自动更新和延迟测试。界面简洁直观，深受苹果用户欢迎。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>VLESS 的 XTLS 模式能提升传输效率吗？</h5></div>
-    <div class="panel-body">
-        XTLS 模式通过减少冗余加密和握手次数，降低延迟，提高吞吐量。在高并发和短连接场景下，效率明显优于普通 TLS，同时保持数据安全性和隐蔽性。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>VMess AEAD 加密如何确保数据传输安全？</h5></div>
-    <div class="panel-body">
-        AEAD 加密可防止数据篡改、重放攻击和流量特征泄露。在高封锁环境中保证节点可用，提升数据安全和连接稳定性，降低被检测风险，确保长期安全访问体验。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Nekobox 与 Hiddify Next 有什么区别？</h5></div>
-    <div class="panel-body">
-        Nekobox 更注重轻量化和本地化，界面简洁，支持多协议基础功能；而 Hiddify Next 则整合了订阅转换、测速、规则分流等高级功能，更适合技术用户使用。<hr />    </div>
+        使用 Wireshark 抓取对应网卡流量，结合过滤器（例如 host <server_ip> 或 tcp.port==<port>）分析握手与数据包内容。注意 TLS/QUIC 流量为加密内容，仅能通过元信息（时延、丢包）判断异常，不要尝试解密用户隐私。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>V2Ray 的 WebSocket 传输与 TCP 有何区别？</h5></div>
@@ -350,19 +330,39 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
         在 V2Ray 中可以通过修改 config.json 文件中的 routing 部分来自定义路由规则。用户可以根据 IP 段、域名或地理位置来决定流量的去向，从而实现自动分流或访问加速的效果。<hr />    </div>
 </div>
 <div class="panel panel-default">
+    <div class="panel-heading"><h5>WinXray 如何导入订阅？</h5></div>
+    <div class="panel-body">
+        在 WinXray 界面中点击“导入订阅”选项，将机场提供的订阅链接粘贴进去。点击更新后，WinXray 会自动下载节点配置并生成列表，用户可手动选择或自动切换延迟最低的节点使用。<hr />    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading"><h5>Matsuri 如何通过节点测速选择最优线路？</h5></div>
     <div class="panel-body">
         Matsuri 会定期测速节点延迟和丢包率，结合策略组自动选择延迟低、稳定性高的节点。这样可以提升网页、视频和游戏访问速度，减少掉线和卡顿，优化整体体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>如何在 Windows 上用 Wireshark 分析代理流量以排查问题？</h5></div>
+    <div class="panel-heading"><h5>VLESS 的 XTLS 模式能提升传输效率吗？</h5></div>
     <div class="panel-body">
-        使用 Wireshark 抓取对应网卡流量，结合过滤器（例如 host <server_ip> 或 tcp.port==<port>）分析握手与数据包内容。注意 TLS/QUIC 流量为加密内容，仅能通过元信息（时延、丢包）判断异常，不要尝试解密用户隐私。<hr />    </div>
+        XTLS 模式通过减少冗余加密和握手次数，降低延迟，提高吞吐量。在高并发和短连接场景下，效率明显优于普通 TLS，同时保持数据安全性和隐蔽性。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>WinXray 如何导入订阅？</h5></div>
+    <div class="panel-heading"><h5>如何在 macOS 上运行 ClashX？</h5></div>
     <div class="panel-body">
-        在 WinXray 界面中点击“导入订阅”选项，将机场提供的订阅链接粘贴进去。点击更新后，WinXray 会自动下载节点配置并生成列表，用户可手动选择或自动切换延迟最低的节点使用。    </div>
+        ClashX 是 macOS 平台专用客户端，用户可在 GitHub 下载 DMG 安装包。安装后导入订阅即可使用，支持系统代理集成、自动更新和延迟测试。界面简洁直观，深受苹果用户欢迎。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Nekobox 与 Hiddify Next 有什么区别？</h5></div>
+    <div class="panel-body">
+        Nekobox 更注重轻量化和本地化，界面简洁，支持多协议基础功能；而 Hiddify Next 则整合了订阅转换、测速、规则分流等高级功能，更适合技术用户使用。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>WinXray 如何通过节点测速自动切换最优线路？</h5></div>
+    <div class="panel-body">
+        WinXray 会定期检测节点延迟和丢包率，并结合策略组自动选择最佳节点。保证网页浏览、视频播放和游戏流量走低延迟节点，提高访问速度和网络稳定性。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>VMess AEAD 加密如何确保数据传输安全？</h5></div>
+    <div class="panel-body">
+        AEAD 加密可防止数据篡改、重放攻击和流量特征泄露。在高封锁环境中保证节点可用，提升数据安全和连接稳定性，降低被检测风险，确保长期安全访问体验。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -410,16 +410,16 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2026-10-30-clash-node.htm" title="V2rayNG Node节点订阅每天更新19M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19M/S免费节点订阅链接地址分享</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-10-20-free-v2ray.htm" title="V2rayNG Node节点订阅每天更新23M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新23M/S免费节点订阅链接地址分享</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/free-high-speed-nodes-2026-10-27.htm" title="V2rayNG Node节点订阅每天更新19.5M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.5M/S免费节点订阅链接地址分享</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-10-26-clash-node.htm" title="V2rayNG Node节点订阅每天更新20.6M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.6M/S免费节点订阅链接地址分享</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-10-28-free-clash.htm" title="V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.8M/S免费节点订阅链接地址分享</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-10-10-free-v2ray.htm" title="V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.2M/S免费节点订阅链接地址分享</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/free-high-speed-nodes-2026-10-25.htm" title="V2rayNG Node节点订阅每天更新18.7M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.7M/S免费节点订阅链接地址分享</a><hr /></li>
                         <li class="py-2"><a href="/free-nodes/2026-11-2-free-node-subscribe.htm" title="V2rayNG Node节点订阅每天更新18.7M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.7M/S免费节点订阅链接地址分享</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/clash-windows-2026-9-13.htm" title="V2rayNG Node节点订阅每天更新18M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18M/S免费节点订阅链接地址分享</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-high-speed-nodes-2026-9-15.htm" title="V2rayNG Node节点订阅每天更新21.7M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新21.7M/S免费节点订阅链接地址分享</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-v2ray-subscribe-2026-9-7.htm" title="V2rayNG Node节点订阅每天更新22.8M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.8M/S免费节点订阅链接地址分享</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-10-22-clash-v2ray-ss-ssr.htm" title="V2rayNG Node节点订阅每天更新18.8M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新18.8M/S免费节点订阅链接地址分享</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-node-subscribe-links-2026-10-21.htm" title="V2rayNG Node节点订阅每天更新19.5M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.5M/S免费节点订阅链接地址分享</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-9-8-node-share.htm" title="V2rayNG Node节点订阅每天更新19.9M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.9M/S免费节点订阅链接地址分享</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-ssr-node-2026-9-25.htm" title="V2rayNG Node节点订阅每天更新21.7M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新21.7M/S免费节点订阅链接地址分享</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-clash-subscribe-2026-10-23.htm" title="V2rayNG Node节点订阅每天更新21.5M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新21.5M/S免费节点订阅链接地址分享</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-clash-subscribe-2026-9-11.htm" title="V2rayNG Node节点订阅每天更新20.1M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新20.1M/S免费节点订阅链接地址分享</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-11-14-clash-node.htm" title="V2rayNG Node节点订阅每天更新22.4M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新22.4M/S免费节点订阅链接地址分享</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-11-10-node-share.htm" title="V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享">V2rayNG Node节点订阅每天更新19.3M/S免费节点订阅链接地址分享</a><hr /></li>
                     </ul>
     </div>
 </div>
@@ -431,13 +431,10 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">8</span> <a href="/date/2026-11/" title="2026-11 归档">2026-11</a></h4>
+                <h4><span class="badge" style="float: right;">15</span> <a href="/date/2026-11/" title="2026-11 归档">2026-11</a></h4>
             </li>
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">30</span> <a href="/date/2026-10/" title="2026-10 归档">2026-10</a></h4>
-            </li>
-                        <li class="py-2">
-                <h4><span class="badge" style="float: right;">29</span> <a href="/date/2026-09/" title="2026-09 归档">2026-09</a></h4>
+                <h4><span class="badge" style="float: right;">21</span> <a href="/date/2026-10/" title="2026-10 归档">2026-10</a></h4>
             </li>
                     </ul>
     </div>
